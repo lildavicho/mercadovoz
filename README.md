@@ -2,13 +2,13 @@
 
 # MercadoVoz
 
-### Natural-language business records with human confirmation
+### Registros comerciales en lenguaje natural con confirmación humana
 
-MercadoVoz is a system designed for small merchants in **Cuenca, Ecuador** who need a fast way to record sales, expenses, receivables and payments using everyday language.
+MercadoVoz es un sistema pensado para pequeños comerciantes de **Cuenca, Ecuador**, que necesitan registrar ventas, gastos, cuentas por cobrar y abonos de forma rápida usando lenguaje cotidiano.
 
-The key rule is simple:
+La regla principal es simple:
 
-> **No financial operation is persisted until the user reviews and confirms it.**
+> **Ninguna operación financiera se guarda hasta que el usuario la revise y la confirme.**
 
 <br>
 
@@ -21,103 +21,103 @@ The key rule is simple:
 
 <br>
 
-![Status](https://img.shields.io/badge/Status-Private_Pilot-2563EB?style=flat-square)
-![Core](https://img.shields.io/badge/Core_Engine-Working-16A34A?style=flat-square)
-![Market Validation](https://img.shields.io/badge/Market_Validation-Pending-D97706?style=flat-square)
+![Estado](https://img.shields.io/badge/Estado-Piloto_Privado-2563EB?style=flat-square)
+![Core](https://img.shields.io/badge/Core_Engine-Funcional-16A34A?style=flat-square)
+![Validación](https://img.shields.io/badge/Validación_de_Mercado-Pendiente-D97706?style=flat-square)
 
 </div>
 
 ---
 
-## Overview
+## Descripción general
 
-Small merchants often manage their business using:
+Muchos pequeños comerciantes administran su negocio usando:
 
-- notebooks;
-- memory;
-- calculators;
-- WhatsApp messages;
-- informal notes.
+- cuadernos;
+- memoria;
+- calculadora;
+- mensajes de WhatsApp;
+- notas informales.
 
-This can lead to:
+Esto puede provocar:
 
-- unregistered sales;
-- forgotten expenses;
-- difficult-to-track customer debt;
-- incorrect payment records;
-- confusion between personal and business money;
-- poor visibility into who owes what.
+- ventas que no se registran;
+- gastos olvidados;
+- dificultad para controlar fiados;
+- abonos mal anotados;
+- confusión entre dinero personal y dinero del negocio;
+- poca claridad sobre cuánto debe cada cliente.
 
-MercadoVoz tries to preserve the simplicity of natural language while converting it into structured business data.
+MercadoVoz busca mantener la sencillez del lenguaje cotidiano, pero convertirlo en datos comerciales estructurados.
 
-A merchant can write:
+Un comerciante puede escribir:
 
 ```text
 María quedó debiendo 12
 ```
 
-MercadoVoz can interpret it as:
+MercadoVoz puede interpretarlo como:
 
 ```text
-Operation: RECEIVABLE
-Customer: María
-Amount: $12
+Operación: RECEIVABLE
+Cliente: María
+Monto: $12
 ```
 
-But that operation is **not stored immediately**.
+Pero esa operación **no se guarda inmediatamente**.
 
-The system first shows the interpretation to the user:
+Primero, el sistema muestra la interpretación al usuario:
 
 ```text
-Receivable
+Cuenta por cobrar
 
-Customer: María
-Amount: $12
+Cliente: María
+Monto: $12
 
-[ Confirm ]
-[ Correct ]
-[ Cancel ]
+[ Confirmar ]
+[ Corregir ]
+[ Cancelar ]
 ```
 
-Only after confirmation is the operation persisted.
+Solo después de la confirmación se persiste la operación.
 
 ---
 
-## Core Principle
+## Principio principal
 
-MercadoVoz follows a safety-first rule:
+MercadoVoz sigue una regla de seguridad muy clara:
 
-> **If the system is not sufficiently certain, it asks for clarification or abstains. It does not invent a transaction.**
+> **Si el sistema no tiene suficiente certeza, pregunta, pide aclaración o se abstiene. Nunca inventa una transacción.**
 
-For example:
+Por ejemplo:
 
 ```text
 me pagó todo lo de ayer
 ```
 
-does not contain enough information to safely determine:
+no contiene suficiente información para determinar de forma segura:
 
-- who paid;
-- what debt is being referenced;
-- what amount should be registered.
+- quién pagó;
+- qué deuda se está mencionando;
+- cuánto dinero debe registrarse.
 
-MercadoVoz can use controlled context when available, but it should not fabricate missing financial information.
+MercadoVoz puede usar contexto controlado cuando está disponible, pero no debe fabricar información financiera que falta.
 
 ---
 
-## Main Operations
+## Operaciones principales
 
-The current core focuses on four financial operations.
+El núcleo actual está centrado en cuatro operaciones financieras.
 
 ### SALE
 
-A completed sale.
+Una venta realizada.
 
 ```text
 vendí 3 libras de tomate a 2 dólares
 ```
 
-Possible structured result:
+Posible resultado estructurado:
 
 ```json
 {
@@ -134,13 +134,13 @@ Possible structured result:
 
 ### EXPENSE
 
-A business expense.
+Un gasto del negocio.
 
 ```text
 gasté 5 en transporte
 ```
 
-Possible result:
+Posible resultado:
 
 ```json
 {
@@ -154,13 +154,13 @@ Possible result:
 
 ### RECEIVABLE
 
-Money that a customer now owes to the business.
+Dinero que un cliente queda debiendo al negocio.
 
 ```text
 Carlos quedó debiendo 10
 ```
 
-Possible result:
+Posible resultado:
 
 ```json
 {
@@ -174,13 +174,13 @@ Possible result:
 
 ### PAYMENT_RECEIVED
 
-A payment against an existing receivable.
+Pago o abono aplicado a una deuda existente.
 
 ```text
 Carlos me abonó 5
 ```
 
-Possible result:
+Posible resultado:
 
 ```json
 {
@@ -190,66 +190,66 @@ Possible result:
 }
 ```
 
-Inventory and purchasing have been explored, but they are not currently part of the primary core.
+Inventario y compras han sido explorados, pero todavía no forman parte del núcleo principal.
 
 ---
 
-## How It Works
+## Cómo funciona
 
 ```text
-Natural-language input
+Entrada en lenguaje natural
         │
         ▼
-Normalization
+Normalización
         │
         ▼
-Interpretation Engine
+Motor de Interpretación
         │
         ▼
-Safety Layer
+Capa de Seguridad
         │
         ▼
-Context Layer
+Capa de Contexto
         │
         ▼
-Operation Proposal
+Propuesta de operación
         │
         ▼
-Human Confirmation
+Confirmación humana
         │
         ▼
-Persistence
+Persistencia
         │
         ▼
-Audit Trail
+Trazabilidad / Audit Trail
 ```
 
-MercadoVoz is therefore not simply a text parser.
+MercadoVoz no es simplemente un parser de texto.
 
-It is an interpretation pipeline designed specifically around financial safety.
+Es una cadena de interpretación diseñada específicamente alrededor de la seguridad financiera.
 
 ---
 
-## Interpretation Engine
+## Motor de Interpretación
 
-The Interpretation Engine attempts to extract information such as:
+El Motor de Interpretación intenta extraer información como:
 
-- intent;
-- operation type;
-- amount;
-- quantity;
-- product;
-- customer;
-- unit;
-- unit price.
+- intención;
+- tipo de operación;
+- monto;
+- cantidad;
+- producto;
+- cliente;
+- unidad;
+- precio unitario.
 
-Example:
+Ejemplo:
 
 ```text
 vendí 5 libras de tomate a 2 cada una
 ```
 
-can produce:
+puede producir:
 
 ```json
 {
@@ -262,139 +262,139 @@ can produce:
 }
 ```
 
-The current engine is primarily **deterministic**.
+Actualmente el motor es principalmente **determinista**.
 
-It does not require an LLM for the core interpretation path.
+El núcleo no depende obligatoriamente de un LLM.
 
-That is intentional.
+Esto es intencional.
 
-For financial operations, deterministic behavior provides several advantages:
+Para operaciones financieras, el comportamiento determinista ofrece ventajas importantes:
 
-- reproducibility;
-- predictable cost;
-- low latency;
-- explainability;
-- precise automated tests;
-- easier debugging;
-- lower risk of hallucinated financial data.
+- reproducibilidad;
+- costos predecibles;
+- baja latencia;
+- explicabilidad;
+- pruebas automatizadas precisas;
+- depuración más sencilla;
+- menor riesgo de alucinaciones con datos monetarios.
 
-LLMs may become useful for specific auxiliary tasks, but the financial core should remain controlled.
+Los LLM pueden ser útiles para tareas auxiliares en el futuro, pero el núcleo financiero debe mantenerse controlado.
 
 ---
 
-## Safety Layer
+## Capa de Seguridad
 
-The Safety Layer is one of the most important components in MercadoVoz.
+La Capa de Seguridad es uno de los componentes más importantes de MercadoVoz.
 
-Its purpose is to detect potentially unsafe interpretations before an operation reaches persistence.
+Su objetivo es detectar interpretaciones potencialmente peligrosas antes de que una operación llegue a persistencia.
 
-For example:
+Por ejemplo:
 
 ```text
 hoy hice como 40
 ```
 
-should not automatically become:
+no debería convertirse automáticamente en:
 
 ```text
 SALE = $40
 ```
 
-because:
+porque:
 
 ```text
 como 40
 ```
 
-expresses approximation.
+indica aproximación.
 
-Another example:
+Otro ejemplo:
 
 ```text
 saqué cinco para la casa
 ```
 
-could describe a personal withdrawal rather than a business expense.
+podría describir un retiro personal y no un gasto del negocio.
 
-Registering it directly as:
+Registrarlo automáticamente como:
 
 ```text
 EXPENSE = $5
 ```
 
-could corrupt the business records.
+podría contaminar los registros comerciales.
 
-The safety system therefore considers cases such as:
+La capa de seguridad considera casos como:
 
-- approximate monetary values;
-- unit price vs total price;
-- coordinated quantities;
-- compound operations;
-- personal money vs business money;
-- debt creation vs debt status;
-- missing customers;
-- missing context;
-- ambiguous references;
-- multiple possible interpretations.
+- montos aproximados;
+- precio unitario vs total;
+- cantidades coordinadas;
+- operaciones compuestas;
+- dinero personal vs dinero del negocio;
+- creación de deuda vs estado de deuda;
+- clientes faltantes;
+- contexto faltante;
+- referencias ambiguas;
+- múltiples interpretaciones posibles.
 
 ---
 
-## Semantic Safety Example
+## Seguridad semántica
 
-Consider these two sentences:
+Considera estas dos frases:
 
 ```text
 Juan quedó debiendo 10
 ```
 
-and:
+y:
 
 ```text
 Juan todavía debe 10
 ```
 
-They look similar, but they represent very different states.
+Parecen similares, pero representan estados distintos.
 
-The first may represent the creation of a new receivable:
+La primera puede significar la creación de una nueva deuda:
 
 ```text
 RECEIVABLE +$10
 ```
 
-The second may simply describe an already existing debt.
+La segunda puede simplemente describir una deuda que ya existía.
 
-A naive system could register another $10 receivable and duplicate the customer's debt.
+Un sistema ingenuo podría registrar otros $10 y duplicar la deuda del cliente.
 
-MercadoVoz is designed to avoid exactly this type of financial mistake.
+MercadoVoz está diseñado para evitar precisamente este tipo de errores financieros.
 
 ---
 
-## Context Layer
+## Capa de Contexto
 
-People naturally speak using context.
+Las personas hablan usando contexto.
 
-Example:
+Ejemplo:
 
 ```text
 María debe 20
 ```
 
-followed by:
+y después:
 
 ```text
 me abonó cinco
 ```
 
-The second sentence does not mention María.
+La segunda frase no menciona a María.
 
-MercadoVoz can maintain controlled contextual information such as:
+MercadoVoz puede mantener contexto controlado como:
 
 ```text
 active_customer = María
 active_receivable = 20
 ```
 
-and propose:
+y proponer:
 
 ```json
 {
@@ -405,11 +405,11 @@ and propose:
 }
 ```
 
-However, the proposal still requires user confirmation.
+Sin embargo, la propuesta sigue necesitando confirmación del usuario.
 
-Context is not treated as infinite conversational memory.
+El contexto no se trata como una memoria conversacional infinita.
 
-Each contextual reference can include:
+Cada referencia contextual puede incluir:
 
 ```text
 source
@@ -418,13 +418,13 @@ expires_at
 invalidation_rules
 ```
 
-This limits how long implicit information can influence financial operations.
+Esto limita cuánto tiempo la información implícita puede influir en operaciones financieras.
 
 ---
 
-## Confirmation Engine
+## Motor de Confirmación
 
-Financial operations move through explicit states.
+Las operaciones financieras pasan por estados explícitos.
 
 ```text
 PROPOSED
@@ -434,72 +434,72 @@ REJECTED
 CANCELLED
 ```
 
-Example:
+Ejemplo:
 
 ```text
-MercadoVoz understood:
+MercadoVoz entendió:
 
-SALE
+VENTA
 
-Product: Tomato
-Quantity: 5 lb
+Producto: Tomate
+Cantidad: 5 lb
 Total: $10
 
-[ Confirm ]
-[ Correct ]
-[ Cancel ]
+[ Confirmar ]
+[ Corregir ]
+[ Cancelar ]
 ```
 
-The system therefore operates using a **human-in-the-loop** model.
+El sistema funciona bajo un modelo **human-in-the-loop**.
 
-Interpretation is automated.
+La interpretación es automatizada.
 
-Financial commitment is not.
+La decisión financiera final no.
 
 ---
 
-## Correction Engine
+## Motor de Corrección
 
-If an interpretation is incorrect, the user should not need to repeat the entire operation.
+Si una interpretación es incorrecta, el usuario no debería tener que repetir toda la operación.
 
-Example:
+Ejemplo:
 
 ```text
 MercadoVoz:
-Amount: $5
+Monto: $5
 ```
 
-User:
+Usuario:
 
 ```text
 no, eran seis
 ```
 
-The correction engine can update the relevant field:
+El motor de corrección puede actualizar solo el campo relevante:
 
 ```text
-Amount: $6
+Monto: $6
 ```
 
-without rebuilding the complete operation manually.
+sin reconstruir toda la operación.
 
-Fields that can be corrected include:
+Los campos que pueden corregirse incluyen:
 
-- operation type;
-- amount;
-- quantity;
-- product;
-- customer;
-- unit;
-- unit price.
+- tipo de operación;
+- monto;
+- cantidad;
+- producto;
+- cliente;
+- unidad;
+- precio unitario.
 
 ---
 
-## Audit Trail
+## Trazabilidad
 
-Every financial operation can maintain traceability.
+Cada operación financiera puede conservar un registro de trazabilidad.
 
-The audit record may contain:
+El audit trail puede incluir:
 
 ```text
 original_text
@@ -515,20 +515,20 @@ confirmation
 final_operation
 ```
 
-This makes it possible to answer questions such as:
+Esto permite responder preguntas como:
 
-> Why did MercadoVoz store this transaction in this way?
+> ¿Por qué MercadoVoz terminó guardando esta operación de esta manera?
 
-For a system that handles financial records, this level of explainability is important.
+Para un sistema que maneja información financiera, este nivel de explicabilidad es importante.
 
 ---
 
-## Architecture
+## Arquitectura
 
 ```text
 ┌─────────────────────────────┐
-│           Client            │
-│      Browser / Mobile       │
+│           Cliente           │
+│      Navegador / Móvil      │
 └──────────────┬──────────────┘
                │
                ▼
@@ -545,12 +545,12 @@ For a system that handles financial records, this level of explainability is imp
                │
                ▼
 ┌─────────────────────────────┐
-│    Interpretation Engine    │
+│    Motor de Interpretación  │
 ├─────────────────────────────┤
-│       Safety Layer          │
-│       Context Layer         │
-│    Confirmation Engine      │
-│      Correction Engine      │
+│     Capa de Seguridad       │
+│      Capa de Contexto       │
+│    Motor de Confirmación    │
+│      Motor de Corrección    │
 └──────────────┬──────────────┘
                │
                ▼
@@ -561,7 +561,7 @@ For a system that handles financial records, this level of explainability is imp
 
 ---
 
-## Technology Stack
+## Tecnologías
 
 ### Frontend
 
@@ -570,17 +570,17 @@ For a system that handles financial records, this level of explainability is imp
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-The frontend is responsible for:
+El frontend se encarga de:
 
-- user input;
-- interpretation preview;
-- correction flow;
-- operation confirmation;
-- history;
-- consent;
-- responsive interface.
+- entrada de texto;
+- vista previa de la interpretación;
+- correcciones;
+- confirmación de operaciones;
+- historial;
+- consentimiento;
+- interfaz responsive.
 
-The UI is designed with a **mobile-first** approach because the target users are small merchants who are likely to interact with the system from a phone.
+La interfaz está pensada con un enfoque **mobile-first**, porque el usuario objetivo probablemente utilizará el sistema desde un teléfono.
 
 ---
 
@@ -589,9 +589,9 @@ The UI is designed with a **mobile-first** approach because the target users are
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 
-FastAPI connects the frontend with the interpretation engine.
+FastAPI conecta el frontend con el motor de interpretación.
 
-Example API surface:
+Ejemplo de endpoints:
 
 ```text
 POST /interpret
@@ -600,43 +600,43 @@ POST /correct
 GET  /history
 ```
 
-FastAPI provides:
+FastAPI facilita:
 
-- schema validation;
-- automatic API documentation;
-- typed request models;
-- lightweight asynchronous APIs;
-- simple integration with Python logic.
+- validación mediante schemas;
+- documentación automática de la API;
+- modelos tipados;
+- APIs ligeras;
+- integración directa con lógica en Python.
 
 ---
 
-### Database
+### Base de datos
 
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-The current pilot uses:
+El piloto actual utiliza:
 
 ```text
 SQLite + WAL
 ```
 
-WAL stands for:
+WAL significa:
 
 ```text
 Write-Ahead Logging
 ```
 
-It improves SQLite's behavior when reads and writes occur concurrently.
+y mejora el comportamiento de SQLite cuando existen lecturas y escrituras concurrentes.
 
-SQLite is currently appropriate because MercadoVoz is still in pilot stage and does not yet require distributed database infrastructure.
+SQLite es adecuado en esta fase porque MercadoVoz todavía está en etapa de piloto y no necesita infraestructura distribuida para grandes volúmenes de usuarios.
 
-The current architecture assumes a controlled backend deployment rather than many independent application instances writing simultaneously.
+La arquitectura actual está pensada alrededor de un backend controlado.
 
 ---
 
-## Infrastructure
+## Infraestructura
 
-The pilot infrastructure is prepared around an Oracle Cloud virtual machine.
+La infraestructura del piloto está preparada sobre una máquina virtual de Oracle Cloud.
 
 ```text
 Oracle Cloud
@@ -646,10 +646,10 @@ Ampere A1 Flex
 2 OCPU
 12 GB RAM
 Ubuntu 24.04 ARM64
-50 GB storage
+50 GB de almacenamiento
 ```
 
-Expected deployment architecture:
+Arquitectura esperada:
 
 ```text
                     Internet
@@ -670,72 +670,68 @@ Expected deployment architecture:
                     SQLite
 ```
 
-Nginx can route:
+Nginx puede enrutar:
 
 ```text
 /
 ```
 
-to Next.js and:
+hacia Next.js y:
 
 ```text
 /api/
 ```
 
-to FastAPI.
+hacia FastAPI.
 
 ---
 
-## Process Management
-
-The infrastructure uses:
+## Gestión de procesos
 
 ### PM2
 
-For managing the Next.js process.
+Se utiliza para mantener Next.js ejecutándose.
 
 ```bash
 pm2 start ...
 ```
 
-PM2 allows the application to continue running after the SSH session is closed and can restart the process after failures.
+PM2 permite mantener la aplicación activa después de cerrar la sesión SSH y reiniciarla automáticamente ante fallos.
 
 ### systemd
 
-FastAPI is intended to run as a Linux service managed by `systemd`.
+FastAPI está pensado para ejecutarse como un servicio Linux administrado mediante `systemd`.
 
-This provides:
+Esto permite:
 
-- automatic startup;
-- restart behavior;
+- inicio automático;
+- reinicios;
 - logs;
-- operating-system-level process management.
+- gestión a nivel del sistema operativo.
 
 ---
 
-## Server Security
-
-The server configuration includes:
+## Seguridad del servidor
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 
-Security measures include:
+Las medidas de seguridad incluyen:
 
-- SSH key authentication;
-- UFW firewall;
+- autenticación mediante claves SSH;
+- firewall UFW;
 - Fail2ban;
-- controlled inbound ports;
-- Nginx reverse proxy;
-- future HTTPS termination.
+- puertos de entrada controlados;
+- Nginx como reverse proxy;
+- futura terminación HTTPS.
 
-The goal is to expose only the services that need to be reachable publicly.
+El objetivo es exponer públicamente únicamente los servicios necesarios.
 
 ---
 
-## Repository Structure
+## Estructura del repositorio
 
-MercadoVoz uses a monorepo-style structure.
+MercadoVoz utiliza una estructura tipo monorepo.
 
 ```text
 mercadovoz/
@@ -766,48 +762,48 @@ mercadovoz/
 
 ### apps/web
 
-Next.js frontend.
+Frontend en Next.js.
 
 ### apps/api
 
-FastAPI application layer.
+Capa de API basada en FastAPI.
 
 ### engine
 
-Core natural-language interpretation and financial safety logic.
+Lógica principal de interpretación y seguridad financiera.
 
 ### tests
 
-Automated tests and evaluation cases.
+Pruebas automatizadas y casos de evaluación.
 
 ### research
 
-Research artifacts used during development and domain exploration.
+Material de investigación utilizado durante el desarrollo.
 
 ### docs
 
-Technical and product documentation.
+Documentación técnica y de producto.
 
 ### scripts
 
-Development, evaluation and operational utilities.
+Utilidades de desarrollo, evaluación y operación.
 
 ### data
 
-Controlled local data and non-sensitive development artifacts.
+Datos locales controlados y artefactos de desarrollo no sensibles.
 
 ---
 
-## Git Workflow
+## Flujo de Git
 
-Primary branches:
+Ramas principales:
 
 ```text
 main
 develop
 ```
 
-Development branches follow patterns such as:
+Ramas de trabajo:
 
 ```text
 feature/*
@@ -817,17 +813,17 @@ chore/*
 hotfix/*
 ```
 
-`main` should remain deployable.
+`main` debe mantenerse desplegable.
 
-`develop` is used as the primary integration branch during active development.
+`develop` funciona como rama principal de integración durante el desarrollo activo.
 
 ---
 
-## Evaluation
+## Evaluación técnica
 
-MercadoVoz was not evaluated only with a small set of manually chosen examples.
+MercadoVoz no se evaluó únicamente con unas pocas frases escritas manualmente.
 
-Different dataset categories have been used during development:
+Durante el desarrollo se utilizaron diferentes categorías de datasets:
 
 ```text
 SYNTHETIC
@@ -837,110 +833,110 @@ REAL_DEVELOPMENT
 REAL_HELDOUT
 ```
 
-An external benchmark was also created using research focused primarily on the language and commercial behavior of merchants in **Cuenca and Ecuador**.
+También se construyó un benchmark externo basado principalmente en investigación sobre lenguaje y comportamiento comercial de pequeños comerciantes de **Cuenca y Ecuador**.
 
-The benchmark contains:
+El benchmark contiene:
 
 ```text
-240 external cases
+240 casos externos
 ```
 
-These cases cover areas such as:
+Estos casos cubren aspectos como:
 
-- sales;
-- expenses;
-- receivables;
-- payments;
-- context;
-- compound operations;
-- ambiguous financial language;
-- commercial vocabulary;
-- unsafe interpretations.
+- ventas;
+- gastos;
+- cuentas por cobrar;
+- abonos;
+- contexto;
+- operaciones compuestas;
+- lenguaje financiero ambiguo;
+- vocabulario comercial;
+- interpretaciones inseguras.
 
-The corresponding technical evaluation reached:
+La evaluación técnica correspondiente alcanzó:
 
 ```text
 TECHNICAL_STATUS = TECHNICAL_GO
 ```
 
-without known critical monetary violations in that evaluation.
+sin violaciones monetarias críticas conocidas en esa evaluación.
 
-However:
+Sin embargo:
 
 ```text
 TECHNICAL_GO ≠ MARKET_VALIDATED
 ```
 
-Passing technical benchmarks does not demonstrate that real merchants will find the product useful or easy to use.
+Superar evaluaciones técnicas no demuestra que comerciantes reales encuentren el producto útil o cómodo.
 
-Real-world validation is still required.
+La validación real todavía está pendiente.
 
 ---
 
-## Project Status
+## Estado del proyecto
 
-| Component | Status |
+| Componente | Estado |
 |---|---|
-| Idea | Complete |
-| Research | Complete |
-| Proof of Concept | Complete |
-| Deterministic Parser | Complete |
-| Safety Engine | Complete |
-| Context Layer | Complete |
-| Confirmation Engine | Complete |
-| Correction Engine | Complete |
-| Core Engine | Complete |
-| External Benchmark | Complete |
-| Text MVP | Complete |
-| Private Pilot Preparation | Complete |
-| GitHub Repository | In progress |
-| Oracle Cloud Deployment | Next |
-| First Real Pilot | Pending |
-| Voice Interface | Pending |
-| Market Validation | Pending |
+| Idea | Completado |
+| Investigación | Completado |
+| Prueba de concepto | Completado |
+| Parser determinista | Completado |
+| Motor de seguridad | Completado |
+| Capa de contexto | Completado |
+| Motor de confirmación | Completado |
+| Motor de corrección | Completado |
+| Core Engine | Completado |
+| Benchmark externo | Completado |
+| MVP de texto | Completado |
+| Preparación de piloto privado | Completado |
+| Repositorio de GitHub | En progreso |
+| Despliegue en Oracle Cloud | Siguiente |
+| Primer piloto real | Pendiente |
+| Interfaz de voz | Pendiente |
+| Validación de mercado | Pendiente |
 
 ---
 
-## Current Stage
+## Etapa actual
 
-MercadoVoz has passed an important technical milestone:
+MercadoVoz ya alcanzó un hito técnico importante:
 
 ```text
-text
+texto
   ↓
-interpretation
+interpretación
   ↓
-safety
+seguridad
   ↓
-context
+contexto
   ↓
-proposal
+propuesta
   ↓
-confirmation
+confirmación
   ↓
-structured operation
+operación estructurada
 ```
 
-The next major question is no longer only:
+La siguiente gran pregunta ya no es únicamente:
 
-> Can the engine interpret commercial language?
+> ¿Puede el motor interpretar lenguaje comercial?
 
-It is:
+Ahora es:
 
-> Will real merchants actually prefer this interaction model over their current habits?
+> ¿Los comerciantes reales preferirán este modelo de interacción frente a sus métodos actuales?
 
-That requires real-world testing.
+Eso requiere validación en el mundo real.
 
 ---
 
-## Why Text Before Voice?
+## ¿Por qué texto antes que voz?
 
-Voice is part of the long-term vision, but it is intentionally not the current priority.
+La voz forma parte de la visión de largo plazo, pero intencionalmente todavía no es la prioridad.
 
-The future flow could look like:
+El flujo futuro podría ser:
 
 ```text
-Microphone
+Micrófono
     │
     ▼
 Speech-to-text
@@ -949,110 +945,108 @@ Speech-to-text
 MercadoVoz
     │
     ▼
-Interpretation
+Interpretación
     │
     ▼
-Confirmation
+Confirmación
 ```
 
-However, adding speech recognition does not solve a bad interaction model.
+Sin embargo, agregar reconocimiento de voz no soluciona un mal modelo de interacción.
 
-The project first needs to validate that:
+Primero hay que validar que:
 
 ```text
-natural language → safe financial operation
+lenguaje natural → operación financiera segura
 ```
 
-is genuinely useful to merchants.
+sea realmente útil para los comerciantes.
 
-If real users demonstrate that typing is inconvenient, voice becomes a strong next step.
-
----
-
-## Design Philosophy
-
-MercadoVoz is built around several principles.
-
-### Human confirmation over silent automation
-
-Financial operations should not be silently generated from uncertain language.
-
-### Explainability over black-box behavior
-
-The system should be able to explain how it interpreted an operation.
-
-### Determinism where money is involved
-
-Core financial logic should remain reproducible and testable.
-
-### Context with boundaries
-
-Context is useful, but it should have clear origin, scope and expiration.
-
-### Abstention is a valid result
-
-Not understanding a sentence safely is better than inventing a transaction.
-
-### Real-world validation over benchmark confidence
-
-Technical tests can reduce risk.
-
-They cannot replace real users.
+Si los usuarios reales demuestran que escribir resulta incómodo, la voz será un siguiente paso natural.
 
 ---
 
-## Example End-to-End Flow
+## Principios de diseño
 
-Input:
+### Confirmación humana antes que automatización silenciosa
+
+Las operaciones financieras no deben generarse silenciosamente a partir de lenguaje incierto.
+
+### Explicabilidad antes que comportamiento de caja negra
+
+El sistema debería poder explicar cómo interpretó una operación.
+
+### Determinismo cuando hay dinero involucrado
+
+La lógica financiera principal debe mantenerse reproducible y testeable.
+
+### Contexto con límites
+
+El contexto es útil, pero debe tener origen, alcance y expiración claros.
+
+### Abstenerse también es una respuesta válida
+
+No interpretar una frase cuando existe incertidumbre es mejor que inventar una transacción.
+
+### Validación real antes que confianza en benchmarks
+
+Las pruebas técnicas reducen riesgos.
+
+No reemplazan a los usuarios reales.
+
+---
+
+## Ejemplo completo
+
+Entrada:
 
 ```text
 Juan me abonó cinco
 ```
 
-The system may resolve the controlled context:
+El sistema puede resolver el contexto controlado:
 
 ```text
 active_customer = Juan
 active_receivable = $20
 ```
 
-Then create a proposal:
+Luego genera una propuesta:
 
 ```text
-Operation: PAYMENT_RECEIVED
-Customer: Juan
-Amount: $5
-Previous balance: $20
-New balance: $15
+Operación: PAYMENT_RECEIVED
+Cliente: Juan
+Monto: $5
+Saldo anterior: $20
+Nuevo saldo: $15
 ```
 
-The user sees:
+El usuario ve:
 
 ```text
-Juan paid $5
+Juan abonó $5
 
-Remaining debt: $15
+Saldo pendiente: $15
 
-[ Confirm ]
-[ Correct ]
-[ Cancel ]
+[ Confirmar ]
+[ Corregir ]
+[ Cancelar ]
 ```
 
-Only after:
+Solo después de:
 
 ```text
 CONFIRMED
 ```
 
-is the final financial operation persisted.
+se persiste la operación financiera final.
 
 ---
 
-## Long-Term Vision
+## Visión a largo plazo
 
-The goal is to make business record keeping feel closer to normal conversation than traditional accounting software.
+El objetivo es hacer que el registro de operaciones comerciales se sienta más parecido a una conversación normal que a un sistema contable tradicional.
 
-A merchant could eventually say or write:
+Un comerciante podría escribir o decir:
 
 ```text
 vendí cinco libras de papa a dos dólares
@@ -1070,100 +1064,100 @@ María quedó debiendo diez
 María abonó cinco
 ```
 
-and MercadoVoz could generate a daily view such as:
+y MercadoVoz podría generar al final del día:
 
 ```text
-Sales
+Ventas
 $145
 
-Expenses
+Gastos
 $18
 
-Receivables
+Por cobrar
 $37
 
-Payments received
+Abonos recibidos
 $22
 ```
 
-without requiring the merchant to learn a complex accounting interface.
+sin exigir que el comerciante aprenda a utilizar un software contable complejo.
 
 ---
 
-## What MercadoVoz Is Not
+## Qué NO es MercadoVoz
 
-MercadoVoz is currently **not**:
+Actualmente MercadoVoz **no es**:
 
-- a complete accounting platform;
-- a tax system;
-- an ERP;
-- a replacement for professional accounting;
-- a market-validated commercial product;
-- a voice-first system yet;
-- an autonomous financial agent.
+- un sistema contable completo;
+- un sistema tributario;
+- un ERP;
+- un reemplazo de un contador profesional;
+- un producto comercial validado en el mercado;
+- un sistema de voz todavía;
+- un agente financiero autónomo.
 
-It is currently an experimental business-record system focused on:
+Actualmente es un sistema experimental enfocado en:
 
-> **safe transformation of natural language into user-confirmed structured financial records.**
+> **transformar lenguaje natural en registros financieros estructurados y confirmados por el usuario, sin inventar movimientos.**
 
 ---
 
 ## Roadmap
 
 ```text
-Core interpretation engine
+Motor de interpretación
         ✅
         │
-Safety and ambiguity detection
+Seguridad y detección de ambigüedad
         ✅
         │
-Controlled context
+Contexto controlado
         ✅
         │
-Confirmation / correction
+Confirmación y corrección
         ✅
         │
-External evaluation
+Evaluación externa
         ✅
         │
-Text MVP
+MVP de texto
         ✅
         │
-Oracle Cloud deployment
+Despliegue Oracle Cloud
         🔜
         │
-Real merchant pilot
+Piloto con comerciantes reales
         ⏳
         │
-Usability validation
+Validación de usabilidad
         ⏳
         │
-Market validation
+Validación de mercado
         ⏳
         │
-Voice input
+Entrada por voz
         ⏳
 ```
 
 ---
 
-## Contributing
+## Contribuciones
 
-MercadoVoz is currently in an early development and validation stage.
+MercadoVoz se encuentra actualmente en una etapa temprana de desarrollo y validación.
 
-Before contributing, please read:
+Antes de contribuir, revisa:
 
 ```text
 CONTRIBUTING.md
 ```
 
-For security-related information:
+Para información relacionada con seguridad:
 
 ```text
 SECURITY.md
 ```
 
-Development instructions and repository conventions may also be documented in:
+Las convenciones internas de desarrollo y las instrucciones para agentes pueden encontrarse en:
 
 ```text
 AGENTS.md
@@ -1171,21 +1165,21 @@ AGENTS.md
 
 ---
 
-## Security
+## Seguridad
 
-Do not report security vulnerabilities through public GitHub issues.
+No reportes vulnerabilidades de seguridad mediante issues públicos de GitHub.
 
-Please follow the process documented in:
+Sigue el proceso documentado en:
 
 ```text
 SECURITY.md
 ```
 
-Financial correctness and data integrity are treated as first-class concerns in this project.
+La integridad de los datos y la corrección financiera se consideran aspectos de primera importancia en este proyecto.
 
 ---
 
-## Author
+## Autor
 
 **David Mendez**
 
@@ -1201,8 +1195,8 @@ Cuenca, Ecuador
 
 ### MercadoVoz
 
-**Natural language for business records, without inventing financial operations.**
+**Lenguaje natural para registrar operaciones comerciales sin inventar movimientos financieros.**
 
-<sub>Built for experimentation, validation and real-world learning with small merchants.</sub>
+<sub>Construido para experimentar, validar y aprender con pequeños comerciantes reales.</sub>
 
 </div>

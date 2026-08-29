@@ -1,0 +1,64 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+secrets/
+credentials/
+cookies/
+sessions/
+
+# Private/runtime data
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite-shm
+*.sqlite-wal
+data/private/
+data/runtime/
+exports/
+backups/
+logs/
+*.log
+*.wav
+*.mp3
+*.m4a
+*.ogg
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Node / Next.js
+node_modules/
+.next/
+coverage/
+*.tsbuildinfo
+.vercel/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.swp
+
+# Local deployment state
+.railway/

@@ -1,0 +1,5 @@
+PILOT_VERSION = "pilot-v0"
+UI_VERSION = "pilot-ui-v0"
+CONSENT_VERSION = "pilot-consent-v1"
+PILOT_EVENT_SCHEMA_VERSION = "pilot-event-v1"
+REAL_DEVELOPMENT_SCHEMA_VERSION = "real-development-v1"

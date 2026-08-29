@@ -1,0 +1,1 @@
+"""MercadoVoz test suite."""

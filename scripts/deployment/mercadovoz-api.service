@@ -1,0 +1,22 @@
+[Unit]
+Description=MercadoVoz private pilot API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/apps/mercadovoz
+EnvironmentFile=/etc/mercadovoz/api.env
+ExecStart=/home/ubuntu/apps/mercadovoz/.venv/bin/python -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/home/ubuntu/apps/mercadovoz/data/runtime
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

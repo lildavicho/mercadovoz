@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cuenca-innovation-lab.local/mercadovoz/operation.schema.json",
+  "title": "MercadoVoz parse result",
+  "type": "object",
+  "required": ["status", "operation", "missing_fields", "question", "warnings"],
+  "properties": {
+    "status": {
+      "enum": ["COMPLETE", "NEEDS_CONFIRMATION", "UNRECOGNIZED"]
+    },
+    "operation": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/sale"},
+        {"$ref": "#/$defs/purchase"},
+        {"$ref": "#/$defs/expense"},
+        {"$ref": "#/$defs/receivable"},
+        {"$ref": "#/$defs/paymentReceived"},
+        {"$ref": "#/$defs/stockAdjustment"}
+      ]
+    },
+    "missing_fields": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "question": {"type": "string"},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "positiveNumber": {"type": "number", "exclusiveMinimum": 0},
+    "unit": {"enum": ["libra", "kilo", "quintal", "saco", "caja", "jaba", "unidad", "docena", "funda"]},
+    "sale": {
+      "type": "object",
+      "required": ["type", "product", "quantity", "unit", "unit_price", "total"],
+      "properties": {
+        "type": {"const": "SALE"},
+        "product": {"type": "string", "minLength": 1},
+        "quantity": {"$ref": "#/$defs/positiveNumber"},
+        "unit": {"$ref": "#/$defs/unit"},
+        "unit_price": {"$ref": "#/$defs/positiveNumber"},
+        "total": {"$ref": "#/$defs/positiveNumber"}
+      },
+      "additionalProperties": false
+    },
+    "purchase": {
+      "type": "object",
+      "required": ["type", "product", "quantity", "unit", "unit_price", "total"],
+      "properties": {
+        "type": {"const": "PURCHASE"},
+        "product": {"type": "string", "minLength": 1},
+        "quantity": {"$ref": "#/$defs/positiveNumber"},
+        "unit": {"$ref": "#/$defs/unit"},
+        "unit_price": {"$ref": "#/$defs/positiveNumber"},
+        "total": {"$ref": "#/$defs/positiveNumber"}
+      },
+      "additionalProperties": false
+    },
+    "expense": {
+      "type": "object",
+      "required": ["type", "category", "amount"],
+      "properties": {
+        "type": {"const": "EXPENSE"},
+        "category": {"type": "string", "minLength": 1},
+        "amount": {"$ref": "#/$defs/positiveNumber"}
+      },
+      "additionalProperties": false
+    },
+    "receivable": {
+      "type": "object",
+      "required": ["type", "customer", "amount"],
+      "properties": {
+        "type": {"const": "RECEIVABLE"},
+        "customer": {"type": "string", "minLength": 1},
+        "amount": {"$ref": "#/$defs/positiveNumber"}
+      },
+      "additionalProperties": false
+    },
+    "paymentReceived": {
+      "type": "object",
+      "required": ["type", "customer", "amount"],
+      "properties": {
+        "type": {"const": "PAYMENT_RECEIVED"},
+        "customer": {"type": "string", "minLength": 1},
+        "amount": {"$ref": "#/$defs/positiveNumber"}
+      },
+      "additionalProperties": false
+    },
+    "stockAdjustment": {
+      "type": "object",
+      "required": ["type", "product", "quantity", "unit", "mode"],
+      "properties": {
+        "type": {"const": "STOCK_ADJUSTMENT"},
+        "product": {"type": "string", "minLength": 1},
+        "quantity": {"$ref": "#/$defs/positiveNumber"},
+        "unit": {"$ref": "#/$defs/unit"},
+        "mode": {"enum": ["SET", "INCREASE", "DECREASE"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}

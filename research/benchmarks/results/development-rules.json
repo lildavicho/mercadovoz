@@ -1,0 +1,90 @@
+{
+  "engine": {
+    "name": "deterministic-rules-baseline",
+    "version": "0.1.0",
+    "model": null,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "estimated_cost_per_100_operations_usd": 0.0
+  },
+  "dataset": {
+    "path": "data\\development.jsonl",
+    "examples": 40
+  },
+  "metrics": {
+    "intent_accuracy": 1.0,
+    "field_accuracy": 1.0,
+    "exact_operation_accuracy": 1.0,
+    "core_exact_operation_accuracy": 1.0,
+    "confirmation_recovery": null,
+    "abstention_precision": 1.0,
+    "abstention_recall": 1.0,
+    "counts": {
+      "intent": {
+        "correct": 38,
+        "total": 38
+      },
+      "fields": {
+        "correct": 93,
+        "total": 93
+      },
+      "exact": {
+        "correct": 25,
+        "total": 25
+      },
+      "core_exact": {
+        "correct": 19,
+        "total": 19
+      },
+      "corrections": {
+        "correct": 0,
+        "total": 0
+      },
+      "abstentions": {
+        "expected": 15,
+        "predicted": 15,
+        "correct": 15
+      }
+    }
+  },
+  "latency_ms": {
+    "mean": 0.1214824995258823,
+    "median": 0.03739999374374747,
+    "max": 0.9528999944450334
+  },
+  "per_intent": {
+    "EXPENSE": {
+      "examples": 6,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    },
+    "PAYMENT_RECEIVED": {
+      "examples": 6,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    },
+    "PURCHASE": {
+      "examples": 6,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    },
+    "RECEIVABLE": {
+      "examples": 7,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    },
+    "SALE": {
+      "examples": 9,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    },
+    "STOCK_ADJUSTMENT": {
+      "examples": 4,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    }
+  },
+  "error_counts": {},
+  "errors": []
+}

@@ -1,0 +1,5324 @@
+{
+  "dataset": {
+    "dataset_version": "external-cuenca-v1",
+    "path": "research\\external-cuenca-v1\\mercadovoz_cuenca_external_corpus_v1.jsonl",
+    "sha256": "02558a7450035b712c95eb240016efc716a47c3fc66feb57ee62a68ea8bd2788",
+    "records": 147,
+    "provenance_type": "WEB_DERIVED_MULTISOURCE",
+    "real_participant": false,
+    "eligible_for_real_heldout": false
+  },
+  "engine": {
+    "name": "v1",
+    "version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+    "model": null,
+    "estimated_cost_usd": 0.0
+  },
+  "metrics": {
+    "explicit_core": {
+      "cases": 45,
+      "intent_correct": 42,
+      "fields_correct": 127,
+      "fields_total": 142,
+      "exact": 39,
+      "intent_accuracy": 0.9333333333333333,
+      "available_field_accuracy": 0.8943661971830986,
+      "exact_annotated_operation_accuracy": 0.8666666666666667
+    },
+    "context_required": {
+      "cases": 36,
+      "context_requested": 20,
+      "safe": 36,
+      "unsafe_finalization": 0,
+      "correct_context_request_rate": 0.5555555555555556,
+      "safe_context_handling_rate": 1.0,
+      "unsafe_finalization_rate": 0.0
+    },
+    "compound": {
+      "cases": 15,
+      "detected": 15,
+      "unsafe_single_operation": 0,
+      "compound_detection_recall": 1.0,
+      "unsafe_single_operation_rate": 0.0
+    },
+    "money_safety": {
+      "cases": 48,
+      "critical_violations": 0,
+      "unsafe_financial_inference_rate": 0.0,
+      "violation_types": {}
+    },
+    "out_of_scope": {
+      "cases": 19,
+      "safe": 19,
+      "safe_abstention_rate": 1.0
+    }
+  },
+  "predicted_statuses": {
+    "AMBIGUOUS": 16,
+    "COMPLETE": 44,
+    "COMPOUND_OPERATION": 15,
+    "NEEDS_CONFIRMATION": 11,
+    "NEEDS_CONTEXT": 29,
+    "OUT_OF_SCOPE": 6,
+    "UNRECOGNIZED": 26
+  },
+  "latency_ms": {
+    "mean": 0.12819319773389368,
+    "median": 0.07140000525396317,
+    "max": 3.952200000640005
+  },
+  "per_phenomenon": {
+    "APPROXIMATE_DAILY_CLOSE": {
+      "cases": 12,
+      "status:AMBIGUOUS": 12
+    },
+    "ARITHMETIC_DEBT_REFERENCE": {
+      "cases": 3,
+      "status:NEEDS_CONTEXT": 3
+    },
+    "BUSINESS_EXPENSE": {
+      "cases": 10,
+      "status:COMPLETE": 10
+    },
+    "COMPOUND_INCOME_EXPENSE": {
+      "cases": 2,
+      "status:COMPOUND_OPERATION": 2
+    },
+    "COMPOUND_PAYMENT_PURCHASE": {
+      "cases": 6,
+      "status:COMPOUND_OPERATION": 6
+    },
+    "COMPOUND_SALE_PARTIAL_PAYMENT": {
+      "cases": 2,
+      "status:COMPOUND_OPERATION": 2
+    },
+    "EXPLICIT_QUANTITY_UNIT_PRICE": {
+      "cases": 26,
+      "status:COMPLETE": 23,
+      "status:UNRECOGNIZED": 3
+    },
+    "EXPLICIT_STOCK": {
+      "cases": 5,
+      "status:COMPLETE": 5
+    },
+    "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL": {
+      "cases": 7,
+      "status:NEEDS_CONTEXT": 7
+    },
+    "IMPLICIT_PRODUCT": {
+      "cases": 7,
+      "status:NEEDS_CONTEXT": 5,
+      "status:UNRECOGNIZED": 2
+    },
+    "IMPLICIT_PRODUCT_AND_TOTAL": {
+      "cases": 3,
+      "status:UNRECOGNIZED": 3
+    },
+    "IMPLICIT_QUANTITY_FROM_STOCK": {
+      "cases": 11,
+      "status:NEEDS_CONFIRMATION": 11
+    },
+    "LOGISTICS_EXPENSE": {
+      "cases": 6,
+      "status:COMPLETE": 6
+    },
+    "NEW_RECEIVABLE": {
+      "cases": 3,
+      "status:NEEDS_CONTEXT": 3
+    },
+    "NUMERIC_COORDINATION_CINCO_Y_UNA": {
+      "cases": 5,
+      "status:COMPOUND_OPERATION": 5
+    },
+    "OWNER_CONTRIBUTION_SCHEMA_GAP": {
+      "cases": 5,
+      "status:UNRECOGNIZED": 5
+    },
+    "OWNER_WITHDRAWAL_SCHEMA_GAP": {
+      "cases": 6,
+      "status:OUT_OF_SCOPE": 6
+    },
+    "PARTIAL_PAYMENT": {
+      "cases": 5,
+      "status:NEEDS_CONTEXT": 5
+    },
+    "PRICE_TOTAL_AMBIGUITY": {
+      "cases": 4,
+      "status:AMBIGUOUS": 4
+    },
+    "PROMOTION_NEGOTIATION": {
+      "cases": 8,
+      "status:UNRECOGNIZED": 8
+    },
+    "STATE_VS_EVENT": {
+      "cases": 6,
+      "status:NEEDS_CONTEXT": 6
+    },
+    "ZERO_STOCK": {
+      "cases": 5,
+      "status:UNRECOGNIZED": 5
+    }
+  },
+  "case_results": [
+    {
+      "id": "EXT-0001",
+      "text": "me quedan 1 libras",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "afd9b8c4-adf5-42c1-a2a4-4a1d5f939252",
+        "interpreted_at": "2026-08-29T05:53:22.027876+00:00",
+        "original_text": "me quedan 1 libras",
+        "normalized_text": "me quedan 1 libras",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "EXT-0002",
+      "text": "cobré 15 y compré mercadería por 10",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "cf35cf5b-1c21-4ad0-ab6f-d420744df74b",
+        "interpreted_at": "2026-08-29T05:53:22.031602+00:00",
+        "original_text": "cobré 15 y compré mercadería por 10",
+        "normalized_text": "cobre 15 y compre mercaderia por 10",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0004",
+      "text": "creo que salieron como 60",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "26b7f442-07b2-4402-9f1e-648d5421c382",
+        "interpreted_at": "2026-08-29T05:53:22.031706+00:00",
+        "original_text": "creo que salieron como 60",
+        "normalized_text": "creo que salieron como 60",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0005",
+      "text": "1 libras de tomate a 1 cada una",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "tomate",
+        "quantity": 1,
+        "unit": "libra",
+        "unit_price": 1
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "9e847096-482a-4899-a393-e772c15e9352",
+        "interpreted_at": "2026-08-29T05:53:22.031800+00:00",
+        "original_text": "1 libras de tomate a 1 cada una",
+        "normalized_text": "1 libras de tomate a 1 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 1,
+          "total": 1
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 1 libra(s) de tomate a $1 cada una, total $1. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 1,
+          "total": 1
+        }
+      }
+    },
+    {
+      "id": "EXT-0008",
+      "text": "vendí todo lo que quedaba de pollo",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "8db3fa97-816e-47c2-97e2-b9a9ec6eb877",
+        "interpreted_at": "2026-08-29T05:53:22.032010+00:00",
+        "original_text": "vendí todo lo que quedaba de pollo",
+        "normalized_text": "vendi todo lo que quedaba de pollo",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de pollo"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de pollo"
+        }
+      }
+    },
+    {
+      "id": "EXT-0009",
+      "text": "debe haber unos 15 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1f77f7e9-01a5-45c7-a3d2-25b269b2b630",
+        "interpreted_at": "2026-08-29T05:53:22.033522+00:00",
+        "original_text": "debe haber unos 15 de venta",
+        "normalized_text": "debe haber unos 15 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0010",
+      "text": "vendí todo lo que quedaba de cebolla",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "778e8544-da1a-4fbe-8619-a4fa771f4194",
+        "interpreted_at": "2026-08-29T05:53:22.033582+00:00",
+        "original_text": "vendí todo lo que quedaba de cebolla",
+        "normalized_text": "vendi todo lo que quedaba de cebolla",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de cebolla"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de cebolla"
+        }
+      }
+    },
+    {
+      "id": "EXT-0011",
+      "text": "saqué 8 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a0540a2b-defc-443e-9a68-519547e98d7a",
+        "interpreted_at": "2026-08-29T05:53:22.033753+00:00",
+        "original_text": "saqué 8 para la casa",
+        "normalized_text": "saque 8 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0013",
+      "text": "creo que salieron como 30",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f1b36657-4b2c-43c6-80bd-f34c2aa6d67b",
+        "interpreted_at": "2026-08-29T05:53:22.033928+00:00",
+        "original_text": "creo que salieron como 30",
+        "normalized_text": "creo que salieron como 30",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0014",
+      "text": "gasté 12 en transporte",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 12,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "84c48c7f-3be1-4738-aaae-2e91cf38bf96",
+        "interpreted_at": "2026-08-29T05:53:22.033974+00:00",
+        "original_text": "gasté 12 en transporte",
+        "normalized_text": "gaste 12 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $12 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0015",
+      "text": "debe haber unos 100 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c09192f0-c557-4f72-80fc-d8b2f58f0a35",
+        "interpreted_at": "2026-08-29T05:53:22.034667+00:00",
+        "original_text": "debe haber unos 100 de venta",
+        "normalized_text": "debe haber unos 100 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0017",
+      "text": "se fueron 1 libras de tomate a 12 la libra",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "tomate",
+        "quantity": 1,
+        "unit": "libra",
+        "unit_price": 12
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "aff052ee-7bd5-4a97-8ba7-4707d059b97f",
+        "interpreted_at": "2026-08-29T05:53:22.034725+00:00",
+        "original_text": "se fueron 1 libras de tomate a 12 la libra",
+        "normalized_text": "se fueron 1 libras de tomate a 12 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 12
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 1 libra(s) de tomate a $12 cada una, total $12. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 12
+        }
+      }
+    },
+    {
+      "id": "EXT-0018",
+      "text": "vendí 10 libras de arroz en 2",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "PRICE_TOTAL_AMBIGUITY",
+      "safety_expectation": "NEEDS_CONFIRMATION",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e4523296-a859-454e-989d-bb6973b949bb",
+        "interpreted_at": "2026-08-29T05:53:22.034904+00:00",
+        "original_text": "vendí 10 libras de arroz en 2",
+        "normalized_text": "vendi 10 libras de arroz en 2",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0020",
+      "text": "[NOMBRE_B] todavía debe lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4c306885-5f56-4b12-a253-239e9eb99861",
+        "interpreted_at": "2026-08-29T05:53:22.035055+00:00",
+        "original_text": "[NOMBRE_B] todavía debe lo de ayer",
+        "normalized_text": "nombre b todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0021",
+      "text": "debe haber unos 40 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "66cfd70c-7223-4185-913a-8b9b2c1e8411",
+        "interpreted_at": "2026-08-29T05:53:22.035109+00:00",
+        "original_text": "debe haber unos 40 de venta",
+        "normalized_text": "debe haber unos 40 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0023",
+      "text": "salieron 2 libras de pollo a 2",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "pollo",
+        "quantity": 2,
+        "unit": "libra",
+        "unit_price": 2
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "43dc84f6-585b-4327-9275-51a05ce4361a",
+        "interpreted_at": "2026-08-29T05:53:22.035155+00:00",
+        "original_text": "salieron 2 libras de pollo a 2",
+        "normalized_text": "salieron 2 libras de pollo a 2",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0026",
+      "text": "me llevó 10 libras y me dio 10",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_PRODUCT_AND_TOTAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "6aa30cb4-2c1b-4871-b738-694fcddd9765",
+        "interpreted_at": "2026-08-29T05:53:22.035296+00:00",
+        "original_text": "me llevó 10 libras y me dio 10",
+        "normalized_text": "me llevo 10 libras y me dio 10",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0027",
+      "text": "vendí cinco y una quedó fiada",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "NUMERIC_COORDINATION_CINCO_Y_UNA",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "2721bc7a-e4c3-495a-b3a0-38a866c00f0a",
+        "interpreted_at": "2026-08-29T05:53:22.035861+00:00",
+        "original_text": "vendí cinco y una quedó fiada",
+        "normalized_text": "vendi 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0029",
+      "text": "vendí 4 libras de tomate en 10",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "PRICE_TOTAL_AMBIGUITY",
+      "safety_expectation": "NEEDS_CONFIRMATION",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "b8deb49c-95e0-48a4-87cb-8f48db299ce3",
+        "interpreted_at": "2026-08-29T05:53:22.035935+00:00",
+        "original_text": "vendí 4 libras de tomate en 10",
+        "normalized_text": "vendi 4 libras de tomate en 10",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0031",
+      "text": "debe haber unos 15 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4026b520-ac98-4a9a-9ca2-13817ae9b084",
+        "interpreted_at": "2026-08-29T05:53:22.035999+00:00",
+        "original_text": "debe haber unos 15 de venta",
+        "normalized_text": "debe haber unos 15 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0032",
+      "text": "puse 2 de mi plata para completar",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_CONTRIBUTION_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "41c344fc-674e-4e88-9656-78fe3c3c3d87",
+        "interpreted_at": "2026-08-29T05:53:22.036044+00:00",
+        "original_text": "puse 2 de mi plata para completar",
+        "normalized_text": "puse 2 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0035",
+      "text": "vendí 12 libras de fréjol a 1 cada uno",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "fréjol",
+        "quantity": 12,
+        "unit": "libra",
+        "unit_price": 1
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "5e28b635-3118-44ab-92e7-9302bebd9af5",
+        "interpreted_at": "2026-08-29T05:53:22.036179+00:00",
+        "original_text": "vendí 12 libras de fréjol a 1 cada uno",
+        "normalized_text": "vendi 12 libras de frejol a 1 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1,
+          "total": 12
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 12 libra(s) de frejol a $1 cada una, total $12. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1,
+          "total": 12
+        }
+      }
+    },
+    {
+      "id": "EXT-0037",
+      "text": "vendí cinco y una quedó fiada",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "NUMERIC_COORDINATION_CINCO_Y_UNA",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "358d2d7c-560a-41a9-8988-c11900e43e09",
+        "interpreted_at": "2026-08-29T05:53:22.036362+00:00",
+        "original_text": "vendí cinco y una quedó fiada",
+        "normalized_text": "vendi 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0038",
+      "text": "de los 6 que debía me dejó 3",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "ARITHMETIC_DEBT_REFERENCE",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "amount": 3
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "12b4e910-7787-4e69-a9c6-9628d2c05e4e",
+        "interpreted_at": "2026-08-29T05:53:22.036430+00:00",
+        "original_text": "de los 6 que debía me dejó 3",
+        "normalized_text": "de los 6 que debia me dejo 3",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0039",
+      "text": "me llevó 6 libras y me dio 15",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "IMPLICIT_PRODUCT_AND_TOTAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4132d280-820c-45bd-bf28-97f0212ce2d4",
+        "interpreted_at": "2026-08-29T05:53:22.037236+00:00",
+        "original_text": "me llevó 6 libras y me dio 15",
+        "normalized_text": "me llevo 6 libras y me dio 15",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0040",
+      "text": "salieron 8 libras de pollo a 10",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "pollo",
+        "quantity": 8,
+        "unit": "libra",
+        "unit_price": 10
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ae796c8e-8bcb-4516-a2f0-ac348717e6ca",
+        "interpreted_at": "2026-08-29T05:53:22.037432+00:00",
+        "original_text": "salieron 8 libras de pollo a 10",
+        "normalized_text": "salieron 8 libras de pollo a 10",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0041",
+      "text": "llévele una más de yapa",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "5e465e7d-afd9-41a8-a55d-90c6051005c5",
+        "interpreted_at": "2026-08-29T05:53:22.037579+00:00",
+        "original_text": "llévele una más de yapa",
+        "normalized_text": "llevele 1 mas de yapa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0042",
+      "text": "[CLIENTE] quedó debiendo 5",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "NEW_RECEIVABLE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "RECEIVABLE",
+      "expected": {
+        "customer": "[CLIENTE]",
+        "amount": 5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "9a9942e1-f049-4436-8eef-fb26e113e53c",
+        "interpreted_at": "2026-08-29T05:53:22.037702+00:00",
+        "original_text": "[CLIENTE] quedó debiendo 5",
+        "normalized_text": "cliente quedo debiendo 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "amount": 5
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer"
+        ],
+        "warnings": [
+          "missing:customer"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 5
+        }
+      }
+    },
+    {
+      "id": "EXT-0043",
+      "text": "[NOMBRE_B] me abonó 5",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "PARTIAL_PAYMENT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "customer": "[NOMBRE_B]",
+        "amount": 5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1bd17dbe-30fb-4f9b-8bcd-a576f97e6531",
+        "interpreted_at": "2026-08-29T05:53:22.038578+00:00",
+        "original_text": "[NOMBRE_B] me abonó 5",
+        "normalized_text": "nombre b me abono 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0044",
+      "text": "me quedan 6 libras de papa",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "EXPLICIT_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "papa",
+        "quantity": 6,
+        "unit": "libra"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "d9d6c6c3-cdac-4777-ae24-27b253200a53",
+        "interpreted_at": "2026-08-29T05:53:22.038671+00:00",
+        "original_text": "me quedan 6 libras de papa",
+        "normalized_text": "me quedan 6 libras de papa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 6,
+          "unit": "libra",
+          "product": "papa",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 6 libra(s) de papa. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 6,
+          "unit": "libra",
+          "product": "papa",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "EXT-0045",
+      "text": "cobré 12 y compré mercadería por 7",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ca31aa7b-372a-495e-be4a-9fadfe8be6ab",
+        "interpreted_at": "2026-08-29T05:53:22.038769+00:00",
+        "original_text": "cobré 12 y compré mercadería por 7",
+        "normalized_text": "cobre 12 y compre mercaderia por 7",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0046",
+      "text": "saqué 20 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1713b12e-0cc0-4830-a03a-8c55100722a4",
+        "interpreted_at": "2026-08-29T05:53:22.038814+00:00",
+        "original_text": "saqué 20 para la casa",
+        "normalized_text": "saque 20 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0047",
+      "text": "bájale un poquito el precio",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "cbfdcc62-1163-4edb-9ca2-a86b2d7fcc73",
+        "interpreted_at": "2026-08-29T05:53:22.038846+00:00",
+        "original_text": "bájale un poquito el precio",
+        "normalized_text": "bajale 1 poquito el precio",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0048",
+      "text": "vendí cinco y una quedó fiada",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "NUMERIC_COORDINATION_CINCO_Y_UNA",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a5d598c4-a462-4056-b9af-a44656b7c353",
+        "interpreted_at": "2026-08-29T05:53:22.038930+00:00",
+        "original_text": "vendí cinco y una quedó fiada",
+        "normalized_text": "vendi 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0050",
+      "text": "[NOMBRE_A] me abonó 30",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "PARTIAL_PAYMENT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "customer": "[NOMBRE_A]",
+        "amount": 30
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "13cac563-0551-44f6-b9f0-82519d7df3aa",
+        "interpreted_at": "2026-08-29T05:53:22.038972+00:00",
+        "original_text": "[NOMBRE_A] me abonó 30",
+        "normalized_text": "nombre a me abono 30",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0053",
+      "text": "debe haber unos 30 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "900e09d3-8ea7-425d-a528-392fd0614553",
+        "interpreted_at": "2026-08-29T05:53:22.039050+00:00",
+        "original_text": "debe haber unos 30 de venta",
+        "normalized_text": "debe haber unos 30 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0054",
+      "text": "llévele una más de yapa",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "600fb2bd-b29c-423d-ab34-19421c5c05cb",
+        "interpreted_at": "2026-08-29T05:53:22.039081+00:00",
+        "original_text": "llévele una más de yapa",
+        "normalized_text": "llevele 1 mas de yapa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0055",
+      "text": "gasté 3 en transporte",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 3,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c3d3c289-56b1-4879-b8ab-cf8fc969b777",
+        "interpreted_at": "2026-08-29T05:53:22.039152+00:00",
+        "original_text": "gasté 3 en transporte",
+        "normalized_text": "gaste 3 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 3,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $3 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 3,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0057",
+      "text": "me quedan 4 libras",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c1d1e4b3-ad40-414e-8a69-a3974dd7bd77",
+        "interpreted_at": "2026-08-29T05:53:22.039240+00:00",
+        "original_text": "me quedan 4 libras",
+        "normalized_text": "me quedan 4 libras",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "EXT-0058",
+      "text": "pagué 4 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 4,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "9e7990ca-e8d6-4ff7-baa4-29563cb4720c",
+        "interpreted_at": "2026-08-29T05:53:22.039317+00:00",
+        "original_text": "pagué 4 por traer la mercadería",
+        "normalized_text": "pague 4 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $4 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0061",
+      "text": "me llevó 6 vasos y me dio 8",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "IMPLICIT_PRODUCT_AND_TOTAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "30ccda94-9204-436d-a2c5-33e74afabbcc",
+        "interpreted_at": "2026-08-29T05:53:22.039392+00:00",
+        "original_text": "me llevó 6 vasos y me dio 8",
+        "normalized_text": "me llevo 6 vasos y me dio 8",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0062",
+      "text": "me quedan 2 libras",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "204baa16-f659-47cc-b73f-51b788b6ee29",
+        "interpreted_at": "2026-08-29T05:53:22.039477+00:00",
+        "original_text": "me quedan 2 libras",
+        "normalized_text": "me quedan 2 libras",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "EXT-0063",
+      "text": "1 libras de cebolla a 0.75 cada una",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 1,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "16518079-e91f-456a-805f-09a37479a90d",
+        "interpreted_at": "2026-08-29T05:53:22.039553+00:00",
+        "original_text": "1 libras de cebolla a 0.75 cada una",
+        "normalized_text": "1 libras de cebolla a 0.75 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 0.75
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 1 libra(s) de cebolla a $0.75 cada una, total $0.75. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 0.75
+        }
+      }
+    },
+    {
+      "id": "EXT-0064",
+      "text": "creo que salieron como 15",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f37e4d22-8b3b-41b4-8039-2b841f196481",
+        "interpreted_at": "2026-08-29T05:53:22.039671+00:00",
+        "original_text": "creo que salieron como 15",
+        "normalized_text": "creo que salieron como 15",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0066",
+      "text": "gasté 2 en transporte",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 2,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "663fb21b-e7fa-4d8f-a67e-76424307b6ab",
+        "interpreted_at": "2026-08-29T05:53:22.039699+00:00",
+        "original_text": "gasté 2 en transporte",
+        "normalized_text": "gaste 2 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 2,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $2 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 2,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0067",
+      "text": "se fueron 3 libras de cebolla a 12 la libra",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 3,
+        "unit": "libra",
+        "unit_price": 12
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "46a900e8-75e6-4932-8302-ad572c242625",
+        "interpreted_at": "2026-08-29T05:53:22.039786+00:00",
+        "original_text": "se fueron 3 libras de cebolla a 12 la libra",
+        "normalized_text": "se fueron 3 libras de cebolla a 12 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 36
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 3 libra(s) de cebolla a $12 cada una, total $36. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 36
+        }
+      }
+    },
+    {
+      "id": "EXT-0068",
+      "text": "di 6 vasos de jugo por 1.25 cada uno",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "jugo",
+        "quantity": 6,
+        "unit": "vaso",
+        "unit_price": 1.25
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "08a78827-f145-497c-9a25-a04c704bdc0c",
+        "interpreted_at": "2026-08-29T05:53:22.039883+00:00",
+        "original_text": "di 6 vasos de jugo por 1.25 cada uno",
+        "normalized_text": "di 6 vasos de jugo por 1.25 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "jugo",
+          "quantity": 6,
+          "unit": "vaso",
+          "unit_price": 1.25,
+          "total": 7.5
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 6 vaso(s) de jugo a $1.25 cada una, total $7.5. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "jugo",
+          "quantity": 6,
+          "unit": "vaso",
+          "unit_price": 1.25,
+          "total": 7.5
+        }
+      }
+    },
+    {
+      "id": "EXT-0069",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "af1b9690-00e9-4b6c-94c6-e62950fba1c0",
+        "interpreted_at": "2026-08-29T05:53:22.039979+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0072",
+      "text": "vendí 5 libras de cebolla a 5 cada uno",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 5,
+        "unit": "libra",
+        "unit_price": 5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a3e35a65-d4c1-4536-a878-1179b05f794e",
+        "interpreted_at": "2026-08-29T05:53:22.040064+00:00",
+        "original_text": "vendí 5 libras de cebolla a 5 cada uno",
+        "normalized_text": "vendi 5 libras de cebolla a 5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 5,
+          "unit": "libra",
+          "unit_price": 5,
+          "total": 25
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 5 libra(s) de cebolla a $5 cada una, total $25. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 5,
+          "unit": "libra",
+          "unit_price": 5,
+          "total": 25
+        }
+      }
+    },
+    {
+      "id": "EXT-0073",
+      "text": "[NOMBRE_B] llevó 8 y dejó 3",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "COMPOUND_SALE_PARTIAL_PAYMENT",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "b91448f6-1e54-4e9d-bea5-a7a116bbaeb6",
+        "interpreted_at": "2026-08-29T05:53:22.040162+00:00",
+        "original_text": "[NOMBRE_B] llevó 8 y dejó 3",
+        "normalized_text": "nombre b llevo 8 y dejo 3",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0075",
+      "text": "vendí todo lo que quedaba de mote",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c7767c42-89a2-4ad5-929f-351ed548e356",
+        "interpreted_at": "2026-08-29T05:53:22.040219+00:00",
+        "original_text": "vendí todo lo que quedaba de mote",
+        "normalized_text": "vendi todo lo que quedaba de mote",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de mote"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de mote"
+        }
+      }
+    },
+    {
+      "id": "EXT-0078",
+      "text": "[NOMBRE_B] quedó debiendo 25",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "NEW_RECEIVABLE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "RECEIVABLE",
+      "expected": {
+        "customer": "[NOMBRE_B]",
+        "amount": 25
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "7fb4eda6-67d7-48dc-b78c-adb59eaf456a",
+        "interpreted_at": "2026-08-29T05:53:22.040314+00:00",
+        "original_text": "[NOMBRE_B] quedó debiendo 25",
+        "normalized_text": "nombre b quedo debiendo 25",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "amount": 25
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer"
+        ],
+        "warnings": [
+          "missing:customer"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 25
+        }
+      }
+    },
+    {
+      "id": "EXT-0082",
+      "text": "pagué 10 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 10,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "da4725f1-e260-421a-b6c4-9ac98a47435c",
+        "interpreted_at": "2026-08-29T05:53:22.040403+00:00",
+        "original_text": "pagué 10 por traer la mercadería",
+        "normalized_text": "pague 10 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 10,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $10 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 10,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0084",
+      "text": "[NOMBRE_A] me abonó 30",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "PARTIAL_PAYMENT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "customer": "[NOMBRE_A]",
+        "amount": 30
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "db68bce0-2401-4a36-adfc-8169646d0612",
+        "interpreted_at": "2026-08-29T05:53:22.040474+00:00",
+        "original_text": "[NOMBRE_A] me abonó 30",
+        "normalized_text": "nombre a me abono 30",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0085",
+      "text": "vendí todo lo que quedaba de mote",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a2bf48fb-5734-4219-95a5-9078aae39d39",
+        "interpreted_at": "2026-08-29T05:53:22.040550+00:00",
+        "original_text": "vendí todo lo que quedaba de mote",
+        "normalized_text": "vendi todo lo que quedaba de mote",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de mote"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de mote"
+        }
+      }
+    },
+    {
+      "id": "EXT-0091",
+      "text": "[NOMBRE_A] todavía debe lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "7f492657-7c91-438e-ac7c-16acb34a2be3",
+        "interpreted_at": "2026-08-29T05:53:22.040644+00:00",
+        "original_text": "[NOMBRE_A] todavía debe lo de ayer",
+        "normalized_text": "nombre a todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0092",
+      "text": "gasté 6 en transporte",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 6,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1fa6c70c-98aa-472e-bb1c-44dd8261df72",
+        "interpreted_at": "2026-08-29T05:53:22.040674+00:00",
+        "original_text": "gasté 6 en transporte",
+        "normalized_text": "gaste 6 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 6,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $6 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 6,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0095",
+      "text": "saqué 2 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e86fa0a0-6b38-4051-8a0d-be555150a464",
+        "interpreted_at": "2026-08-29T05:53:22.040753+00:00",
+        "original_text": "saqué 2 para la casa",
+        "normalized_text": "saque 2 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0097",
+      "text": "vendí 3 libras de arroz en 8",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "PRICE_TOTAL_AMBIGUITY",
+      "safety_expectation": "NEEDS_CONFIRMATION",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "8e6b5790-8d5d-48d1-a696-4d9357568e02",
+        "interpreted_at": "2026-08-29T05:53:22.040782+00:00",
+        "original_text": "vendí 3 libras de arroz en 8",
+        "normalized_text": "vendi 3 libras de arroz en 8",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0098",
+      "text": "vendí 3 libras de fréjol en 5",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "PRICE_TOTAL_AMBIGUITY",
+      "safety_expectation": "NEEDS_CONFIRMATION",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ebdec9bf-741d-4865-acea-5108aefa4000",
+        "interpreted_at": "2026-08-29T05:53:22.040822+00:00",
+        "original_text": "vendí 3 libras de fréjol en 5",
+        "normalized_text": "vendi 3 libras de frejol en 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0099",
+      "text": "vendí 12 libras de pollo a 1.5 cada uno",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "pollo",
+        "quantity": 12,
+        "unit": "libra",
+        "unit_price": 1.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "161a68b2-8c8d-4a04-a59e-d7cb3df97033",
+        "interpreted_at": "2026-08-29T05:53:22.040865+00:00",
+        "original_text": "vendí 12 libras de pollo a 1.5 cada uno",
+        "normalized_text": "vendi 12 libras de pollo a 1.5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "pollo",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1.5,
+          "total": 18
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 12 libra(s) de pollo a $1.5 cada una, total $18. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "pollo",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1.5,
+          "total": 18
+        }
+      }
+    },
+    {
+      "id": "EXT-0101",
+      "text": "[NOMBRE_B] todavía debe lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "6c0daecd-fc49-4504-9c7d-bd9882d09249",
+        "interpreted_at": "2026-08-29T05:53:22.040978+00:00",
+        "original_text": "[NOMBRE_B] todavía debe lo de ayer",
+        "normalized_text": "nombre b todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0102",
+      "text": "pagué 8 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 8,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "843c71d7-ec4d-454e-ac95-38957cc1cba7",
+        "interpreted_at": "2026-08-29T05:53:22.041010+00:00",
+        "original_text": "pagué 8 por traer la mercadería",
+        "normalized_text": "pague 8 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 8,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $8 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 8,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0104",
+      "text": "vendí todo lo que quedaba de cebolla",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "d6af29af-d8c9-4ddf-a017-481cc1b8b348",
+        "interpreted_at": "2026-08-29T05:53:22.041082+00:00",
+        "original_text": "vendí todo lo que quedaba de cebolla",
+        "normalized_text": "vendi todo lo que quedaba de cebolla",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de cebolla"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de cebolla"
+        }
+      }
+    },
+    {
+      "id": "EXT-0106",
+      "text": "vendí todo lo que quedaba de pantalón",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a38e27d7-8c23-40cd-b75a-b432f251e4dc",
+        "interpreted_at": "2026-08-29T05:53:22.041178+00:00",
+        "original_text": "vendí todo lo que quedaba de pantalón",
+        "normalized_text": "vendi todo lo que quedaba de pantalon",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de pantalon"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de pantalon"
+        }
+      }
+    },
+    {
+      "id": "EXT-0109",
+      "text": "ya no queda jugo",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "ZERO_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "jugo",
+        "quantity": 0
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e5a849d2-2d83-4199-bb30-d401e53b21f6",
+        "interpreted_at": "2026-08-29T05:53:22.041266+00:00",
+        "original_text": "ya no queda jugo",
+        "normalized_text": "ya no queda jugo",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0110",
+      "text": "de los 60 que debía me dejó 30",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "ARITHMETIC_DEBT_REFERENCE",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "amount": 30
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "d7975335-b882-44f3-b3b4-e842a8eba3f5",
+        "interpreted_at": "2026-08-29T05:53:22.041326+00:00",
+        "original_text": "de los 60 que debía me dejó 30",
+        "normalized_text": "de los 60 que debia me dejo 30",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0111",
+      "text": "gasté 12 en transporte",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 12,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "19b7afcf-4734-45d7-a6d1-8ea3b01a6c01",
+        "interpreted_at": "2026-08-29T05:53:22.041408+00:00",
+        "original_text": "gasté 12 en transporte",
+        "normalized_text": "gaste 12 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $12 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0112",
+      "text": "me quedan 10 libras de fréjol",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "EXPLICIT_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "fréjol",
+        "quantity": 10,
+        "unit": "libra"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "51f8e53d-ea47-4d13-9caa-b8c59f345337",
+        "interpreted_at": "2026-08-29T05:53:22.041491+00:00",
+        "original_text": "me quedan 10 libras de fréjol",
+        "normalized_text": "me quedan 10 libras de frejol",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 10,
+          "unit": "libra",
+          "product": "frejol",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 10 libra(s) de frejol. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 10,
+          "unit": "libra",
+          "product": "frejol",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "EXT-0113",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "2abfda95-0df7-4d67-9151-34a9f0a72d96",
+        "interpreted_at": "2026-08-29T05:53:22.041580+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0114",
+      "text": "hoy hice como 40",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a05ab343-c9f5-467d-afe6-be234fa7bdad",
+        "interpreted_at": "2026-08-29T05:53:22.041651+00:00",
+        "original_text": "hoy hice como 40",
+        "normalized_text": "hoy hice como 40",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0117",
+      "text": "se fueron 3 libras a 5",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a269b7bd-9c39-4a34-96a0-9024a8fd8729",
+        "interpreted_at": "2026-08-29T05:53:22.041677+00:00",
+        "original_text": "se fueron 3 libras a 5",
+        "normalized_text": "se fueron 3 libras a 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0118",
+      "text": "pagué 12 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 12,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "9bea8910-865d-4145-8b02-d15879faaf48",
+        "interpreted_at": "2026-08-29T05:53:22.041744+00:00",
+        "original_text": "pagué 12 por traer la mercadería",
+        "normalized_text": "pague 12 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $12 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0119",
+      "text": "se fueron 8 libras de arroz a 8 la libra",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "arroz",
+        "quantity": 8,
+        "unit": "libra",
+        "unit_price": 8
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f17613cc-87f1-4da0-8905-0c69b513aad9",
+        "interpreted_at": "2026-08-29T05:53:22.041817+00:00",
+        "original_text": "se fueron 8 libras de arroz a 8 la libra",
+        "normalized_text": "se fueron 8 libras de arroz a 8 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 8,
+          "total": 64
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 8 libra(s) de arroz a $8 cada una, total $64. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 8,
+          "total": 64
+        }
+      }
+    },
+    {
+      "id": "EXT-0120",
+      "text": "ya no queda papa",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "ZERO_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "papa",
+        "quantity": 0
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c7fb1dd5-7ae7-4ade-b5e8-2f2228475974",
+        "interpreted_at": "2026-08-29T05:53:22.041906+00:00",
+        "original_text": "ya no queda papa",
+        "normalized_text": "ya no queda papa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0122",
+      "text": "me quedan 8 vasos",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "7402f23a-b0f3-4913-89a0-f1c5a98be8dc",
+        "interpreted_at": "2026-08-29T05:53:22.041960+00:00",
+        "original_text": "me quedan 8 vasos",
+        "normalized_text": "me quedan 8 vasos",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "EXT-0123",
+      "text": "hoy hice como 40",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "63f59d2a-a0d4-46ac-99ec-26c188b89cda",
+        "interpreted_at": "2026-08-29T05:53:22.042025+00:00",
+        "original_text": "hoy hice como 40",
+        "normalized_text": "hoy hice como 40",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0124",
+      "text": "vendí todo lo que quedaba de queso",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "0daa4ef5-67ae-4b63-8255-5fbccbf32495",
+        "interpreted_at": "2026-08-29T05:53:22.042053+00:00",
+        "original_text": "vendí todo lo que quedaba de queso",
+        "normalized_text": "vendi todo lo que quedaba de queso",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de queso"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de queso"
+        }
+      }
+    },
+    {
+      "id": "EXT-0127",
+      "text": "vendí todo lo que quedaba de manzana",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e3ea176b-0070-4316-b018-140984677734",
+        "interpreted_at": "2026-08-29T05:53:22.042145+00:00",
+        "original_text": "vendí todo lo que quedaba de manzana",
+        "normalized_text": "vendi todo lo que quedaba de manzana",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de manzana"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de manzana"
+        }
+      }
+    },
+    {
+      "id": "EXT-0128",
+      "text": "cobré 12 y compré mercadería por 7",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "11947f87-4db2-4df6-b801-154321ca7e29",
+        "interpreted_at": "2026-08-29T05:53:22.042236+00:00",
+        "original_text": "cobré 12 y compré mercadería por 7",
+        "normalized_text": "cobre 12 y compre mercaderia por 7",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0129",
+      "text": "me entraron 10 y gasté 5 en fundas",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "COMPOUND_INCOME_EXPENSE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f918e73c-ad5f-4bfd-877b-7b5cf3d5e94e",
+        "interpreted_at": "2026-08-29T05:53:22.042278+00:00",
+        "original_text": "me entraron 10 y gasté 5 en fundas",
+        "normalized_text": "me entraron 10 y gaste 5 en fundas",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0130",
+      "text": "vendí 3 libras de papa a 12 cada uno",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "papa",
+        "quantity": 3,
+        "unit": "libra",
+        "unit_price": 12
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "44b3114b-df0c-4a43-ab8e-a0383c10e472",
+        "interpreted_at": "2026-08-29T05:53:22.042325+00:00",
+        "original_text": "vendí 3 libras de papa a 12 cada uno",
+        "normalized_text": "vendi 3 libras de papa a 12 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "papa",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 36
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 3 libra(s) de papa a $12 cada una, total $36. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "papa",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 12,
+          "total": 36
+        }
+      }
+    },
+    {
+      "id": "EXT-0132",
+      "text": "saqué 10 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "5ea1cb13-02b5-4db5-b918-1860968c94ed",
+        "interpreted_at": "2026-08-29T05:53:22.042417+00:00",
+        "original_text": "saqué 10 para la casa",
+        "normalized_text": "saque 10 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0133",
+      "text": "saqué 5 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "0f53100c-8966-4309-ab24-2801243a1f2d",
+        "interpreted_at": "2026-08-29T05:53:22.042444+00:00",
+        "original_text": "saqué 5 para la casa",
+        "normalized_text": "saque 5 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0136",
+      "text": "gasté 15 en transporte",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 15,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "061127d5-818b-4fe0-9ff3-a14f7052caa1",
+        "interpreted_at": "2026-08-29T05:53:22.042467+00:00",
+        "original_text": "gasté 15 en transporte",
+        "normalized_text": "gaste 15 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 15,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $15 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 15,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0137",
+      "text": "hoy hice como 20",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c6419cd0-61f7-4b57-9ee3-4be82498f38a",
+        "interpreted_at": "2026-08-29T05:53:22.042548+00:00",
+        "original_text": "hoy hice como 20",
+        "normalized_text": "hoy hice como 20",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0138",
+      "text": "vendí todo lo que quedaba de arroz",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "b6c64834-1558-4b25-83bf-dcc4fb990859",
+        "interpreted_at": "2026-08-29T05:53:22.042575+00:00",
+        "original_text": "vendí todo lo que quedaba de arroz",
+        "normalized_text": "vendi todo lo que quedaba de arroz",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de arroz"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de arroz"
+        }
+      }
+    },
+    {
+      "id": "EXT-0139",
+      "text": "puse 3 de mi plata para completar",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_CONTRIBUTION_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "676bf6ce-9ffc-45f2-af38-81346d485802",
+        "interpreted_at": "2026-08-29T05:53:22.042665+00:00",
+        "original_text": "puse 3 de mi plata para completar",
+        "normalized_text": "puse 3 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0140",
+      "text": "me quedan 2 libras de carne",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "EXPLICIT_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "carne",
+        "quantity": 2,
+        "unit": "libra"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "74f4fd59-acad-4583-b87e-f787787d3526",
+        "interpreted_at": "2026-08-29T05:53:22.042739+00:00",
+        "original_text": "me quedan 2 libras de carne",
+        "normalized_text": "me quedan 2 libras de carne",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 2,
+          "unit": "libra",
+          "product": "carne",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 2 libra(s) de carne. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 2,
+          "unit": "libra",
+          "product": "carne",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "EXT-0141",
+      "text": "vendí 10 libras de fréjol a 2.5 cada uno",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "fréjol",
+        "quantity": 10,
+        "unit": "libra",
+        "unit_price": 2.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "6eb65608-8671-4769-a76d-599b892b213f",
+        "interpreted_at": "2026-08-29T05:53:22.042828+00:00",
+        "original_text": "vendí 10 libras de fréjol a 2.5 cada uno",
+        "normalized_text": "vendi 10 libras de frejol a 2.5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 10,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 25
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 10 libra(s) de frejol a $2.5 cada una, total $25. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 10,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 25
+        }
+      }
+    },
+    {
+      "id": "EXT-0142",
+      "text": "vendí todo lo que quedaba de naranja",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "fcc9b128-ac8d-488b-83ca-fa141bd52441",
+        "interpreted_at": "2026-08-29T05:53:22.042989+00:00",
+        "original_text": "vendí todo lo que quedaba de naranja",
+        "normalized_text": "vendi todo lo que quedaba de naranja",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de naranja"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de naranja"
+        }
+      }
+    },
+    {
+      "id": "EXT-0143",
+      "text": "vendí cinco y una quedó fiada",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "NUMERIC_COORDINATION_CINCO_Y_UNA",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "fe49b5f8-1eb7-4cec-a011-0ef2bfcd4edd",
+        "interpreted_at": "2026-08-29T05:53:22.043180+00:00",
+        "original_text": "vendí cinco y una quedó fiada",
+        "normalized_text": "vendi 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0144",
+      "text": "di 10 libras de papa por 2.5 cada uno",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "papa",
+        "quantity": 10,
+        "unit": "libra",
+        "unit_price": 2.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "21265bfd-2552-4927-8332-42be8413e3b9",
+        "interpreted_at": "2026-08-29T05:53:22.043550+00:00",
+        "original_text": "di 10 libras de papa por 2.5 cada uno",
+        "normalized_text": "di 10 libras de papa por 2.5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "papa",
+          "quantity": 10,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 25
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 10 libra(s) de papa a $2.5 cada una, total $25. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "papa",
+          "quantity": 10,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 25
+        }
+      }
+    },
+    {
+      "id": "EXT-0146",
+      "text": "bájale un poquito el precio",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ea4dc0d9-77b3-4a18-96a3-6b27bb29100e",
+        "interpreted_at": "2026-08-29T05:53:22.043687+00:00",
+        "original_text": "bájale un poquito el precio",
+        "normalized_text": "bajale 1 poquito el precio",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0148",
+      "text": "gasté 12 en transporte",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 12,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "00943496-a48a-49ad-a996-ef0a89172d45",
+        "interpreted_at": "2026-08-29T05:53:22.043778+00:00",
+        "original_text": "gasté 12 en transporte",
+        "normalized_text": "gaste 12 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $12 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 12,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0149",
+      "text": "se fueron 8 libras de tomate a 0.75 la libra",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "tomate",
+        "quantity": 8,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "49e4450c-66ba-4194-9822-cd8e6b880f59",
+        "interpreted_at": "2026-08-29T05:53:22.043872+00:00",
+        "original_text": "se fueron 8 libras de tomate a 0.75 la libra",
+        "normalized_text": "se fueron 8 libras de tomate a 0.75 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 6
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 8 libra(s) de tomate a $0.75 cada una, total $6. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 6
+        }
+      }
+    },
+    {
+      "id": "EXT-0150",
+      "text": "[CLIENTE] llevó 10 y dejó 7",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "COMPOUND_SALE_PARTIAL_PAYMENT",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f05d71fa-c3d6-43fc-a691-1d04b5a3c2e6",
+        "interpreted_at": "2026-08-29T05:53:22.043974+00:00",
+        "original_text": "[CLIENTE] llevó 10 y dejó 7",
+        "normalized_text": "cliente llevo 10 y dejo 7",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0151",
+      "text": "se fueron 3 libras de fréjol a 5 la libra",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "fréjol",
+        "quantity": 3,
+        "unit": "libra",
+        "unit_price": 5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "fd437521-c814-442e-b738-64edf010ef40",
+        "interpreted_at": "2026-08-29T05:53:22.044020+00:00",
+        "original_text": "se fueron 3 libras de fréjol a 5 la libra",
+        "normalized_text": "se fueron 3 libras de frejol a 5 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 5,
+          "total": 15
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 3 libra(s) de frejol a $5 cada una, total $15. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 5,
+          "total": 15
+        }
+      }
+    },
+    {
+      "id": "EXT-0152",
+      "text": "gasté 4 en transporte",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 4,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4a5a7c85-3f09-49f0-ade4-65eb6b416c66",
+        "interpreted_at": "2026-08-29T05:53:22.044124+00:00",
+        "original_text": "gasté 4 en transporte",
+        "normalized_text": "gaste 4 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $4 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0153",
+      "text": "gasté 15 en transporte",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 15,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "222f02d7-ecb1-459d-b4ea-b022feaceebf",
+        "interpreted_at": "2026-08-29T05:53:22.044204+00:00",
+        "original_text": "gasté 15 en transporte",
+        "normalized_text": "gaste 15 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 15,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $15 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 15,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0154",
+      "text": "se fueron 5 libras a 5",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "61bc9fff-d10d-4ddf-8b1e-54e8712da44e",
+        "interpreted_at": "2026-08-29T05:53:22.044281+00:00",
+        "original_text": "se fueron 5 libras a 5",
+        "normalized_text": "se fueron 5 libras a 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0157",
+      "text": "ya no queda camiseta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "ZERO_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "camiseta",
+        "quantity": 0
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e10ea136-d64c-491a-8c53-e9643df653bd",
+        "interpreted_at": "2026-08-29T05:53:22.044345+00:00",
+        "original_text": "ya no queda camiseta",
+        "normalized_text": "ya no queda camiseta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0160",
+      "text": "vendí 12 libras de tomate a 1.5 cada uno",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "tomate",
+        "quantity": 12,
+        "unit": "libra",
+        "unit_price": 1.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "54f1c567-9b38-4efe-9c5a-79a51f9ef4d2",
+        "interpreted_at": "2026-08-29T05:53:22.044409+00:00",
+        "original_text": "vendí 12 libras de tomate a 1.5 cada uno",
+        "normalized_text": "vendi 12 libras de tomate a 1.5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1.5,
+          "total": 18
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 12 libra(s) de tomate a $1.5 cada una, total $18. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1.5,
+          "total": 18
+        }
+      }
+    },
+    {
+      "id": "EXT-0161",
+      "text": "[NOMBRE_A] todavía debe lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "94c06a8a-787a-4798-bd6d-90cfb6819d6e",
+        "interpreted_at": "2026-08-29T05:53:22.044506+00:00",
+        "original_text": "[NOMBRE_A] todavía debe lo de ayer",
+        "normalized_text": "nombre a todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0162",
+      "text": "[NOMBRE_A] me abonó 15",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "PARTIAL_PAYMENT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "customer": "[NOMBRE_A]",
+        "amount": 15
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "6f0dd159-c233-4cef-bdc6-5f4f403d3f19",
+        "interpreted_at": "2026-08-29T05:53:22.044538+00:00",
+        "original_text": "[NOMBRE_A] me abonó 15",
+        "normalized_text": "nombre a me abono 15",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0163",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e79c3efe-e72d-41f1-8780-affefad76065",
+        "interpreted_at": "2026-08-29T05:53:22.044615+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0164",
+      "text": "ya no queda carne",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "ZERO_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "carne",
+        "quantity": 0
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "22cea54b-0767-453b-967f-6d76be6c8cfb",
+        "interpreted_at": "2026-08-29T05:53:22.044686+00:00",
+        "original_text": "ya no queda carne",
+        "normalized_text": "ya no queda carne",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0165",
+      "text": "cobré 8 y compré mercadería por 6",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "a083b9b7-3922-4a1d-8f52-465afb4b0d8f",
+        "interpreted_at": "2026-08-29T05:53:22.044744+00:00",
+        "original_text": "cobré 8 y compré mercadería por 6",
+        "normalized_text": "cobre 8 y compre mercaderia por 6",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0167",
+      "text": "cobré 5 y compré mercadería por 3",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c43bc707-8899-4dba-bfb0-f4b95217796f",
+        "interpreted_at": "2026-08-29T05:53:22.044785+00:00",
+        "original_text": "cobré 5 y compré mercadería por 3",
+        "normalized_text": "cobre 5 y compre mercaderia por 3",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0170",
+      "text": "puse 12 de mi plata para completar",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_CONTRIBUTION_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "dc0d35eb-8ee3-40ef-a6b4-fbdf22bcb48f",
+        "interpreted_at": "2026-08-29T05:53:22.044823+00:00",
+        "original_text": "puse 12 de mi plata para completar",
+        "normalized_text": "puse 12 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0171",
+      "text": "[CLIENTE] quedó debiendo 10",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "NEW_RECEIVABLE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "RECEIVABLE",
+      "expected": {
+        "customer": "[CLIENTE]",
+        "amount": 10
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "224c570e-8af1-448d-bf01-b40418e17fba",
+        "interpreted_at": "2026-08-29T05:53:22.044904+00:00",
+        "original_text": "[CLIENTE] quedó debiendo 10",
+        "normalized_text": "cliente quedo debiendo 10",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "amount": 10
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer"
+        ],
+        "warnings": [
+          "missing:customer"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 10
+        }
+      }
+    },
+    {
+      "id": "EXT-0172",
+      "text": "llévele una más de yapa",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "5f16c157-e890-4ab3-8d63-356c5a449a47",
+        "interpreted_at": "2026-08-29T05:53:22.044991+00:00",
+        "original_text": "llévele una más de yapa",
+        "normalized_text": "llevele 1 mas de yapa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0175",
+      "text": "me quedan 12 libras de papa",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "EXPLICIT_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "papa",
+        "quantity": 12,
+        "unit": "libra"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "60b7c624-fc8b-4e39-9bed-3129f946302a",
+        "interpreted_at": "2026-08-29T05:53:22.045060+00:00",
+        "original_text": "me quedan 12 libras de papa",
+        "normalized_text": "me quedan 12 libras de papa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 12,
+          "unit": "libra",
+          "product": "papa",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 12 libra(s) de papa. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 12,
+          "unit": "libra",
+          "product": "papa",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "EXT-0176",
+      "text": "[NOMBRE_A] todavía debe lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "050215f2-683f-4b20-ae46-30b1d899a950",
+        "interpreted_at": "2026-08-29T05:53:22.045150+00:00",
+        "original_text": "[NOMBRE_A] todavía debe lo de ayer",
+        "normalized_text": "nombre a todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0178",
+      "text": "vendí todo lo que quedaba de jugo",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "IMPLICIT_QUANTITY_FROM_STOCK",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "SALE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "89ecd0bd-b57f-4df2-a3fa-369bca204a51",
+        "interpreted_at": "2026-08-29T05:53:22.045184+00:00",
+        "original_text": "vendí todo lo que quedaba de jugo",
+        "normalized_text": "vendi todo lo que quedaba de jugo",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de jugo"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba de jugo"
+        }
+      }
+    },
+    {
+      "id": "EXT-0188",
+      "text": "gasté 4 en transporte",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "BUSINESS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 4,
+        "category": "transport"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "85ce2f4b-45ec-4491-be30-93317f77bee6",
+        "interpreted_at": "2026-08-29T05:53:22.045275+00:00",
+        "original_text": "gasté 4 en transporte",
+        "normalized_text": "gaste 4 en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $4 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "EXT-0189",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c814d97e-9d19-4774-b263-29bada0c7417",
+        "interpreted_at": "2026-08-29T05:53:22.045354+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0192",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "2522e6a2-0a2b-406d-a12d-9e90121bbf79",
+        "interpreted_at": "2026-08-29T05:53:22.045426+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0193",
+      "text": "[NOMBRE_B] todavía debe lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "STATE_VS_EVENT",
+      "safety_expectation": "NO_NEW_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "46b32094-d327-431e-b350-98b3853c546d",
+        "interpreted_at": "2026-08-29T05:53:22.045498+00:00",
+        "original_text": "[NOMBRE_B] todavía debe lo de ayer",
+        "normalized_text": "nombre b todavia debe lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0195",
+      "text": "pagué 3 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 3,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "52165be7-fa2b-4082-8958-7c86c6ea4693",
+        "interpreted_at": "2026-08-29T05:53:22.045529+00:00",
+        "original_text": "pagué 3 por traer la mercadería",
+        "normalized_text": "pague 3 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 3,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $3 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 3,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0196",
+      "text": "llévele una más de yapa",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4213a82d-718b-4164-9fef-fbefcd875c76",
+        "interpreted_at": "2026-08-29T05:53:22.045602+00:00",
+        "original_text": "llévele una más de yapa",
+        "normalized_text": "llevele 1 mas de yapa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0197",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e5f4d798-b89a-48fe-809e-041082dbea6a",
+        "interpreted_at": "2026-08-29T05:53:22.045670+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0198",
+      "text": "puse 1 de mi plata para completar",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_CONTRIBUTION_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "5bf4ba26-e486-433e-a77e-a3bd2d805000",
+        "interpreted_at": "2026-08-29T05:53:22.045744+00:00",
+        "original_text": "puse 1 de mi plata para completar",
+        "normalized_text": "puse 1 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0200",
+      "text": "me quedan 2 libras",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "IMPLICIT_PRODUCT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "64b1f553-8095-423a-8002-8d091b1a84a9",
+        "interpreted_at": "2026-08-29T05:53:22.045815+00:00",
+        "original_text": "me quedan 2 libras",
+        "normalized_text": "me quedan 2 libras",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "EXT-0203",
+      "text": "[NOMBRE_B] me abonó 2",
+      "source_id": "CUENCA_PRIMICIAS_CASERITA_2025",
+      "phenomenon": "PARTIAL_PAYMENT",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "customer": "[NOMBRE_B]",
+        "amount": 2
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1abae51d-e020-43dd-90fe-ee41f06e24cf",
+        "interpreted_at": "2026-08-29T05:53:22.045883+00:00",
+        "original_text": "[NOMBRE_B] me abonó 2",
+        "normalized_text": "nombre b me abono 2",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0204",
+      "text": "pagué 4 por traer la mercadería",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "LOGISTICS_EXPENSE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "EXPENSE",
+      "expected": {
+        "amount": 4,
+        "category": "logistics"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "743dfdfc-0b61-4127-b022-01b9f2e93eca",
+        "interpreted_at": "2026-08-29T05:53:22.045959+00:00",
+        "original_text": "pagué 4 por traer la mercadería",
+        "normalized_text": "pague 4 por traer la mercaderia",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "logistica"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté un gasto de $4 en logistica. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "logistica"
+        }
+      }
+    },
+    {
+      "id": "EXT-0205",
+      "text": "bájale un poquito el precio",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e202eb95-6289-427c-b04b-b80eeb8c5610",
+        "interpreted_at": "2026-08-29T05:53:22.046030+00:00",
+        "original_text": "bájale un poquito el precio",
+        "normalized_text": "bajale 1 poquito el precio",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0206",
+      "text": "salieron 4 libras de tomate a 8",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "tomate",
+        "quantity": 4,
+        "unit": "libra",
+        "unit_price": 8
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ddf63e7a-0d43-4afc-8239-8c473e59b5ee",
+        "interpreted_at": "2026-08-29T05:53:22.046100+00:00",
+        "original_text": "salieron 4 libras de tomate a 8",
+        "normalized_text": "salieron 4 libras de tomate a 8",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0209",
+      "text": "de los 24 que debía me dejó 12",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "ARITHMETIC_DEBT_REFERENCE",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {
+        "amount": 12
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c0269fe1-22aa-4ec6-a64b-0ee64032598a",
+        "interpreted_at": "2026-08-29T05:53:22.046179+00:00",
+        "original_text": "de los 24 que debía me dejó 12",
+        "normalized_text": "de los 24 que debia me dejo 12",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0210",
+      "text": "me pagó todo lo de ayer",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "IMPLICIT_CUSTOMER_AMOUNT_TEMPORAL",
+      "safety_expectation": "NEEDS_CONTEXT",
+      "expected_operation": "PAYMENT_RECEIVED",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "d866030f-fccc-4e59-b7f5-c87254a6fbf6",
+        "interpreted_at": "2026-08-29T05:53:22.046261+00:00",
+        "original_text": "me pagó todo lo de ayer",
+        "normalized_text": "me pago todo lo de ayer",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "EXT-0212",
+      "text": "di 8 libras de arroz por 2.5 cada uno",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "arroz",
+        "quantity": 8,
+        "unit": "libra",
+        "unit_price": 2.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "adab850d-0c07-414b-b0ed-9511eba5d369",
+        "interpreted_at": "2026-08-29T05:53:22.046336+00:00",
+        "original_text": "di 8 libras de arroz por 2.5 cada uno",
+        "normalized_text": "di 8 libras de arroz por 2.5 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 20
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 8 libra(s) de arroz a $2.5 cada una, total $20. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 2.5,
+          "total": 20
+        }
+      }
+    },
+    {
+      "id": "EXT-0214",
+      "text": "puse 5 de mi plata para completar",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_CONTRIBUTION_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "bf3a072c-f2bc-4ffe-95ad-e9ad28267075",
+        "interpreted_at": "2026-08-29T05:53:22.046431+00:00",
+        "original_text": "puse 5 de mi plata para completar",
+        "normalized_text": "puse 5 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0215",
+      "text": "me entraron 10 y gasté 7 en fundas",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "COMPOUND_INCOME_EXPENSE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "eaf9a835-ffc4-4041-bf58-a4b6d250a98f",
+        "interpreted_at": "2026-08-29T05:53:22.046510+00:00",
+        "original_text": "me entraron 10 y gasté 7 en fundas",
+        "normalized_text": "me entraron 10 y gaste 7 en fundas",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0217",
+      "text": "se fueron 3 libras de cebolla a 0.5 la libra",
+      "source_id": "CUENCA_UCUENCA_LEXICON_2013",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 3,
+        "unit": "libra",
+        "unit_price": 0.5
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "f0df292b-f3fc-45d5-9846-d2bc162c906b",
+        "interpreted_at": "2026-08-29T05:53:22.046553+00:00",
+        "original_text": "se fueron 3 libras de cebolla a 0.5 la libra",
+        "normalized_text": "se fueron 3 libras de cebolla a 0.5 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 0.5,
+          "total": 1.5
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 3 libra(s) de cebolla a $0.5 cada una, total $1.5. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 0.5,
+          "total": 1.5
+        }
+      }
+    },
+    {
+      "id": "EXT-0218",
+      "text": "me quedan 4 libras de carne",
+      "source_id": "CUENCA_MUNICIPIO_10AGOSTO_2023",
+      "phenomenon": "EXPLICIT_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "carne",
+        "quantity": 4,
+        "unit": "libra"
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c43455fe-e043-4d21-84a7-f5657e790c98",
+        "interpreted_at": "2026-08-29T05:53:22.046647+00:00",
+        "original_text": "me quedan 4 libras de carne",
+        "normalized_text": "me quedan 4 libras de carne",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "libra",
+          "product": "carne",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 4 libra(s) de carne. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "libra",
+          "product": "carne",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "EXT-0219",
+      "text": "se fueron 5 libras de cebolla a 0.75 la libra",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 5,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "3b3d5103-382f-401e-b33f-86abb8833b7c",
+        "interpreted_at": "2026-08-29T05:53:22.046732+00:00",
+        "original_text": "se fueron 5 libras de cebolla a 0.75 la libra",
+        "normalized_text": "se fueron 5 libras de cebolla a 0.75 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 5,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 3.75
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 5 libra(s) de cebolla a $0.75 cada una, total $3.75. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 5,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 3.75
+        }
+      }
+    },
+    {
+      "id": "EXT-0222",
+      "text": "di 3 libras de arroz por 0.75 cada uno",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "arroz",
+        "quantity": 3,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "efea9959-a063-4643-89c1-82500fd89356",
+        "interpreted_at": "2026-08-29T05:53:22.046830+00:00",
+        "original_text": "di 3 libras de arroz por 0.75 cada uno",
+        "normalized_text": "di 3 libras de arroz por 0.75 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 2.25
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 3 libra(s) de arroz a $0.75 cada una, total $2.25. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 3,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 2.25
+        }
+      }
+    },
+    {
+      "id": "EXT-0223",
+      "text": "vendí 8 libras de cebolla a 0.75 cada uno",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 8,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "ce62e67c-50b8-4503-9c2a-6ff631e370f6",
+        "interpreted_at": "2026-08-29T05:53:22.046931+00:00",
+        "original_text": "vendí 8 libras de cebolla a 0.75 cada uno",
+        "normalized_text": "vendi 8 libras de cebolla a 0.75 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 6
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 8 libra(s) de cebolla a $0.75 cada una, total $6. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 8,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 6
+        }
+      }
+    },
+    {
+      "id": "EXT-0225",
+      "text": "vendí cinco y una quedó fiada",
+      "source_id": "ECUADOR_UNL_RECEIVABLES",
+      "phenomenon": "NUMERIC_COORDINATION_CINCO_Y_UNA",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "86467725-0e83-4934-9269-0a5b71a7c188",
+        "interpreted_at": "2026-08-29T05:53:22.047027+00:00",
+        "original_text": "vendí cinco y una quedó fiada",
+        "normalized_text": "vendi 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0226",
+      "text": "cobré 20 y compré mercadería por 19",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "COMPOUND_PAYMENT_PURCHASE",
+      "safety_expectation": "DETECT_COMPOUND_AND_SPLIT_OR_CONFIRM",
+      "expected_operation": "COMPOUND_OPERATION",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "6315e59d-e19e-460f-9c8f-8be5037a6a36",
+        "interpreted_at": "2026-08-29T05:53:22.047075+00:00",
+        "original_text": "cobré 20 y compré mercadería por 19",
+        "normalized_text": "cobre 20 y compre mercaderia por 19",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0227",
+      "text": "ya no queda cebolla",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "ZERO_STOCK",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "STOCK_ADJUSTMENT",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 0
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "353d1efa-1c42-46dd-82a3-0c9da0d42d27",
+        "interpreted_at": "2026-08-29T05:53:22.047112+00:00",
+        "original_text": "ya no queda cebolla",
+        "normalized_text": "ya no queda cebolla",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0228",
+      "text": "se fueron 1 libras de cebolla a 0.75 la libra",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "cebolla",
+        "quantity": 1,
+        "unit": "libra",
+        "unit_price": 0.75
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "dc64dd4b-9602-4d5f-99e8-824083072623",
+        "interpreted_at": "2026-08-29T05:53:22.047178+00:00",
+        "original_text": "se fueron 1 libras de cebolla a 0.75 la libra",
+        "normalized_text": "se fueron 1 libras de cebolla a 0.75 la libra",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 0.75
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 1 libra(s) de cebolla a $0.75 cada una, total $0.75. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 1,
+          "unit": "libra",
+          "unit_price": 0.75,
+          "total": 0.75
+        }
+      }
+    },
+    {
+      "id": "EXT-0231",
+      "text": "saqué 5 para la casa",
+      "source_id": "CUENCA_ITB_VISA_CENTER",
+      "phenomenon": "OWNER_WITHDRAWAL_SCHEMA_GAP",
+      "safety_expectation": "OUT_OF_SCOPE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "1c2ba5a4-bccb-4f16-9148-c6ed8a10f277",
+        "interpreted_at": "2026-08-29T05:53:22.047273+00:00",
+        "original_text": "saqué 5 para la casa",
+        "normalized_text": "saque 5 para la casa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0234",
+      "text": "12 vasos de jugo a 8 cada una",
+      "source_id": "CUENCA_KILLKANA_ARENAL_2021",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "jugo",
+        "quantity": 12,
+        "unit": "vaso",
+        "unit_price": 8
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "e09b0798-4477-4829-b423-40b2b6d2e541",
+        "interpreted_at": "2026-08-29T05:53:22.047305+00:00",
+        "original_text": "12 vasos de jugo a 8 cada una",
+        "normalized_text": "12 vasos de jugo a 8 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "jugo",
+          "quantity": 12,
+          "unit": "vaso",
+          "unit_price": 8,
+          "total": 96
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 12 vaso(s) de jugo a $8 cada una, total $96. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "jugo",
+          "quantity": 12,
+          "unit": "vaso",
+          "unit_price": 8,
+          "total": 96
+        }
+      }
+    },
+    {
+      "id": "EXT-0235",
+      "text": "debe haber unos 20 de venta",
+      "source_id": "ECUADOR_YAPPA_TESTIMONIALS",
+      "phenomenon": "APPROXIMATE_DAILY_CLOSE",
+      "safety_expectation": "DO_NOT_CREATE_EXACT_FINANCIAL_OPERATION",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "78fd915a-672f-4760-8929-602f7cc42651",
+        "interpreted_at": "2026-08-29T05:53:22.047388+00:00",
+        "original_text": "debe haber unos 20 de venta",
+        "normalized_text": "debe haber unos 20 de venta",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0237",
+      "text": "bájale un poquito el precio",
+      "source_id": "CUENCA_MUNICIPIO_CUSNI_2025",
+      "phenomenon": "PROMOTION_NEGOTIATION",
+      "safety_expectation": "OUT_OF_CORE_OR_CONFIRM",
+      "expected_operation": "NONE",
+      "expected": {},
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "4dcd7c74-46a5-4b81-8c7a-f91a68bb8f72",
+        "interpreted_at": "2026-08-29T05:53:22.047435+00:00",
+        "original_text": "bájale un poquito el precio",
+        "normalized_text": "bajale 1 poquito el precio",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "EXT-0239",
+      "text": "4 libras de fréjol a 3 cada una",
+      "source_id": "CUENCA_SCIELO_SININCAY_2023",
+      "phenomenon": "EXPLICIT_QUANTITY_UNIT_PRICE",
+      "safety_expectation": "PROPOSE_OR_CONFIRM",
+      "expected_operation": "SALE",
+      "expected": {
+        "product": "fréjol",
+        "quantity": 4,
+        "unit": "libra",
+        "unit_price": 3
+      },
+      "critical_violation": null,
+      "predicted": {
+        "interpretation_id": "c7ab1d09-aa00-4451-970f-56dbf2da1def",
+        "interpreted_at": "2026-08-29T05:53:22.047513+00:00",
+        "original_text": "4 libras de fréjol a 3 cada una",
+        "normalized_text": "4 libras de frejol a 3 cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 4,
+          "unit": "libra",
+          "unit_price": 3,
+          "total": 12
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 4 libra(s) de frejol a $3 cada una, total $12. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "frejol",
+          "quantity": 4,
+          "unit": "libra",
+          "unit_price": 3,
+          "total": 12
+        }
+      }
+    }
+  ]
+}

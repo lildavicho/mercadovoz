@@ -1,0 +1,1415 @@
+{
+  "engine": {
+    "name": "deterministic-rules-baseline",
+    "version": "0.1.0",
+    "model": null,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "estimated_cost_per_100_operations_usd": 0.0
+  },
+  "dataset": {
+    "path": "research\\P01_WEB_DERIVED_CORPUS.jsonl",
+    "examples": 25
+  },
+  "metrics": {
+    "intent_accuracy": 0.7058823529411765,
+    "field_accuracy": 0.2777777777777778,
+    "exact_operation_accuracy": 0.2,
+    "core_exact_operation_accuracy": 0.0,
+    "confirmation_recovery": null,
+    "abstention_precision": 0.8636363636363636,
+    "abstention_recall": 0.95,
+    "counts": {
+      "intent": {
+        "correct": 12,
+        "total": 17
+      },
+      "fields": {
+        "correct": 10,
+        "total": 36
+      },
+      "exact": {
+        "correct": 1,
+        "total": 5
+      },
+      "core_exact": {
+        "correct": 0,
+        "total": 4
+      },
+      "corrections": {
+        "correct": 0,
+        "total": 0
+      },
+      "abstentions": {
+        "expected": 20,
+        "predicted": 22,
+        "correct": 19
+      }
+    }
+  },
+  "latency_ms": {
+    "mean": 0.17271199962124228,
+    "median": 0.033199990866705775,
+    "max": 1.4024999982211739
+  },
+  "per_intent": {
+    "EXPENSE": {
+      "examples": 2,
+      "intent_accuracy": 0.5,
+      "exact_operation_accuracy": 0.0
+    },
+    "PAYMENT_RECEIVED": {
+      "examples": 5,
+      "intent_accuracy": 0.8,
+      "exact_operation_accuracy": 0.0
+    },
+    "PURCHASE": {
+      "examples": 2,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": null
+    },
+    "RECEIVABLE": {
+      "examples": 1,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 0.0
+    },
+    "SALE": {
+      "examples": 5,
+      "intent_accuracy": 0.4,
+      "exact_operation_accuracy": null
+    },
+    "STOCK_ADJUSTMENT": {
+      "examples": 2,
+      "intent_accuracy": 1.0,
+      "exact_operation_accuracy": 1.0
+    }
+  },
+  "error_counts": {
+    "abstention_incorrect": 10,
+    "intent_incorrect": 8,
+    "hallucination": 6,
+    "quantity_omitted": 4,
+    "unit_omitted": 4,
+    "amount_omitted": 4,
+    "total_omitted": 3,
+    "unit_price_omitted": 3,
+    "customer_omitted": 3,
+    "product_incorrect": 1,
+    "product_omitted": 1,
+    "category_incorrect": 1,
+    "category_omitted": 1,
+    "mode_omitted": 1
+  },
+  "errors": [
+    {
+      "id": "P01-WEB-DERIVED-001",
+      "text": "vendí cinco libras de tomate en dos dólares",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 5,
+          "unit": "libra"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 5,
+          "unit": "libra",
+          "product": "tomate en 2"
+        },
+        "missing_fields": [
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar el precio por unidad, el total.",
+        "warnings": [
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "categories": [
+        "product_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-002",
+      "text": "se fueron tres fundas a dólar cada una",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 3,
+          "unit": "funda",
+          "unit_price": 1,
+          "total": 3
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "intent_incorrect",
+        "quantity_omitted",
+        "total_omitted",
+        "unit_omitted",
+        "unit_price_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-003",
+      "text": "me llevó dos cajas y me dio veinte",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 2,
+          "unit": "caja",
+          "unit_price": 10,
+          "total": 20
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "intent_incorrect",
+        "quantity_omitted",
+        "total_omitted",
+        "unit_omitted",
+        "unit_price_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-004",
+      "text": "salieron seis libras de tomate",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 6,
+          "unit": "libra"
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "intent_incorrect",
+        "product_omitted",
+        "quantity_omitted",
+        "unit_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-005",
+      "text": "[NOMBRE] quedó debiendo doce",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "[NOMBRE]",
+          "amount": 12
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 12
+        },
+        "missing_fields": [
+          "customer"
+        ],
+        "question": "Necesito confirmar la persona.",
+        "warnings": [
+          "missing:customer"
+        ]
+      },
+      "categories": [
+        "abstention_incorrect",
+        "customer_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-006",
+      "text": "[NOMBRE] llevó ocho y dejó cinco",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-007",
+      "text": "[NOMBRE] me abonó cinco de lo que debía",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]",
+          "amount": 5
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "categories": [
+        "abstention_incorrect",
+        "amount_omitted",
+        "customer_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-009",
+      "text": "de los veinte que debía me dejó diez",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 10
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "categories": [
+        "amount_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-010",
+      "text": "hoy me pagó la mitad de los treinta",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 15
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "categories": [
+        "amount_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-011",
+      "text": "gasté cuatro en pasajes",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 4
+        }
+      },
+      "predicted": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "pasajes"
+        },
+        "missing_fields": [],
+        "question": "Interpreté un gasto de $4 en pasajes. ¿Correcto?",
+        "warnings": []
+      },
+      "categories": [
+        "category_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-012",
+      "text": "pagué seis por traer la mercadería",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 6
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "amount_omitted",
+        "category_omitted",
+        "intent_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-013",
+      "text": "saqué cinco para la casa",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "question": "Necesito confirmar el producto, la cantidad, la unidad, si el stock aumenta, disminuye o queda fijado.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ]
+      },
+      "categories": [
+        "abstention_incorrect",
+        "hallucination",
+        "intent_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-015",
+      "text": "compré dos sacos en veintidós cada uno",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "quantity": 2,
+          "unit": "saco",
+          "unit_price": 22,
+          "total": 44
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "quantity": 2,
+          "unit": "saco",
+          "product": "en 22"
+        },
+        "missing_fields": [
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar el precio por unidad, el total.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "categories": [
+        "hallucination",
+        "total_omitted",
+        "unit_price_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-016",
+      "text": "compré todo eso en el mayorista",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "todo eso en el mayorista"
+        },
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "categories": [
+        "hallucination"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-017",
+      "text": "me quedan cuatro cajas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "caja",
+          "mode": "SET"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "question": "Necesito confirmar el producto, la cantidad, la unidad, si el stock aumenta, disminuye o queda fijado.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ]
+      },
+      "categories": [
+        "mode_omitted",
+        "quantity_omitted",
+        "unit_omitted"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-019",
+      "text": "vendí todo lo que quedaba",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba"
+        },
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "categories": [
+        "hallucination"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-021",
+      "text": "anota que [NOMBRE] ya pagó",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]"
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "customer_omitted",
+        "intent_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-024",
+      "text": "me entraron treinta y gasté ocho en fundas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 8,
+          "category": "fundas"
+        },
+        "missing_fields": [],
+        "question": "Interpreté un gasto de $8 en fundas. ¿Correcto?",
+        "warnings": []
+      },
+      "categories": [
+        "abstention_incorrect",
+        "hallucination",
+        "intent_incorrect"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-025",
+      "text": "vendí cinco y una quedó fiada",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 6,
+          "product": "quedo fiada"
+        },
+        "missing_fields": [
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "categories": [
+        "hallucination",
+        "intent_incorrect"
+      ]
+    }
+  ],
+  "real_world": {
+    "evaluation_role": "exploratory_web",
+    "eligible_for_real_metrics": false,
+    "participants_total": 1,
+    "development_participants": [],
+    "evaluated_participants": [
+      "P01-WEB-DERIVED"
+    ],
+    "heldout_participants": [],
+    "utterances_total": 25,
+    "evaluated_utterances": 25,
+    "recognition_coverage": 0.6,
+    "complete_coverage": 0.12,
+    "unknown_language_rate": 0.88,
+    "unknown_language_counts": {
+      "AMBIGUOUS_REFERENCE": 1,
+      "APPROXIMATE_AMOUNT": 1,
+      "ARITHMETIC_REFERENCE": 1,
+      "COMPOUND_OPERATION": 3,
+      "CONTEXT_REQUIRED": 9,
+      "IMPLICIT_AMOUNT": 4,
+      "IMPLICIT_CUSTOMER": 3,
+      "IMPLICIT_PRODUCT": 5,
+      "MISSING_AMOUNT": 1,
+      "MISSING_PRICE": 1,
+      "MISSING_PRODUCT": 1,
+      "MISSING_QUANTITY": 1,
+      "NON_EXACT_AMOUNT": 1,
+      "NUMERIC_COORDINATION": 1,
+      "OUT_OF_SCOPE_INTENT": 4,
+      "PRICE_TOTAL_AMBIGUITY": 1,
+      "SCHEMA_GAP": 7,
+      "STATE_VS_EVENT": 1,
+      "TEMPORAL_REFERENCE": 2,
+      "UNEXPECTED_STRUCTURE": 2,
+      "UNKNOWN_EXPRESSION": 3
+    }
+  },
+  "case_results": [
+    {
+      "id": "P01-WEB-DERIVED-001",
+      "text": "vendí cinco libras de tomate en dos dólares",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 5,
+          "unit": "libra"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 5,
+          "unit": "libra",
+          "product": "tomate en 2"
+        },
+        "missing_fields": [
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar el precio por unidad, el total.",
+        "warnings": [
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "unknown_language_categories": [
+        "PRICE_TOTAL_AMBIGUITY",
+        "AMBIGUOUS_REFERENCE"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-002",
+      "text": "se fueron tres fundas a dólar cada una",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 3,
+          "unit": "funda",
+          "unit_price": 1,
+          "total": 3
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "UNKNOWN_EXPRESSION",
+        "IMPLICIT_PRODUCT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-003",
+      "text": "me llevó dos cajas y me dio veinte",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 2,
+          "unit": "caja",
+          "unit_price": 10,
+          "total": 20
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "UNKNOWN_EXPRESSION",
+        "IMPLICIT_PRODUCT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-004",
+      "text": "salieron seis libras de tomate",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 6,
+          "unit": "libra"
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "UNKNOWN_EXPRESSION",
+        "MISSING_PRICE"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-005",
+      "text": "[NOMBRE] quedó debiendo doce",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "[NOMBRE]",
+          "amount": 12
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 12
+        },
+        "missing_fields": [
+          "customer"
+        ],
+        "question": "Necesito confirmar la persona.",
+        "warnings": [
+          "missing:customer"
+        ]
+      },
+      "unknown_language_categories": []
+    },
+    {
+      "id": "P01-WEB-DERIVED-006",
+      "text": "[NOMBRE] llevó ocho y dejó cinco",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "COMPOUND_OPERATION",
+        "SCHEMA_GAP"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-007",
+      "text": "[NOMBRE] me abonó cinco de lo que debía",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]",
+          "amount": 5
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "unknown_language_categories": [
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-008",
+      "text": "me pagó todo lo de ayer",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_CUSTOMER",
+        "IMPLICIT_AMOUNT",
+        "TEMPORAL_REFERENCE",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-009",
+      "text": "de los veinte que debía me dejó diez",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 10
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_CUSTOMER",
+        "CONTEXT_REQUIRED",
+        "SCHEMA_GAP"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-010",
+      "text": "hoy me pagó la mitad de los treinta",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 15
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "question": "Necesito confirmar la persona, el importe.",
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ]
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_CUSTOMER",
+        "ARITHMETIC_REFERENCE",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-011",
+      "text": "gasté cuatro en pasajes",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 4
+        }
+      },
+      "predicted": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "pasajes"
+        },
+        "missing_fields": [],
+        "question": "Interpreté un gasto de $4 en pasajes. ¿Correcto?",
+        "warnings": []
+      },
+      "unknown_language_categories": []
+    },
+    {
+      "id": "P01-WEB-DERIVED-012",
+      "text": "pagué seis por traer la mercadería",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 6
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "UNEXPECTED_STRUCTURE"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-013",
+      "text": "saqué cinco para la casa",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "question": "Necesito confirmar el producto, la cantidad, la unidad, si el stock aumenta, disminuye o queda fijado.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ]
+      },
+      "unknown_language_categories": [
+        "SCHEMA_GAP",
+        "OUT_OF_SCOPE_INTENT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-014",
+      "text": "puse diez de mi plata para completar",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "SCHEMA_GAP",
+        "OUT_OF_SCOPE_INTENT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-015",
+      "text": "compré dos sacos en veintidós cada uno",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "quantity": 2,
+          "unit": "saco",
+          "unit_price": 22,
+          "total": 44
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "quantity": 2,
+          "unit": "saco",
+          "product": "en 22"
+        },
+        "missing_fields": [
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar el precio por unidad, el total.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_PRODUCT",
+        "UNEXPECTED_STRUCTURE"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-016",
+      "text": "compré todo eso en el mayorista",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "todo eso en el mayorista"
+        },
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "unknown_language_categories": [
+        "MISSING_PRODUCT",
+        "MISSING_QUANTITY",
+        "MISSING_AMOUNT",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-017",
+      "text": "me quedan cuatro cajas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "caja",
+          "mode": "SET"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "question": "Necesito confirmar el producto, la cantidad, la unidad, si el stock aumenta, disminuye o queda fijado.",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ]
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_PRODUCT",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-018",
+      "text": "solo quedaron tres libras de tomate",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "product": "tomate",
+          "quantity": 3,
+          "unit": "libra",
+          "mode": "SET"
+        }
+      },
+      "predicted": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 3,
+          "unit": "libra",
+          "product": "tomate",
+          "mode": "SET"
+        },
+        "missing_fields": [],
+        "question": "Interpreté un ajuste SET de 3 libra(s) de tomate. ¿Correcto?",
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ]
+      },
+      "unknown_language_categories": []
+    },
+    {
+      "id": "P01-WEB-DERIVED-019",
+      "text": "vendí todo lo que quedaba",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE"
+        }
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "todo lo que quedaba"
+        },
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "unknown_language_categories": [
+        "CONTEXT_REQUIRED",
+        "IMPLICIT_PRODUCT",
+        "IMPLICIT_AMOUNT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-020",
+      "text": "[NOMBRE] todavía debe lo de ayer",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "STATE_VS_EVENT",
+        "TEMPORAL_REFERENCE",
+        "IMPLICIT_AMOUNT",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-021",
+      "text": "anota que [NOMBRE] ya pagó",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]"
+        }
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "IMPLICIT_AMOUNT",
+        "CONTEXT_REQUIRED"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-022",
+      "text": "hoy hice como cuarenta",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "APPROXIMATE_AMOUNT",
+        "SCHEMA_GAP",
+        "OUT_OF_SCOPE_INTENT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-023",
+      "text": "hoy no hice ni veinte",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null
+      },
+      "predicted": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "missing_fields": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "NON_EXACT_AMOUNT",
+        "OUT_OF_SCOPE_INTENT"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-024",
+      "text": "me entraron treinta y gasté ocho en fundas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 8,
+          "category": "fundas"
+        },
+        "missing_fields": [],
+        "question": "Interpreté un gasto de $8 en fundas. ¿Correcto?",
+        "warnings": []
+      },
+      "unknown_language_categories": [
+        "COMPOUND_OPERATION",
+        "SCHEMA_GAP"
+      ]
+    },
+    {
+      "id": "P01-WEB-DERIVED-025",
+      "text": "vendí cinco y una quedó fiada",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null
+      },
+      "predicted": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 6,
+          "product": "quedo fiada"
+        },
+        "missing_fields": [
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "question": "Necesito confirmar la unidad, el precio por unidad, el total.",
+        "warnings": [
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ]
+      },
+      "unknown_language_categories": [
+        "COMPOUND_OPERATION",
+        "NUMERIC_COORDINATION",
+        "SCHEMA_GAP"
+      ]
+    }
+  ],
+  "synthetic_reference": {
+    "path": "C:\\ideas\\experiments\\mercado-voz-parser\\results\\heldout-rules.json",
+    "intent_accuracy": 1.0,
+    "field_accuracy": 1.0,
+    "exact_operation_accuracy": 1.0,
+    "core_exact_operation_accuracy": 1.0,
+    "confirmation_recovery": 1.0,
+    "abstention_precision": 1.0,
+    "abstention_recall": 1.0
+  },
+  "comparison_percentage_points": {
+    "intent_accuracy": -29.41,
+    "field_accuracy": -72.22,
+    "exact_operation_accuracy": -80.0,
+    "core_exact_operation_accuracy": -100.0,
+    "confirmation_recovery": null,
+    "abstention_precision": -13.64,
+    "abstention_recall": -5.0
+  }
+}

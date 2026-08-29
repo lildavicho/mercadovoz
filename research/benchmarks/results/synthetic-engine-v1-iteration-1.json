@@ -1,0 +1,1211 @@
+{
+  "engine": {
+    "name": "rules-context-confirmation",
+    "version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+    "model": null,
+    "estimated_cost_usd": 0.0
+  },
+  "dataset": {
+    "path": "data\\evaluation.jsonl",
+    "role": "synthetic_heldout_regression",
+    "examples": 30
+  },
+  "metrics": {
+    "status_exact_match": 0.7333333333333333,
+    "intent_accuracy": 0.7586206896551724,
+    "expected_field_accuracy": 0.725,
+    "exact_complete_accuracy": 0.7916666666666666,
+    "core_exact_complete_accuracy": 0.7894736842105263,
+    "safe_nonfinal_handling": 1.0,
+    "unsafe_operation_proposals": 0,
+    "compound_detection": null,
+    "context_case_safe_handling": null,
+    "counts": {
+      "status": {
+        "correct": 22,
+        "total": 30
+      },
+      "intent": {
+        "correct": 22,
+        "total": 29
+      },
+      "fields": {
+        "correct": 58,
+        "total": 80
+      },
+      "exact_complete": {
+        "correct": 19,
+        "total": 24
+      },
+      "core_exact_complete": {
+        "correct": 15,
+        "total": 19
+      },
+      "safe_nonfinal": {
+        "correct": 6,
+        "total": 6
+      },
+      "compound": {
+        "correct": 0,
+        "total": 0
+      },
+      "context": {
+        "correct": 0,
+        "total": 0
+      }
+    },
+    "predicted_statuses": {
+      "AMBIGUOUS": 5,
+      "COMPLETE": 19,
+      "COMPOUND_OPERATION": 2,
+      "NEEDS_CONFIRMATION": 2,
+      "NEEDS_CONTEXT": 1,
+      "UNRECOGNIZED": 1
+    }
+  },
+  "latency_ms": {
+    "mean": 0.23994666795867184,
+    "median": 0.0926000066101551,
+    "max": 2.0330999977886677
+  },
+  "case_results": [
+    {
+      "id": "mv-eval-001",
+      "text": "Vendí seis cajas de tomate a trece dólares cada una",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 6,
+          "unit": "caja",
+          "unit_price": 13,
+          "total": 78
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "70c74a7a-7d32-479d-b0f8-5ff903eb1e78",
+        "interpreted_at": "2026-08-29T05:53:44.724748+00:00",
+        "original_text": "Vendí seis cajas de tomate a trece dólares cada una",
+        "normalized_text": "vendi 6 cajas de tomate a 13 dolares cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 6,
+          "unit": "caja",
+          "unit_price": 13,
+          "total": 78
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 6 caja(s) de tomate a $13 cada una, total $78. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 6,
+          "unit": "caja",
+          "unit_price": 13,
+          "total": 78
+        }
+      }
+    },
+    {
+      "id": "mv-eval-002",
+      "text": "Vendimos cuatro sacos de papa a veinticinco",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "papa",
+          "quantity": 4,
+          "unit": "saco",
+          "unit_price": 25,
+          "total": 100
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "ab1ce3c3-1b4f-4943-8c5a-ce495f7aa335",
+        "interpreted_at": "2026-08-29T05:53:44.726579+00:00",
+        "original_text": "Vendimos cuatro sacos de papa a veinticinco",
+        "normalized_text": "vendimos 4 sacos de papa a 25",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-003",
+      "text": "Vendí doce libras de cebolla por dieciocho dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 12,
+          "unit": "libra",
+          "unit_price": 1.5,
+          "total": 18
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "5a697d38-8927-424e-88ca-aed046aa4e92",
+        "interpreted_at": "2026-08-29T05:53:44.726699+00:00",
+        "original_text": "Vendí doce libras de cebolla por dieciocho dólares",
+        "normalized_text": "vendi 12 libras de cebolla por 18 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 12,
+          "unit": "libra",
+          "total": 18,
+          "unit_price": 1.5
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté una venta de 12 libra(s) de cebolla a $1.5 cada una, total $18. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 12,
+          "unit": "libra",
+          "total": 18,
+          "unit_price": 1.5
+        }
+      }
+    },
+    {
+      "id": "mv-eval-004",
+      "text": "Vendí dos jabas de naranja a nueve dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "naranja",
+          "quantity": 2,
+          "unit": "jaba",
+          "unit_price": 9,
+          "total": 18
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "428dc047-7602-421b-9831-4617ae5acb7f",
+        "interpreted_at": "2026-08-29T05:53:44.727545+00:00",
+        "original_text": "Vendí dos jabas de naranja a nueve dólares",
+        "normalized_text": "vendi 2 jabas de naranja a 9 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-005",
+      "text": "Vendí tres docenas de huevos a cuatro",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "huevos",
+          "quantity": 3,
+          "unit": "docena",
+          "unit_price": 4,
+          "total": 12
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "36996b8a-a655-462a-b354-dd8947f132c6",
+        "interpreted_at": "2026-08-29T05:53:44.727602+00:00",
+        "original_text": "Vendí tres docenas de huevos a cuatro",
+        "normalized_text": "vendi 3 docenas de huevos a 4",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-006",
+      "text": "Vendí cinco fundas de arroz a dos dólares cada una",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 5,
+          "unit": "funda",
+          "unit_price": 2,
+          "total": 10
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "ea805671-5f52-4cbc-b07d-358150c21910",
+        "interpreted_at": "2026-08-29T05:53:44.727654+00:00",
+        "original_text": "Vendí cinco fundas de arroz a dos dólares cada una",
+        "normalized_text": "vendi 5 fundas de arroz a 2 dolares cada 1",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 5,
+          "unit": "funda",
+          "unit_price": 2,
+          "total": 10
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "explicit_rules_v1"
+        ],
+        "question": "Interpreté una venta de 5 funda(s) de arroz a $2 cada una, total $10. ¿Correcto?",
+        "operation": {
+          "type": "SALE",
+          "product": "arroz",
+          "quantity": 5,
+          "unit": "funda",
+          "unit_price": 2,
+          "total": 10
+        }
+      }
+    },
+    {
+      "id": "mv-eval-007",
+      "text": "Gasté nueve dólares en transporte",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 9
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "fea2da31-d666-493e-afd1-f5e9d096bfb8",
+        "interpreted_at": "2026-08-29T05:53:44.727753+00:00",
+        "original_text": "Gasté nueve dólares en transporte",
+        "normalized_text": "gaste 9 dolares en transporte",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 9,
+          "category": "transporte"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $9 en transporte. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 9,
+          "category": "transporte"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-008",
+      "text": "Pagué seis de parqueadero",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "parqueadero",
+          "amount": 6
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "b649a765-1745-4a1a-9b02-309b7b3818a1",
+        "interpreted_at": "2026-08-29T05:53:44.728191+00:00",
+        "original_text": "Pagué seis de parqueadero",
+        "normalized_text": "pague 6 de parqueadero",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 6,
+          "category": "parqueadero"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $6 en parqueadero. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 6,
+          "category": "parqueadero"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-009",
+      "text": "Gastamos en comida treinta dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "comida",
+          "amount": 30
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "17d372aa-4d51-4a07-bece-5ef7a61eb264",
+        "interpreted_at": "2026-08-29T05:53:44.728286+00:00",
+        "original_text": "Gastamos en comida treinta dólares",
+        "normalized_text": "gastamos en comida 30 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "personal_or_business_expense_ambiguous"
+        ],
+        "question": "¿Fue un gasto del negocio o un gasto personal?",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-010",
+      "text": "Gasté 4 dólares en fundas",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "fundas",
+          "amount": 4
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "7a81b6e4-b0c8-46e6-8124-a38ff6b7bb12",
+        "interpreted_at": "2026-08-29T05:53:44.728321+00:00",
+        "original_text": "Gasté 4 dólares en fundas",
+        "normalized_text": "gaste 4 dolares en fundas",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "fundas"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un gasto de $4 en fundas. ¿Correcto?",
+        "operation": {
+          "type": "EXPENSE",
+          "amount": 4,
+          "category": "fundas"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-011",
+      "text": "Elena me debe veintidós dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Elena",
+          "amount": 22
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "230f7f77-7108-43cd-8628-8c51b3457349",
+        "interpreted_at": "2026-08-29T05:53:44.728408+00:00",
+        "original_text": "Elena me debe veintidós dólares",
+        "normalized_text": "elena me debe 22 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "customer": "Elena",
+          "amount": 22
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté que Elena debe $22. ¿Correcto?",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Elena",
+          "amount": 22
+        }
+      }
+    },
+    {
+      "id": "mv-eval-012",
+      "text": "Mario me quedó debiendo diecisiete",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Mario",
+          "amount": 17
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "5e0fe175-e9b3-41b7-8c7a-9f65ef068c7f",
+        "interpreted_at": "2026-08-29T05:53:44.728653+00:00",
+        "original_text": "Mario me quedó debiendo diecisiete",
+        "normalized_text": "mario me quedo debiendo 17",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "customer": "Mario",
+          "amount": 17
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté que Mario debe $17. ¿Correcto?",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Mario",
+          "amount": 17
+        }
+      }
+    },
+    {
+      "id": "mv-eval-013",
+      "text": "Me debe Carla catorce dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Carla",
+          "amount": 14
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "f6b640ed-7eb8-4c7b-9a22-099da45dd991",
+        "interpreted_at": "2026-08-29T05:53:44.728748+00:00",
+        "original_text": "Me debe Carla catorce dólares",
+        "normalized_text": "me debe carla 14 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "customer": "Carla",
+          "amount": 14
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté que Carla debe $14. ¿Correcto?",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Carla",
+          "amount": 14
+        }
+      }
+    },
+    {
+      "id": "mv-eval-014",
+      "text": "Pedro me debe 19",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Pedro",
+          "amount": 19
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "9694172d-75c6-4013-adf7-1246a8952fd3",
+        "interpreted_at": "2026-08-29T05:53:44.728984+00:00",
+        "original_text": "Pedro me debe 19",
+        "normalized_text": "pedro me debe 19",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "customer": "Pedro",
+          "amount": 19
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté que Pedro debe $19. ¿Correcto?",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "Pedro",
+          "amount": 19
+        }
+      }
+    },
+    {
+      "id": "mv-eval-015",
+      "text": "Elena abonó siete dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Elena",
+          "amount": 7
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "79b20927-d83a-4702-8b75-ecbbbba15aa0",
+        "interpreted_at": "2026-08-29T05:53:44.729070+00:00",
+        "original_text": "Elena abonó siete dólares",
+        "normalized_text": "elena abono 7 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Elena",
+          "amount": 7
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un abono de Elena por $7. ¿Correcto?",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Elena",
+          "amount": 7
+        }
+      }
+    },
+    {
+      "id": "mv-eval-016",
+      "text": "Mario me pagó trece",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Mario",
+          "amount": 13
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "12b381a9-7a95-4cb3-b5bf-092709ad25a8",
+        "interpreted_at": "2026-08-29T05:53:44.729315+00:00",
+        "original_text": "Mario me pagó trece",
+        "normalized_text": "mario me pago 13",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Mario",
+          "amount": 13
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un abono de Mario por $13. ¿Correcto?",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Mario",
+          "amount": 13
+        }
+      }
+    },
+    {
+      "id": "mv-eval-017",
+      "text": "Carla pagó una parte de nueve dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Carla",
+          "amount": 9
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "6e122d98-a265-4ef0-b7d0-fe7394d95588",
+        "interpreted_at": "2026-08-29T05:53:44.729396+00:00",
+        "original_text": "Carla pagó una parte de nueve dólares",
+        "normalized_text": "carla pago 1 parte de 9 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Carla",
+          "amount": 9
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un abono de Carla por $9. ¿Correcto?",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Carla",
+          "amount": 9
+        }
+      }
+    },
+    {
+      "id": "mv-eval-018",
+      "text": "Pedro me dejó cinco dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Pedro",
+          "amount": 5
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "ca7ca009-a09d-42f7-a695-c4a5df993b6c",
+        "interpreted_at": "2026-08-29T05:53:44.729490+00:00",
+        "original_text": "Pedro me dejó cinco dólares",
+        "normalized_text": "pedro me dejo 5 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Pedro",
+          "amount": 5
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un abono de Pedro por $5. ¿Correcto?",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Pedro",
+          "amount": 5
+        }
+      }
+    },
+    {
+      "id": "mv-eval-019",
+      "text": "Compré quince kilos de arroz por treinta dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "arroz",
+          "quantity": 15,
+          "unit": "kilo",
+          "unit_price": 2,
+          "total": 30
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "cad7ec57-d67e-4c26-a087-04ffc8ecfaa4",
+        "interpreted_at": "2026-08-29T05:53:44.729575+00:00",
+        "original_text": "Compré quince kilos de arroz por treinta dólares",
+        "normalized_text": "compre 15 kilos de arroz por 30 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PURCHASE",
+          "product": "arroz",
+          "quantity": 15,
+          "unit": "kilo",
+          "total": 30,
+          "unit_price": 2
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté una compra de 15 kilo(s) de arroz a $2 cada una, total $30. ¿Correcto?",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "arroz",
+          "quantity": 15,
+          "unit": "kilo",
+          "total": 30,
+          "unit_price": 2
+        }
+      }
+    },
+    {
+      "id": "mv-eval-020",
+      "text": "Compramos tres cajas de tomate a once",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "tomate",
+          "quantity": 3,
+          "unit": "caja",
+          "unit_price": 11,
+          "total": 33
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "3b4a9125-d6e7-4652-9927-804fa0097ea8",
+        "interpreted_at": "2026-08-29T05:53:44.730153+00:00",
+        "original_text": "Compramos tres cajas de tomate a once",
+        "normalized_text": "compramos 3 cajas de tomate a 11",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-021",
+      "text": "Me quedan nueve sacos de papa",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "product": "papa",
+          "quantity": 9,
+          "unit": "saco",
+          "mode": "SET"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "3491df52-4536-4401-822a-f232e27305d6",
+        "interpreted_at": "2026-08-29T05:53:44.730203+00:00",
+        "original_text": "Me quedan nueve sacos de papa",
+        "normalized_text": "me quedan 9 sacos de papa",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 9,
+          "unit": "saco",
+          "product": "papa",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 9 saco(s) de papa. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 9,
+          "unit": "saco",
+          "product": "papa",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-022",
+      "text": "Entraron cuatro jabas de tomate",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "product": "tomate",
+          "quantity": 4,
+          "unit": "jaba",
+          "mode": "INCREASE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "6c4c34b2-480c-40c4-a30d-2b207273dcf0",
+        "interpreted_at": "2026-08-29T05:53:44.730594+00:00",
+        "original_text": "Entraron cuatro jabas de tomate",
+        "normalized_text": "entraron 4 jabas de tomate",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "jaba",
+          "product": "tomate",
+          "mode": "INCREASE"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste INCREASE de 4 jaba(s) de tomate. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "jaba",
+          "product": "tomate",
+          "mode": "INCREASE"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-023",
+      "text": "Vendí tomate por veinte",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "total": 20
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "03076886-cba8-4353-acf2-3ddb1ae8e93c",
+        "interpreted_at": "2026-08-29T05:53:44.730687+00:00",
+        "original_text": "Vendí tomate por veinte",
+        "normalized_text": "vendi tomate por 20",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "tomate",
+          "total": 20
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad.",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "total": 20
+        }
+      }
+    },
+    {
+      "id": "mv-eval-024",
+      "text": "Gasté en varias cosas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "EXPENSE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "e6208d99-53ef-4cba-8dca-99a4a01cde58",
+        "interpreted_at": "2026-08-29T05:53:44.731177+00:00",
+        "original_text": "Gasté en varias cosas",
+        "normalized_text": "gaste en varias cosas",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "EXPENSE"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "category",
+          "amount"
+        ],
+        "warnings": [
+          "missing:category",
+          "missing:amount"
+        ],
+        "question": "Necesito confirmar la categoría del gasto, el importe.",
+        "operation": {
+          "type": "EXPENSE"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-025",
+      "text": "Laura me debe",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "RECEIVABLE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "57236756-5609-4d96-805e-bc5728da90c3",
+        "interpreted_at": "2026-08-29T05:53:44.731256+00:00",
+        "original_text": "Laura me debe",
+        "normalized_text": "laura me debe",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "RECEIVABLE"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-026",
+      "text": "Hoy estuvo tranquilo el mercado",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "cbeb41e8-698e-4eb2-867c-e8752a533442",
+        "interpreted_at": "2026-08-29T05:53:44.731400+00:00",
+        "original_text": "Hoy estuvo tranquilo el mercado",
+        "normalized_text": "hoy estuvo tranquilo el mercado",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-027",
+      "text": "Compré veinte libras de cebolla por dieciocho y le quedé debiendo cinco",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PURCHASE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "5fcb53c7-ee93-4c20-8331-3c53ed59728c",
+        "interpreted_at": "2026-08-29T05:53:44.731485+00:00",
+        "original_text": "Compré veinte libras de cebolla por dieciocho y le quedé debiendo cinco",
+        "normalized_text": "compre 20 libras de cebolla por 18 y le quede debiendo 5",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-028",
+      "text": "Vendí tres cajas de tomate a doce y Rosa me quedó debiendo ocho",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "0e95665e-8a54-46c9-8622-7bf1aa4ac7e3",
+        "interpreted_at": "2026-08-29T05:53:44.731551+00:00",
+        "original_text": "Vendí tres cajas de tomate a doce y Rosa me quedó debiendo ocho",
+        "normalized_text": "vendi 3 cajas de tomate a 12 y rosa me quedo debiendo 8",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "mv-eval-029",
+      "text": "Saqué dos fundas de arroz",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "product": "arroz",
+          "quantity": 2,
+          "unit": "funda",
+          "mode": "DECREASE"
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "9f588010-d326-4e9c-b40e-c71846a391d7",
+        "interpreted_at": "2026-08-29T05:53:44.731599+00:00",
+        "original_text": "Saqué dos fundas de arroz",
+        "normalized_text": "saque 2 fundas de arroz",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 2,
+          "unit": "funda",
+          "product": "arroz",
+          "mode": "DECREASE"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste DECREASE de 2 funda(s) de arroz. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 2,
+          "unit": "funda",
+          "product": "arroz",
+          "mode": "DECREASE"
+        }
+      }
+    },
+    {
+      "id": "mv-eval-030",
+      "text": "Ana abonó diez dólares",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Ana",
+          "amount": 10
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "195dd08c-a817-491e-9bcb-f8ce1f7d4163",
+        "interpreted_at": "2026-08-29T05:53:44.731767+00:00",
+        "original_text": "Ana abonó diez dólares",
+        "normalized_text": "ana abono 10 dolares",
+        "parser_version": "rules-v0.1.0+explicit-v0.2.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Ana",
+          "amount": 10
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "Interpreté un abono de Ana por $10. ¿Correcto?",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "Ana",
+          "amount": 10
+        }
+      }
+    }
+  ]
+}

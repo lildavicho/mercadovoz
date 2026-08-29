@@ -1,0 +1,957 @@
+{
+  "engine": {
+    "name": "rules-context-confirmation",
+    "version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+    "model": null,
+    "estimated_cost_usd": 0.0
+  },
+  "dataset": {
+    "path": "research\\P00_WEB_CORPUS.jsonl",
+    "role": "exploratory_web",
+    "examples": 25
+  },
+  "metrics": {
+    "status_exact_match": 0.16,
+    "intent_accuracy": 0.3684210526315789,
+    "expected_field_accuracy": 0.10638297872340426,
+    "exact_complete_accuracy": 0.14285714285714285,
+    "core_exact_complete_accuracy": 0.0,
+    "safe_nonfinal_handling": 1.0,
+    "unsafe_operation_proposals": 0,
+    "compound_detection": 1.0,
+    "context_case_safe_handling": null,
+    "counts": {
+      "status": {
+        "correct": 4,
+        "total": 25
+      },
+      "intent": {
+        "correct": 7,
+        "total": 19
+      },
+      "fields": {
+        "correct": 5,
+        "total": 47
+      },
+      "exact_complete": {
+        "correct": 1,
+        "total": 7
+      },
+      "core_exact_complete": {
+        "correct": 0,
+        "total": 4
+      },
+      "safe_nonfinal": {
+        "correct": 18,
+        "total": 18
+      },
+      "compound": {
+        "correct": 3,
+        "total": 3
+      },
+      "context": {
+        "correct": 0,
+        "total": 0
+      }
+    },
+    "predicted_statuses": {
+      "AMBIGUOUS": 4,
+      "COMPLETE": 1,
+      "COMPOUND_OPERATION": 4,
+      "NEEDS_CONFIRMATION": 1,
+      "NEEDS_CONTEXT": 6,
+      "OUT_OF_SCOPE": 1,
+      "UNRECOGNIZED": 8
+    }
+  },
+  "latency_ms": {
+    "mean": 0.21718000003602356,
+    "median": 0.07239999831654131,
+    "max": 1.3143000105628744
+  },
+  "case_results": [
+    {
+      "id": "P00-WEB-001",
+      "text": "vendí cinco libras de tomate a dos dólares",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate",
+          "quantity": 5,
+          "unit": "libra"
+        },
+        "categories": [
+          "AMBIGUOUS_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "2d008ea3-12b3-4f7c-a806-e293bdbabfbf",
+        "interpreted_at": "2026-08-29T05:28:35.866916+00:00",
+        "original_text": "vendí cinco libras de tomate a dos dólares",
+        "normalized_text": "vendi 5 libras de tomate a 2 dolares",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-002",
+      "text": "se fueron tres fundas de cebolla a dólar cada una",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "SALE",
+          "product": "cebolla",
+          "quantity": 3,
+          "unit": "funda",
+          "unit_price": 1,
+          "total": 3
+        },
+        "categories": [
+          "UNKNOWN_EXPRESSION"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "969fbf43-7191-4b98-a747-98d4b6d6b7df",
+        "interpreted_at": "2026-08-29T05:28:35.868038+00:00",
+        "original_text": "se fueron tres fundas de cebolla a dólar cada una",
+        "normalized_text": "se fueron 3 fundas de cebolla a dolar cada 1",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-003",
+      "text": "me llevó dos cajas y me pagó veinte",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 2,
+          "unit": "caja",
+          "unit_price": 10,
+          "total": 20
+        },
+        "categories": [
+          "UNKNOWN_EXPRESSION",
+          "IMPLICIT_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "4d38117a-cd35-458a-bed3-0a9bf5ca838c",
+        "interpreted_at": "2026-08-29T05:28:35.868476+00:00",
+        "original_text": "me llevó dos cajas y me pagó veinte",
+        "normalized_text": "me llevo 2 cajas y me pago 20",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-004",
+      "text": "[NOMBRE] quedó debiendo doce",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "RECEIVABLE",
+          "customer": "[NOMBRE]",
+          "amount": 12
+        },
+        "categories": [
+          "UNKNOWN_EXPRESSION"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "93ddff65-59ba-4950-9e22-af2832d38ff1",
+        "interpreted_at": "2026-08-29T05:28:35.868530+00:00",
+        "original_text": "[NOMBRE] quedó debiendo doce",
+        "normalized_text": "nombre quedo debiendo 12",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "RECEIVABLE",
+          "amount": 12
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer"
+        ],
+        "warnings": [
+          "missing:customer"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "RECEIVABLE",
+          "amount": 12
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-005",
+      "text": "[NOMBRE] me abonó cinco",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]",
+          "amount": 5
+        },
+        "categories": []
+      },
+      "predicted": {
+        "interpretation_id": "2242849a-75ed-44e4-88ec-ee6802784d48",
+        "interpreted_at": "2026-08-29T05:28:35.868994+00:00",
+        "original_text": "[NOMBRE] me abonó cinco",
+        "normalized_text": "nombre me abono 5",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-006",
+      "text": "me pagó todo lo que debía",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "categories": [
+          "IMPLICIT_REFERENCE",
+          "IMPLICIT_AMOUNT"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "d87fae50-79fa-41d2-a96f-dbe838ff8499",
+        "interpreted_at": "2026-08-29T05:28:35.869470+00:00",
+        "original_text": "me pagó todo lo que debía",
+        "normalized_text": "me pago todo lo que debia",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-007",
+      "text": "gasté cuatro en el almuerzo",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "almuerzo",
+          "amount": 4
+        },
+        "categories": [
+          "SCHEMA_GAP",
+          "AMBIGUOUS_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "5718d31d-5e89-4d71-bf88-c1b040648f0e",
+        "interpreted_at": "2026-08-29T05:28:35.869547+00:00",
+        "original_text": "gasté cuatro en el almuerzo",
+        "normalized_text": "gaste 4 en el almuerzo",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "personal_or_business_expense_ambiguous"
+        ],
+        "question": "¿Fue un gasto del negocio o un gasto personal?",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-008",
+      "text": "pagué seis del transporte",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "EXPENSE",
+          "category": "transporte",
+          "amount": 6
+        },
+        "categories": [
+          "UNEXPECTED_STRUCTURE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "a5a21e53-49fd-4a36-840c-229dba2ec599",
+        "interpreted_at": "2026-08-29T05:28:35.869581+00:00",
+        "original_text": "pagué seis del transporte",
+        "normalized_text": "pague 6 del transporte",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-009",
+      "text": "compré una caja de tomates en quince",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "tomate",
+          "quantity": 1,
+          "unit": "caja",
+          "unit_price": 15,
+          "total": 15
+        },
+        "categories": [
+          "UNEXPECTED_STRUCTURE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "8053981e-9efa-447b-bd2c-a5660bfc1304",
+        "interpreted_at": "2026-08-29T05:28:35.869647+00:00",
+        "original_text": "compré una caja de tomates en quince",
+        "normalized_text": "compre 1 caja de tomates en 15",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "price_basis_ambiguous"
+        ],
+        "question": "¿Ese valor es el precio por unidad o el total de la operación?",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-010",
+      "text": "traje dos sacos de papas a veintidós cada uno",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "PURCHASE",
+          "product": "papa",
+          "quantity": 2,
+          "unit": "saco",
+          "unit_price": 22,
+          "total": 44
+        },
+        "categories": [
+          "UNKNOWN_EXPRESSION"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "2b690446-0c94-4634-8904-69e92d3838f4",
+        "interpreted_at": "2026-08-29T05:28:35.869702+00:00",
+        "original_text": "traje dos sacos de papas a veintidós cada uno",
+        "normalized_text": "traje 2 sacos de papas a 22 cada 1",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-011",
+      "text": "me quedan cuatro cajas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 4,
+          "unit": "caja",
+          "mode": "SET"
+        },
+        "categories": [
+          "IMPLICIT_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "665f3689-f1a7-4a5d-b23c-e855ea37a51c",
+        "interpreted_at": "2026-08-29T05:28:35.869779+00:00",
+        "original_text": "me quedan cuatro cajas",
+        "normalized_text": "me quedan 4 cajas",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "product",
+          "quantity",
+          "unit",
+          "mode"
+        ],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric",
+          "missing:product",
+          "missing:quantity",
+          "missing:unit",
+          "missing:mode"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-012",
+      "text": "solo quedaron tres libras de tomate",
+      "expected": {
+        "status": "COMPLETE",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "product": "tomate",
+          "quantity": 3,
+          "unit": "libra",
+          "mode": "SET"
+        },
+        "categories": [
+          "UNEXPECTED_STRUCTURE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "ef786dbd-1d51-4f0b-9b97-c9d6ec7ac1e8",
+        "interpreted_at": "2026-08-29T05:28:35.870121+00:00",
+        "original_text": "solo quedaron tres libras de tomate",
+        "normalized_text": "solo quedaron 3 libras de tomate",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPLETE",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 3,
+          "unit": "libra",
+          "product": "tomate",
+          "mode": "SET"
+        },
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "exploratory_operation_not_in_go_metric"
+        ],
+        "question": "Interpreté un ajuste SET de 3 libra(s) de tomate. ¿Correcto?",
+        "operation": {
+          "type": "STOCK_ADJUSTMENT",
+          "quantity": 3,
+          "unit": "libra",
+          "product": "tomate",
+          "mode": "SET"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-013",
+      "text": "salieron diez fundas hoy",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 10,
+          "unit": "funda"
+        },
+        "categories": [
+          "UNKNOWN_EXPRESSION",
+          "IMPLICIT_REFERENCE",
+          "IMPLICIT_AMOUNT"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "c3093474-f58a-427d-950b-65e0eebe181a",
+        "interpreted_at": "2026-08-29T05:28:35.870278+00:00",
+        "original_text": "salieron diez fundas hoy",
+        "normalized_text": "salieron 10 fundas hoy",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-014",
+      "text": "hoy hice como cuarenta dólares",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": [
+          "OUT_OF_SCOPE_INTENT",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "3f1dec03-caf5-4274-8673-cb07938aa2e6",
+        "interpreted_at": "2026-08-29T05:28:35.870340+00:00",
+        "original_text": "hoy hice como cuarenta dólares",
+        "normalized_text": "hoy hice como 40 dolares",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "AMBIGUOUS",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "approximate_amount_not_exact"
+        ],
+        "question": "El valor parece aproximado. Indique el valor exacto antes de proponer el registro.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-015",
+      "text": "hoy estuvo flojo, no hice ni veinte",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": [
+          "OUT_OF_SCOPE_INTENT",
+          "AMBIGUOUS_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "1855fb96-6aa7-4781-a9f4-a37e8259baa5",
+        "interpreted_at": "2026-08-29T05:28:35.870370+00:00",
+        "original_text": "hoy estuvo flojo, no hice ni veinte",
+        "normalized_text": "hoy estuvo flojo , no hice ni 20",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-016",
+      "text": "vendí dos a cinco y una quedó fiada",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "quantity": 2,
+          "unit_price": 5,
+          "total": 10
+        },
+        "categories": [
+          "COMPOUND_OPERATION",
+          "IMPLICIT_REFERENCE",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "8987d08a-d7fe-4823-a80d-7c87e5ac24f4",
+        "interpreted_at": "2026-08-29T05:28:35.870440+00:00",
+        "original_text": "vendí dos a cinco y una quedó fiada",
+        "normalized_text": "vendi 2 a 6 quedo fiada",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-017",
+      "text": "[NOMBRE] llevó ocho y pagó cinco nomás",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "total": 8
+        },
+        "categories": [
+          "COMPOUND_OPERATION",
+          "UNKNOWN_EXPRESSION",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "6312e62e-553e-41ed-b4a8-dcc965c5c147",
+        "interpreted_at": "2026-08-29T05:28:35.870490+00:00",
+        "original_text": "[NOMBRE] llevó ocho y pagó cinco nomás",
+        "normalized_text": "nombre llevo 8 y pago 5 nomas",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-018",
+      "text": "me debía quince y hoy dejó diez",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 10
+        },
+        "categories": [
+          "IMPLICIT_REFERENCE",
+          "UNEXPECTED_STRUCTURE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "d4fa69ea-f528-48eb-95d6-114807ba179c",
+        "interpreted_at": "2026-08-29T05:28:35.870535+00:00",
+        "original_text": "me debía quince y hoy dejó diez",
+        "normalized_text": "me debia 15 y hoy dejo 10",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-019",
+      "text": "de los veinte que debía me pagó la mitad",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "amount": 10
+        },
+        "categories": [
+          "IMPLICIT_REFERENCE",
+          "UNEXPECTED_STRUCTURE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "7b8cde21-39a3-4799-ad50-7058f50fb18b",
+        "interpreted_at": "2026-08-29T05:28:35.870873+00:00",
+        "original_text": "de los veinte que debía me pagó la mitad",
+        "normalized_text": "de los 20 que debia me pago la mitad",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "PAYMENT_RECEIVED"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "customer",
+          "amount"
+        ],
+        "warnings": [
+          "missing:customer",
+          "missing:amount"
+        ],
+        "question": "Seleccione el contexto faltante antes de proponer la operación.",
+        "operation": {
+          "type": "PAYMENT_RECEIVED"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-020",
+      "text": "saqué cinco dólares para una cosa de la casa",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": [
+          "OUT_OF_SCOPE_INTENT",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "403b0d9a-f289-4c60-a753-f3003ec53763",
+        "interpreted_at": "2026-08-29T05:28:35.870963+00:00",
+        "original_text": "saqué cinco dólares para una cosa de la casa",
+        "normalized_text": "saque 5 dolares para 1 cosa de la casa",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "OUT_OF_SCOPE",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "owner_withdrawal_schema_gap"
+        ],
+        "question": "Parece un retiro personal; esa operación todavía no tiene un esquema aprobado.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-021",
+      "text": "puse diez de mi plata para completar",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": [
+          "OUT_OF_SCOPE_INTENT",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "b954bf44-33fa-49fa-b77b-bc6e58cec5b0",
+        "interpreted_at": "2026-08-29T05:28:35.871075+00:00",
+        "original_text": "puse diez de mi plata para completar",
+        "normalized_text": "puse 10 de mi plata para completar",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-022",
+      "text": "me dieron treinta de una venta y gasté ocho comprando fundas",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": null,
+        "categories": [
+          "COMPOUND_OPERATION",
+          "SCHEMA_GAP"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "81040e3c-6d65-436b-9f91-738ee0caf865",
+        "interpreted_at": "2026-08-29T05:28:35.871158+00:00",
+        "original_text": "me dieron treinta de una venta y gasté ocho comprando fundas",
+        "normalized_text": "me dieron 30 de 1 venta y gaste 8 comprando fundas",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "COMPOUND_OPERATION",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "compound_operation_requires_split"
+        ],
+        "question": "Detecté más de una operación. Dígalas por separado para evitar mezclar importes o cantidades.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-023",
+      "text": "vendí todo el tomate que quedaba",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "SALE",
+          "product": "tomate"
+        },
+        "categories": [
+          "IMPLICIT_AMOUNT",
+          "IMPLICIT_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "c398b599-4c08-44ee-a289-5e979313f863",
+        "interpreted_at": "2026-08-29T05:28:35.871207+00:00",
+        "original_text": "vendí todo el tomate que quedaba",
+        "normalized_text": "vendi todo el tomate que quedaba",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONFIRMATION",
+        "lifecycle_status": "PROPOSED",
+        "context_used": [],
+        "fields_extracted": {
+          "type": "SALE",
+          "product": "todo el tomate que quedaba"
+        },
+        "computed_fields": {},
+        "missing_fields": [
+          "quantity",
+          "unit",
+          "unit_price",
+          "total"
+        ],
+        "warnings": [
+          "missing:quantity",
+          "missing:unit",
+          "missing:unit_price",
+          "missing:total"
+        ],
+        "question": "Necesito confirmar la cantidad, la unidad, el precio por unidad, el total.",
+        "operation": {
+          "type": "SALE",
+          "product": "todo el tomate que quedaba"
+        }
+      }
+    },
+    {
+      "id": "P00-WEB-024",
+      "text": "[NOMBRE] todavía me debe lo de ayer",
+      "expected": {
+        "status": "UNRECOGNIZED",
+        "operation": null,
+        "categories": [
+          "IMPLICIT_REFERENCE",
+          "IMPLICIT_AMOUNT",
+          "OUT_OF_SCOPE_INTENT"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "655f5c00-1d4b-4a65-94ac-2148bd4580c9",
+        "interpreted_at": "2026-08-29T05:28:35.872090+00:00",
+        "original_text": "[NOMBRE] todavía me debe lo de ayer",
+        "normalized_text": "nombre todavia me debe lo de ayer",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "NEEDS_CONTEXT",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [
+          "existing_receivable_state_not_event"
+        ],
+        "question": "La frase describe una deuda existente. Seleccione la cuenta por cobrar; no crearé una deuda nueva.",
+        "operation": null
+      }
+    },
+    {
+      "id": "P00-WEB-025",
+      "text": "anota que [NOMBRE] ya pagó",
+      "expected": {
+        "status": "NEEDS_CONFIRMATION",
+        "operation": {
+          "type": "PAYMENT_RECEIVED",
+          "customer": "[NOMBRE]"
+        },
+        "categories": [
+          "IMPLICIT_AMOUNT",
+          "IMPLICIT_REFERENCE"
+        ]
+      },
+      "predicted": {
+        "interpretation_id": "337686c3-16a3-419e-9d0f-65bc762d8ace",
+        "interpreted_at": "2026-08-29T05:28:35.872144+00:00",
+        "original_text": "anota que [NOMBRE] ya pagó",
+        "normalized_text": "anota que nombre ya pago",
+        "parser_version": "rules-v0.1.0+context-v0.1.0+safety-v0.1.0",
+        "status": "UNRECOGNIZED",
+        "lifecycle_status": null,
+        "context_used": [],
+        "fields_extracted": {},
+        "computed_fields": {},
+        "missing_fields": [],
+        "warnings": [],
+        "question": "No pude reconocer una operación comercial soportada.",
+        "operation": null
+      }
+    }
+  ]
+}

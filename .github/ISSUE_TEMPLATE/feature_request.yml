@@ -1,0 +1,28 @@
+name: Feature request
+description: Propose a scoped capability tied to observed evidence.
+title: "feature: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem evidence
+      description: Describe the past behavior or measured limitation, not only the desired solution.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: Out of scope
+  - type: textarea
+    id: risks
+    attributes:
+      label: Safety and privacy risks
+    validations:
+      required: true

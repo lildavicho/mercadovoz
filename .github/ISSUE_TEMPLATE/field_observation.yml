@@ -1,0 +1,36 @@
+name: Field observation
+description: Record a redacted pattern from an authorized pilot round.
+title: "field: "
+labels: [field-observation]
+body:
+  - type: markdown
+    attributes:
+      value: Never paste original participant text or identity. Store private evidence outside Git and reference only a pseudonymous record ID.
+  - type: input
+    id: record
+    attributes:
+      label: Private record reference
+      placeholder: P01-R1-RECORD-ID
+    validations:
+      required: true
+  - type: dropdown
+    id: taxonomy
+    attributes:
+      label: Error or friction category
+      options: [INTENT, AMOUNT, QUANTITY, UNIT, PRODUCT, CUSTOMER, CONTEXT, COMPOUND, STATE_VS_EVENT, PERSONAL_VS_BUSINESS, APPROXIMATION, CORRECTION, UX, PERFORMANCE, SCHEMA_GAP, OTHER]
+    validations:
+      required: true
+  - type: textarea
+    id: pattern
+    attributes:
+      label: Redacted general pattern
+      description: Describe the generalizable cause without quoting private text.
+    validations:
+      required: true
+  - type: dropdown
+    id: critical
+    attributes:
+      label: Critical financial error
+      options: [No, Uncertain, Yes]
+    validations:
+      required: true

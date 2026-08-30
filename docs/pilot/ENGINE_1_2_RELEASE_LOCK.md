@@ -8,6 +8,8 @@
 
 **CI de contenido:** Python y Web `SUCCESS` en GitHub Actions run `33333800012`.
 
+**Release merge:** `2f5a570df11d3ae41e8cfc55208d28717b8cc739` (`main`, PR #7; cuatro checks `SUCCESS`).
+
 **Schema de operación:** `operation-v0.2.0`
 
 **Migración persistente:** `004_batch_transaction_groups`
@@ -30,6 +32,8 @@
 - Migración 004: SHA-256 `b0052e4568513c58e4736c6b21be9da365e01aff4508b5bbe3e5ffcedd1bdf55`.
 - Upgrade sobre copia representativa 003→004: 4 sesiones, 148 eventos y 3 operaciones preservadas; R1/R2 legibles.
 - npm audit de producción: cero vulnerabilidades conocidas.
+- Backup Oracle predeploy: `mercadovoz-20260830T203450Z.sqlite`, SHA-256 `3007016d779699be402e07e8396c5f0c7f60daf4a888a15284888803c368b6f4`, integrity `ok`.
+- Smoke Oracle: Engine `1.2.0`, schema `operation-v0.2.0`, migrations `001`–`004`, R1/R2 y tres operaciones preservadas.
 
 ## Límites de la liberación
 

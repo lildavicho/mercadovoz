@@ -1,8 +1,8 @@
-# Oracle Cloud deployment — P01_R2 active
+# Oracle Cloud deployment — Engine 1.2 / P01_R3 ready
 
 ## Instancia activa
 
-Desde el 30 de agosto de 2026 el piloto está activo en `https://129-80-183-35.sslip.io`: Nginx/HTTPS delante de Next.js y FastAPI, ambos en loopback. El environment real está en `/etc/mercadovoz/api.env`, el acceso operador en `/etc/mercadovoz/operator/`, los exports en `/home/ubuntu/private_exports/mercadovoz/` y los backups en `/home/ubuntu/backups/mercadovoz/`. Ver [`HTTPS_DEPLOYMENT.md`](HTTPS_DEPLOYMENT.md) y [`P01_ROUND_2_START.md`](../pilot/P01_ROUND_2_START.md).
+Desde el 30 de agosto de 2026 el piloto está activo en `https://129-80-183-35.sslip.io`: Nginx/HTTPS delante de Next.js y FastAPI, ambos en loopback. Engine 1.2 quedó desplegado y P01_R3 está preparado, no iniciado. El environment real está en `/etc/mercadovoz/api.env`, el acceso operador en `/etc/mercadovoz/operator/`, los exports en `/home/ubuntu/private_exports/mercadovoz/` y los backups en `/home/ubuntu/backups/mercadovoz/`. Ver [`HTTPS_DEPLOYMENT.md`](HTTPS_DEPLOYMENT.md) y [`P01_ROUND_3_START.md`](../pilot/P01_ROUND_3_START.md).
 
 ## Target
 
@@ -12,7 +12,7 @@ Desde el 30 de agosto de 2026 el piloto está activo en `https://129-80-183-35.s
 - 50 GB persistent boot volume
 - `/home/ubuntu/apps/mercadovoz`
 - Nginx → Next.js on `127.0.0.1:3000`
-- Nginx `/api/` → FastAPI on `127.0.0.1:8000`
+- Nginx `/pilot/` y `/health` → FastAPI on `127.0.0.1:8000`
 - PM2 for Next.js; systemd for FastAPI; SQLite WAL outside Git
 
 Oracle documents Ubuntu support and flexible CPU/memory for Ampere A1: [Arm-Based Compute](https://docs.oracle.com/en-us/iaas/Content/Compute/References/arm.htm). Network Security Groups are preferred over broad security lists; OS firewall rules must also match OCI ingress: [OCI security-list reference](https://docs.oracle.com/en-us/iaas/tools/oci-cli/latest/oci_cli_docs/cmdref/network/security-list.html).
@@ -111,4 +111,4 @@ systemctl is-active mercadovoz-api nginx
 pm2 status
 ```
 
-Also verify `/api/docs`, `/api/openapi.json` and development `/api/interpret` return 404 in pilot mode; complete the private deployment checklist and rollback procedure. Deployment is a separate authorized operation, not part of repository bootstrap.
+Also verify `/docs`, `/openapi.json`, development `/interpret` and disabled `/pilot/interpret-batch` return 404 in pilot mode; complete the private deployment checklist and rollback procedure. Deployment is a separate authorized operation, not part of repository bootstrap.

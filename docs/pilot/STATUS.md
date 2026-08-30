@@ -8,24 +8,24 @@
 |---|---|
 | `TECHNICAL_STATUS` | `TECHNICAL_GENERALIZATION_GO` |
 | `FIELD_VALIDATION_STATUS` | `FIELD_CONTINUE` (52 inputs R1+R2; 3 outcomes terminales; no validación de mercado) |
-| `PILOT_STATUS` | `P01_R2_FROZEN / P01_R3_PREPARED_NOT_STARTED` |
+| `PILOT_STATUS` | `P01_R2_FROZEN / P01_R3_READY_NOT_STARTED` |
 | `P01_ROUND_1_STATUS` | `FROZEN` |
 | `P01_ROUND_1_ENGINE` | `1.0.0` |
 | `P01_ROUND_2_STATUS` | `FROZEN` |
 | `HTTPS_STATUS` | `ACTIVE` |
-| `ENGINE_VERSION` | Oracle `1.1.0`; release candidate `1.2.0` |
-| `PARSER_VERSION` | candidato `rules-v0.1.0+explicit-v0.5.0+context-v0.2.0+safety-v0.2.0` |
+| `ENGINE_VERSION` | Oracle `1.2.0` |
+| `PARSER_VERSION` | `rules-v0.1.0+explicit-v0.5.0+context-v0.2.0+safety-v0.2.0` |
 | `PILOT_VERSION` | `pilot-v0` |
-| `SCHEMA_VERSION` | Oracle `operation-v0.1.0` + migration 003; candidato `operation-v0.2.0` + migration 004 |
+| `SCHEMA_VERSION` | Oracle `operation-v0.2.0`; migraciones `001`–`004` |
 | `UI_VERSION` | `pilot-ui-v0` |
 | `ACTIVE_ROUND` | ninguna; `P01_R3` no iniciada |
 | `CURRENT_PARTICIPANTS` | `0`; sesiones R2 cerradas y accesos revocados |
 | `REAL_DEVELOPMENT_RECORDS` | `52`: R1 25 + R2 27, congelados por separado |
 | `REAL_HELDOUT_RECORDS` | `0` |
 | `CRITICAL_ERRORS` | `0` en R1/R2 replay, corpus natural, web-derived y sintético |
-| `LAST_GATE` | `ENGINE_1_2_REPLAY_GO / BATCH_NATURAL_DEVELOPMENT_EVALUATED` |
-| `NEXT_GATE` | `ENGINE_1_2_RELEASE_CANDIDATE_GO`, luego `P01_R3_MINIMUM_TERMINAL_OUTCOMES_AND_CLOSE` |
-| `DEPLOYMENT_STATUS` | `HTTPS_LIVE_PRIVATE_ACCESS` |
+| `LAST_GATE` | `ENGINE_1_2_RELEASE_CANDIDATE_GO / P01_R3_READY` |
+| `NEXT_GATE` | `P01_R3_MINIMUM_TERMINAL_OUTCOMES_AND_CLOSE` |
+| `DEPLOYMENT_STATUS` | `ENGINE_1_2_HTTPS_LIVE_PRIVATE_ACCESS` |
 | `VOICE_STATUS` | `HOLD` |
 | `LLM_STATUS` | `HOLD` |
 | `BATCH_BRANCH_STATUS` | `BATCH_ENGINE_TECHNICAL_GO / BATCH_NATURAL_DEVELOPMENT_EVALUATED / BATCH_GENERALIZATION_HOLD` |
@@ -38,9 +38,9 @@ P01 Round 1 permanece como `P01_R1 / REAL_DEVELOPMENT / engine 1.0.0`: 2 sesione
 
 ## Ronda cerrada
 
-Oracle sigue ejecutando `47dabdcf8eaca9ce71fdf164fc7893b691ba92c1`, Engine 1.1.0. R2 fue cerrada administrativamente, respaldada, exportada y congelada: 2 sesiones, 27 inputs, 77 eventos y 3 operaciones confirmadas. El replay offline 1.2 preservó los tres outcomes, mejoró cuatro casos conocidos y tuvo cero regresiones/violaciones críticas.
+Oracle ejecuta el release commit `2f5a570df11d3ae41e8cfc55208d28717b8cc739`, Engine 1.2.0 y migration 004. R2 fue cerrada administrativamente, respaldada, exportada y congelada: 2 sesiones, 27 inputs, 77 eventos y 3 operaciones confirmadas. El replay offline 1.2 preservó los tres outcomes, mejoró cuatro casos conocidos y tuvo cero regresiones/violaciones críticas.
 
-El acceso P01 y el token de operador fueron rotados, permanecen root-only fuera de Git y los nueve tokens anteriores están revocados. El consentimiento no cambia porque finalidad, datos, retención y derechos no cambiaron.
+El acceso P01 y el token de operador fueron rotados para R3, permanecen root-only fuera de Git y todos los tokens anteriores están revocados. El consentimiento no cambia porque finalidad, datos, retención y derechos no cambiaron. R3 no tiene sesiones ni inputs: solo está preparada.
 
 ## Gates
 

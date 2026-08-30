@@ -4,6 +4,9 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 
 ## Unreleased
 
+- Released Engine 1.2.0 to the private Oracle pilot under `P01_R3_READY_NOT_STARTED`; migration 004 preserved R1/R2 and the three historical operations.
+- Kept Batch and Voice disabled after deployment; their independent gates remain on hold.
+
 ### Changed
 
 - Froze `P01_R2` as 27 `REAL_DEVELOPMENT` records with three user-accepted operations, private exports and immutable hashes.

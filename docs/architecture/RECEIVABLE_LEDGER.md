@@ -23,6 +23,8 @@ PAYMENT_RECEIVED -----> allocation ------> movement PAYMENT -> OPEN | PAID
 
 Abono parcial, abono total, varios abonos, deuda ya cerrada, cliente incorrecto, múltiples deudas, sobrepago y rollback inyectado en el segundo movimiento. La migración es aditiva; las operaciones históricas siguen legibles.
 
+La migración 003→004 fue ejecutada sobre una copia del SQLite real predeploy: preservó 4 sesiones, 148 eventos y 3 operaciones, y añadió únicamente las estructuras de batch/ledger. La política de downgrade es restaurar el backup pre-migración; no se ejecutan migraciones destructivas inversas.
+
 ## Límite
 
 No hay refinanciación, saldo a favor, reversos contables ni reparto automático entre varias deudas. Esos casos requieren diseño y evidencia de campo, no heurísticas.

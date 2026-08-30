@@ -30,6 +30,7 @@ if not logger.handlers:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 PARTICIPANT_PATTERN = re.compile(r"^P\d{2}$")
+ROUND_PATTERN = re.compile(r"^P\d{2}_R\d+$")
 
 
 class ContextInput(BaseModel):
@@ -102,13 +103,14 @@ def _parse_access_codes(raw: str | None) -> dict[str, str]:
     return result
 
 
-def _versions() -> dict[str, str]:
+def _versions(round_id: str) -> dict[str, str]:
     return {
         "engine_version": ENGINE_VERSION,
         "parser_version": PARSER_VERSION,
         "schema_version": SCHEMA_VERSION,
         "pilot_version": PILOT_VERSION,
         "ui_version": UI_VERSION,
+        "round_id": round_id,
     }
 
 
@@ -127,9 +129,15 @@ def create_app(
     pilot_mode: bool | None = None,
     operator_token: str | None = None,
     allowed_origins: list[str] | None = None,
+    pilot_round_id: str | None = None,
 ) -> FastAPI:
     environment = os.environ.get("MERCADOVOZ_ENV", "development")
     is_pilot = pilot_mode if pilot_mode is not None else environment == "pilot"
+    round_id = pilot_round_id or os.environ.get("MERCADOVOZ_PILOT_ROUND_ID", "")
+    if not round_id and environment != "pilot":
+        round_id = "SYNTHETIC_QA"
+    if is_pilot and environment == "pilot" and not ROUND_PATTERN.fullmatch(round_id):
+        raise RuntimeError("MERCADOVOZ_PILOT_ROUND_ID must match PNN_RN in pilot")
     db_path = database_path or os.environ.get("MERCADOVOZ_DB", "mercadovoz-mvp.db")
     storage = SQLiteLedger(db_path)
     core = MercadoVozCore(storage=storage)
@@ -234,7 +242,7 @@ def create_app(
     @app.get("/pilot/config")
     def pilot_config() -> dict[str, Any]:
         return {
-            **_versions(),
+            **_versions(round_id),
             "consent_version": CONSENT_VERSION,
             "field_validation_status": "PENDING_REAL_DATA",
             "input_mode": "TEXT",
@@ -266,7 +274,7 @@ def create_app(
         return storage.begin_pilot_session(
             participant_id=participant_id,
             consent_version=request.consent_version,
-            versions=_versions(),
+            versions=_versions(round_id),
             device_class=request.device_class,
         )
 

@@ -28,6 +28,9 @@
 | `DEPLOYMENT_STATUS` | `HTTPS_LIVE_PRIVATE_ACCESS` |
 | `VOICE_STATUS` | `HOLD` |
 | `LLM_STATUS` | `HOLD` |
+| `BATCH_BRANCH_STATUS` | `BATCH_ENGINE_TECHNICAL_GO / BATCH_GENERALIZATION_HOLD` (no desplegado) |
+| `BATCH_CANDIDATE_VERSION` | `1.2.0`, sidecar sobre Engine `1.1.0` |
+| `VOICE_PROTOTYPE_STATUS` | `HOLD_PENDING_HARDWARE_PROVIDER_TEST`; código detrás de bandera apagada |
 
 ## Evidencia congelada
 
@@ -46,3 +49,4 @@ El acceso P01 y el token de operador fueron rotados, permanecen root-only fuera 
 - `LLM_HOLD`: no existe una clase de error real que justifique esa complejidad.
 - `HTTPS_AND_ROUND_ISOLATION_PASS`: certificado válido, renovación simulada, redirección y `round_id` verificados.
 - No decir “validado con comerciantes”, “market validated” ni accuracy real.
+- La rama batch no cambia `ACTIVE_ROUND`, `NEXT_GATE`, versiones de Oracle ni evidencia P01. Su siguiente gate es una prueba batch natural separada después de cerrar y congelar R2.

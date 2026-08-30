@@ -9,6 +9,10 @@
     "research\\benchmarks\\batch\\web-derived-batch-v1.jsonl": {
       "records": 60,
       "sha256": "45aba349c7f3e0069789b6c599bf8b4e59cf5ad508ffe2151a6e314e04b1ca1a"
+    },
+    "research\\benchmarks\\voice\\numeric-risk-v1.jsonl": {
+      "records": 50,
+      "sha256": "2ff8ac28d670f46eb139df5f85b5b940c008c75a975d7f07e458836ef53795ee"
     }
   }
 }

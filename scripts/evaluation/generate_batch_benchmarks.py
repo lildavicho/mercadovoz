@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SYNTHETIC_PATH = ROOT / "research/benchmarks/batch/synthetic-batch-v1.jsonl"
 EXTERNAL_PATH = ROOT / "research/benchmarks/batch/web-derived-batch-v1.jsonl"
+VOICE_PATH = ROOT / "research/benchmarks/voice/numeric-risk-v1.jsonl"
 SOURCE_PATH = ROOT / "research/external-cuenca-v1/mercadovoz_cuenca_external_corpus_v1.jsonl"
 
 NAMES = ("María", "Rosa", "Ana", "Luis", "Pedro")
@@ -83,6 +84,36 @@ def external_records(size: int) -> list[dict]:
     return records
 
 
+def voice_numeric_records() -> list[dict]:
+    pairs = (
+        ("quince", "cincuenta"), ("dieciséis", "sesenta"),
+        ("trece", "treinta"), ("catorce", "cuarenta"),
+        ("diecisiete", "setenta"), ("dieciocho", "ochenta"),
+        ("diecinueve", "noventa"), ("dos", "doce"),
+        ("cinco dólares", "cincuenta dólares"), ("cinco con cincuenta", "cincuenta y cinco"),
+    )
+    templates = (
+        "Vendí producto por {value}",
+        "Gasté {value} en transporte",
+        "María quedó debiendo {value}",
+        "María me pagó {value}",
+        "Vendí dos unidades a {value} cada una",
+    )
+    records: list[dict] = []
+    for pair_index, (target, confusable) in enumerate(pairs, start=1):
+        for template_index, template in enumerate(templates, start=1):
+            records.append({
+                "id": f"VOICE-NUM-{pair_index:02d}-{template_index}",
+                "reference_text": template.format(value=target),
+                "critical_confusable_text": template.format(value=confusable),
+                "locale": "es-EC",
+                "provenance_type": "SYNTHETIC_VOICE_NUMERIC_RISK",
+                "requires_audio": True,
+                "metric": "critical_numeric_token_substitution",
+            })
+    return records
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--synthetic-size", type=int, default=3000)
@@ -91,6 +122,7 @@ def main() -> None:
     args = parser.parse_args()
     synthetic = synthetic_records(args.synthetic_size, args.seed)
     external = external_records(args.external_size)
+    voice = voice_numeric_records()
     manifest = {
         "schema_version": "batch-benchmark-v1",
         "seed": args.seed,
@@ -100,6 +132,9 @@ def main() -> None:
             },
             str(EXTERNAL_PATH.relative_to(ROOT)): {
                 "records": len(external), "sha256": write_jsonl(EXTERNAL_PATH, external),
+            },
+            str(VOICE_PATH.relative_to(ROOT)): {
+                "records": len(voice), "sha256": write_jsonl(VOICE_PATH, voice),
             },
         },
     }

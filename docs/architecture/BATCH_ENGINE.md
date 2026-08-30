@@ -1,7 +1,7 @@
 # Diseño del motor batch 1.2
 
-**Estado:** aprobado para implementación aislada en `feature/batch-transaction-engine`  
-**Versión candidata:** Engine `1.2.0`, schema `batch-operation-v1`  
+**Estado:** aprobado para implementación aislada en `feature/batch-transaction-engine`
+**Versión candidata:** Engine `1.2.0`, schema `batch-operation-v1`
 **Producción:** fuera de alcance mientras `P01_R2` permanezca activa
 
 ## Problema y límite
@@ -126,5 +126,14 @@ Las referencias entre segmentos solo se propagan dentro del batch, con `source_s
 La vista muestra el conteo de listos y pendientes, tarjetas expandibles en orden narrativo, edición localizada, origen textual y acciones separadas. El estado siempre incluye texto/icono además de color.
 
 ## Gates
+
+### Verificación local del 30-08-2026
+
+- flujo sintético móvil: acceso, consentimiento, lote mixto, éxito parcial, confirmación de 2 seguros e historial;
+- viewports: 320, 375, 390, 430 y 1280 px sin overflow horizontal;
+- touch targets observados: mínimo 44 px;
+- labels, headings, regions, estados live y navegación por teclado presentes;
+- consola del navegador: 0 warnings/errors durante el flujo;
+- dictado: Web Speech inició/canceló en el navegador de laboratorio, pero no se produjo audio físico ni se midió transcripción; el gate de voz permanece en hold.
 
 El gate exige regresiones históricas verdes, cero violaciones financieras críticas, segmentación y partial success medibles, ledger consistente, confirmación atómica/idempotente, aislamiento por participante, UX móvil y CI verde. Este gate no autoriza deployment ni voz de campo.

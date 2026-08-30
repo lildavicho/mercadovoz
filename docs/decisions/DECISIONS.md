@@ -121,3 +121,29 @@
 - **Razón:** versionar por cambios reales del acuerdo, no por cada deploy técnico.
 - **Trade-off:** el lock de ronda debe declarar por separado el Engine nuevo.
 - **Reversible:** sí mediante `consent-v2` antes de cualquier cambio de tratamiento.
+
+## 2026-08-30 — Batch como sidecar versionado
+
+- **Contexto:** Engine 1.1 debe permanecer congelado durante P01_R2, pero una narración puede contener varios movimientos.
+- **Opciones:** ampliar regex congeladas; procesar frases secuencialmente; crear orquestador lateral con contrato propio.
+- **Decisión:** Engine 1.2 compone 1.1 por segmentos, conserva spans, usa grupos/dependencias y confirma una selección segura en una sola transacción.
+- **Razón:** permite éxito parcial sin reducir silenciosamente una narrativa a una operación ni contaminar la ronda activa.
+- **Trade-off:** el corpus web compuesto obtiene solo 29,17% de recuperación posicional y 11,67% de lote exacto; no se autoriza uso general ni producción.
+- **Reversible:** sí; rutas y UI quedan ausentes con banderas apagadas.
+- **Evidencia:** [`ADR-006`](ADR-006-batch-engine-sidecar.md) y [`BATCH_ENGINE.md`](../architecture/BATCH_ENGINE.md).
+
+## 2026-08-30 — Asignación explícita de abonos
+
+- **Contexto:** elegir la deuda más reciente o recortar sobrepagos altera dinero sin autorización.
+- **Decisión:** una deuda abierta única puede resolverse por cliente; múltiples deudas exigen `receivable_id`; sobrepago, cliente incorrecto y deuda cerrada bloquean toda la transacción.
+- **Razón:** un error financiero debe abstenerse, no improvisar una distribución.
+- **Trade-off:** el usuario corrige más casos, a cambio de historial y saldo auditables.
+- **Reversible:** el schema es aditivo; la política solo puede relajarse con evidencia y un nuevo gate.
+
+## 2026-08-30 — Voz desacoplada y en hold
+
+- **Contexto:** voz puede reducir fricción, pero introduce errores monetarios y tratamiento de audio.
+- **Decisión:** interfaz `SpeechTranscriber`, transcripción siempre visible/editable, cero autoguardado y banderas apagadas; Azure `es-EC` es primer candidato de benchmark, no proveedor aprobado.
+- **Razón:** permite probar UX sin dar al ASR autoridad financiera ni enviar audio durante P01_R2.
+- **Trade-off:** `VOICE_PROTOTYPE_HOLD` hasta probar hardware, proveedor, números y privacidad.
+- **Reversible:** sí; el adaptador se cambia sin tocar el motor.

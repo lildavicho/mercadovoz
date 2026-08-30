@@ -2,13 +2,13 @@
 
 ## Estado
 
-El código está preparado; no existe todavía volumen remoto ni backup verificado. Este punto permanece externo y bloquea P01.
+Oracle usa un volumen local y SQLite WAL. El 30 de agosto de 2026 se creó un snapshot consistente mediante la API `sqlite3.Connection.backup`, se validó `PRAGMA integrity_check = ok` y se guardó checksum SHA-256 con permisos `0600` fuera del repositorio. Esto verifica creación e integridad de backup; una restauración completa en un entorno aislado sigue pendiente y no debe probarse sobre la base real activa.
 
-Railway documenta backups manuales/programados para cualquier volumen, incluido SQLite: diarios retenidos 6 días, semanales 1 mes y mensuales 3 meses. Los snapshots son incrementales; borrar el volumen borra también sus backups y la restauración solo funciona en el mismo proyecto/entorno. Fuente: [Railway — Backups](https://docs.railway.com/volumes/backups).
+Los scripts aceptan tanto el CLI `sqlite3` como el módulo estándar `sqlite3` de Python. La ausencia del CLI en Oracle ya no impide respaldar ni verificar integridad.
 
 ## Política mínima
 
-1. Volumen persistente en `/data`, una sola réplica.
+1. Volumen persistente del host, una sola instancia de aplicación.
 2. Backup diario y semanal antes de P01.
 3. Export JSONL de evaluación y copia operacional cifrada al cerrar cada ronda.
 4. No guardar exports en Git ni en el frontend.

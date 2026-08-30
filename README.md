@@ -856,7 +856,7 @@ Estos casos cubren aspectos como:
 La evaluación técnica correspondiente alcanzó:
 
 ```text
-TECHNICAL_STATUS = TECHNICAL_GO
+TECHNICAL_STATUS = TECHNICAL_GENERALIZATION_GO
 ```
 
 sin violaciones monetarias críticas conocidas en esa evaluación.
@@ -864,7 +864,7 @@ sin violaciones monetarias críticas conocidas en esa evaluación.
 Sin embargo:
 
 ```text
-TECHNICAL_GO ≠ MARKET_VALIDATED
+TECHNICAL_GENERALIZATION_GO ≠ FIELD_VALIDATED ≠ MARKET_VALIDATED
 ```
 
 Superar evaluaciones técnicas no demuestra que comerciantes reales encuentren el producto útil o cómodo.
@@ -889,9 +889,10 @@ La validación real todavía está pendiente.
 | Benchmark externo | Completado |
 | MVP de texto | Completado |
 | Preparación de piloto privado | Completado |
-| Repositorio de GitHub | En progreso |
-| Despliegue en Oracle Cloud | Siguiente |
-| Primer piloto real | Pendiente |
+| Repositorio de GitHub | Activo |
+| Despliegue en Oracle Cloud | HTTP temporal; engine 1.0.0 |
+| Robustez/generalización | Engine 1.1.0 aprobado localmente |
+| Primer piloto real | P01 inició; ronda sin outcomes terminales ni lock |
 | Interfaz de voz | Pendiente |
 | Validación de mercado | Pendiente |
 

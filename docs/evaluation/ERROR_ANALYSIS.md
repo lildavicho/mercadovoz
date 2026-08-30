@@ -72,3 +72,9 @@ No se creó una regla para aceptar los 42 plurales artificiales `unidads`/`pars`
 El cierre independiente limpio conserva cuatro desacuerdos exactos por una decisión de seguridad: la etiqueta aporta un precio interpretable, pero el texto no explicita si es unitario o total. La intención y los campos no ambiguos se extraen; la operación no se presenta como completa.
 
 Vacíos pendientes: lenguaje espontáneo, autocorrecciones humanas, ruido de voz, tiempo de tarea, comprensión de la boleta, tasa de confirmación equivocada y preferencia frente al método actual. Todos requieren campo real.
+
+## Hardening de generalización 1.1.0
+
+Los cinco fallos manuales del 30 de agosto se registraron como `MANUAL_REGRESSION_DEVELOPMENT`. La taxonomía permanente incluye ahora `SALE_PRODUCT_BOUNDARY_ERROR`, `SALE_PRICE_EXTRACTION_ERROR`, `CENTAVOS_NORMALIZATION_ERROR`, `TOTAL_VS_UNIT_PRICE_ERROR`, `PRONOUN_AS_CUSTOMER_ERROR`, `COMPOUND_OPERATION_NOT_DETECTED`, `COMPOUND_OPERATION_COLLAPSED`, `EXISTING_DEBT_DUPLICATION`, `APPROXIMATION_TO_EXACT_AMOUNT`, `PERSONAL_WITHDRAWAL_MISCLASSIFIED`, `CONTEXT_FALSE_RESOLUTION`, `NUMERIC_COORDINATION_ERROR`, `UNSAFE_AUTO_COMPLETION`, `CORRECTION_FAILURE` y `CONTEXT_EXPIRY_ERROR`.
+
+La primera propuesta amplia fue rechazada al reducir el held-out limpio de 40/44 a 33/44 campos: el punto decimal se había tratado como separador de operaciones. Tras minimizar esa causa, el benchmark recuperó exactamente sus métricas previas y mantuvo 0 violaciones críticas. Esta iteración fallida queda documentada para evitar reintroducir detección de compuestos basada en puntuación sin distinguir decimales.

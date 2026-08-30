@@ -31,6 +31,7 @@ A later behavioral change requires:
 - `SYNTHETIC`: versionable test/evaluation cases.
 - `WEB_DERIVED`: public evidence-derived exploratory corpus.
 - `WEB_DERIVED_MULTISOURCE`: external Cuenca/Ecuador benchmark with provenance.
+- `MANUAL_REGRESSION_DEVELOPMENT`: development-only phrases observed manually; never field or held-out evidence.
 - `REAL_DEVELOPMENT`: private participant data used for iteration; never Git.
 - `REAL_HELDOUT`: private, participant-separated evaluation; never Git.
 

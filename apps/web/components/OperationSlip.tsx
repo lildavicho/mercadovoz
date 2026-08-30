@@ -7,8 +7,8 @@ const labels: Record<string, string> = {
   PAYMENT_RECEIVED: "Abono recibido",
 };
 
-function money(value: number | undefined) {
-  return value === undefined
+function money(value: number | null | undefined) {
+  return value == null
     ? "—"
     : new Intl.NumberFormat("es-EC", { style: "currency", currency: "USD" }).format(value);
 }
@@ -17,7 +17,7 @@ function Fields({ operation }: { operation: Operation }) {
   const rows = [
     ["Producto", operation.product],
     ["Cantidad", operation.quantity !== undefined ? `${operation.quantity} ${operation.unit ?? ""}` : undefined],
-    ["Precio unitario", operation.unit_price !== undefined ? money(operation.unit_price) : undefined],
+    ["Precio unitario", operation.unit_price != null ? money(operation.unit_price) : undefined],
     ["Total", operation.total !== undefined ? money(operation.total) : undefined],
     ["Categoría", operation.category],
     ["Persona", operation.customer],

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { DecisionBar } from "@/components/DecisionBar";
+import { BatchWorkspace } from "@/components/BatchWorkspace";
 import { EntryComposer } from "@/components/EntryComposer";
 import { LedgerHeader } from "@/components/LedgerHeader";
 import { LedgerHistory } from "@/components/LedgerHistory";
@@ -10,6 +11,7 @@ import { PilotAccessGate } from "@/components/PilotAccessGate";
 import { PilotConsent } from "@/components/PilotConsent";
 import { SessionClose, type SessionFeedback } from "@/components/SessionClose";
 import { api } from "@/lib/api";
+import { isConfirmableProposal, reviewActionLabel } from "@/lib/confirmability";
 import { createIdempotencyKey } from "@/lib/idempotency";
 import type {
   Interpretation,
@@ -23,6 +25,7 @@ import type {
 type PilotStage = "loading" | "access" | "consent" | "active" | "ended";
 
 const emptyFeedback: SessionFeedback = { annoying: "", missing: "", distrust: "", faster: "" };
+const batchExperiment = process.env.NEXT_PUBLIC_BATCH_EXPERIMENT === "true";
 
 function deviceClass() {
   if (window.innerWidth < 768) return "mobile";
@@ -181,7 +184,8 @@ export default function Home() {
     }
   }
 
-  const canDecide = Boolean(proposal && proposal.lifecycle_status !== "CONFIRMED");
+  const canDecide = Boolean(proposal && !["CONFIRMED", "REJECTED", "CANCELLED"].includes(proposal.lifecycle_status));
+  const canConfirm = isConfirmableProposal(proposal);
 
   return (
     <main className="app-shell" id="main-content">
@@ -213,12 +217,16 @@ export default function Home() {
         <>
           <div className="session-strip" aria-label="Sesión activa">
             <span>{participantId}</span>
-            <span>Texto</span>
+            <span>{batchExperiment ? "Texto por lotes" : "Texto"}</span>
             <span>{session.pilot_version}</span>
           </div>
           <div className="workspace">
             <section className="capture-column" aria-label="Registrar operación">
-              <EntryComposer value={text} isLoading={loading} onChange={setText} onSubmit={understand} />
+              {batchExperiment ? (
+                <BatchWorkspace onConfirmed={refreshLedger} />
+              ) : (
+                <>
+                  <EntryComposer value={text} isLoading={loading} onChange={setText} onSubmit={understand} />
               {error && <p className="message error-message" role="alert">{error}</p>}
               {notice && <p className="message success-message" role="status">{notice}</p>}
               {result && <OperationSlip result={result} />}
@@ -242,12 +250,16 @@ export default function Home() {
               {proposal && proposal.lifecycle_status !== "CONFIRMED" && (
                 <DecisionBar
                   disabled={loading || !canDecide}
+                  confirmable={canConfirm}
+                  reviewLabel={reviewActionLabel(proposal.interpretation_status)}
                   correcting={correcting}
                   onConfirm={confirm}
                   onCorrect={() => setCorrecting((value) => !value)}
                   onReject={reject}
                   onCancel={cancel}
                 />
+              )}
+                </>
               )}
               <SessionClose
                 feedback={feedback}

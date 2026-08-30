@@ -890,15 +890,17 @@ La validación real todavía está pendiente.
 | MVP de texto | Completado |
 | Preparación de piloto privado | Completado |
 | Repositorio de GitHub | Activo |
-| Despliegue en Oracle Cloud | HTTPS privado; Engine 1.1.0; `P01_R2` |
-| Robustez/generalización | Engine 1.1.0 aprobado y desplegado |
-| Primer piloto real | `P01_R1` congelado; `P01_R2` listo, sin claims de validación |
+| Despliegue en Oracle Cloud | HTTPS privado; promoción de Engine 1.2.0 a `P01_R3` preparada |
+| Robustez/generalización | Engine 1.2.0 release candidate; replays R1/R2 sin violaciones críticas |
+| Primer piloto real | `P01_R1` y `P01_R2` congelados como desarrollo; sin claims de validación |
 | Interfaz de voz | Pendiente |
 | Validación de mercado | Pendiente |
 
 ---
 
 ## Etapa actual
+
+> Engine 1.2 mantiene el flujo individual como release candidate. El modo batch —spans, grupos y confirmación atómica— permanece detrás de banderas apagadas: pasó el gate técnico y el corpus natural de desarrollo, pero su generalización independiente/real sigue en hold. Voz también sigue en hold por falta de prueba física y proveedor autorizado.
 
 MercadoVoz ya alcanzó un hito técnico importante:
 

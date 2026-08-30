@@ -24,7 +24,7 @@ class ParserTests(unittest.TestCase):
         result = parse_text("Vendí tomate")
         self.assertEqual("NEEDS_CONFIRMATION", result["status"])
         self.assertIn("quantity", result["missing_fields"])
-        self.assertIn("unit_price", result["missing_fields"])
+        self.assertIn("total", result["missing_fields"])
 
     def test_unrelated_text_is_not_invented(self):
         result = parse_text("Hoy hace mucho frío")

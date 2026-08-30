@@ -1,0 +1,4 @@
+ENGINE_VERSION = "1.2.0"
+BATCH_SCHEMA_VERSION = "batch-operation-v1"
+SEGMENTER_VERSION = "commercial-clause-v1"
+UNDERLYING_ENGINE_VERSION = "1.2.0"

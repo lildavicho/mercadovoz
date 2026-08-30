@@ -6,6 +6,16 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 
 ### Changed
 
+- Froze `P01_R2` as 27 `REAL_DEVELOPMENT` records with three user-accepted operations, private exports and immutable hashes.
+- Hardened Engine 1.2 customer extraction, explicit-total sales, uncertainty/self-correction safety and frontend/backend confirmability.
+- Added a 100-narrative manually authored natural batch corpus and detailed boundary, crossover, partial recovery and source-span metrics.
+- Added reproducible Engine 1.1/1.2 R2 replay and Engine 1.2 R1 replay without modifying historical evidence.
+
+- Added experimental Engine 1.2 batch orchestration with exact source spans, item-level review and partial success behind disabled feature flags.
+- Added atomic transaction groups, line items, receivable movements and explicit payment allocations through additive migration `004`.
+- Added 3,000 synthetic batch cases, 60 web-derived compositions, 2,000 adversarial fuzz batches and separate reports.
+- Added a provider-neutral voice transcription prototype with mandatory transcript review; it remains disabled and outside P01_R2.
+
 - Bumped the candidate interpretation engine to `1.1.0` (`explicit-v0.4.0`, `safety-v0.2.0`).
 - Added structured sale price/total boundaries, centavos handling and pronoun-safe payments.
 - Strengthened compound, negation, plan/hypothesis and confirmation safety gates.
@@ -17,7 +27,7 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 ### Safety
 
 - Historical and external benchmarks remain separate; critical financial violations remain zero in the evaluated risk sets.
-- Oracle deployment remains on engine `1.0.0` until the active real-data round is closed and locked.
+- Oracle currently remains on Engine `1.1.0`; R2 is closed/locked and 1.2 deployment is gated on release CI and predeploy backup.
 - Closed P01 Round 1 administratively without inventing human outcomes, froze its private exports by hash and kept its Engine 1.0 evidence separate from the Engine 1.1 replay.
 - Added explicit `round_id` persistence and reproducible round close, freeze and replay tooling for the P01 Round 2 boundary.
 

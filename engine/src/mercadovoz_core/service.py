@@ -18,6 +18,8 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from mercadovoz_batch import BatchInterpreter, BatchLedger, BatchWorkflow
+
 from .api import MercadoVozCore
 from .context import ContextSession
 from .pilot_version import CONSENT_VERSION, PILOT_VERSION, UI_VERSION
@@ -51,6 +53,21 @@ class CorrectionRequest(BaseModel):
 
 class ConfirmationRequest(BaseModel):
     idempotency_key: str = Field(min_length=8, max_length=100)
+
+
+class BatchInterpretRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)
+    input_mode: str = Field(default="TEXT_BATCH", pattern=r"^(TEXT_SINGLE|TEXT_BATCH|VOICE_TRANSCRIPT)$")
+    context: dict[str, ContextInput] = Field(default_factory=dict)
+
+
+class BatchConfirmationRequest(BaseModel):
+    item_ids: list[str] = Field(min_length=1, max_length=20)
+    idempotency_key: str = Field(min_length=8, max_length=100)
+
+
+class BatchCorrectionRequest(BaseModel):
+    changes: dict[str, Any] = Field(min_length=1, max_length=10)
 
 
 class ReasonRequest(BaseModel):
@@ -130,6 +147,7 @@ def create_app(
     operator_token: str | None = None,
     allowed_origins: list[str] | None = None,
     pilot_round_id: str | None = None,
+    batch_experiment: bool | None = None,
 ) -> FastAPI:
     environment = os.environ.get("MERCADOVOZ_ENV", "development")
     is_pilot = pilot_mode if pilot_mode is not None else environment == "pilot"
@@ -141,6 +159,12 @@ def create_app(
     db_path = database_path or os.environ.get("MERCADOVOZ_DB", "mercadovoz-mvp.db")
     storage = SQLiteLedger(db_path)
     core = MercadoVozCore(storage=storage)
+    batch_enabled = batch_experiment if batch_experiment is not None else (
+        os.environ.get("MERCADOVOZ_BATCH_EXPERIMENT", "false").lower() == "true"
+    )
+    batch_engine = BatchInterpreter()
+    batch_workflow = BatchWorkflow()
+    batch_storage = BatchLedger(storage)
     access_codes = pilot_access_codes if pilot_access_codes is not None else _parse_access_codes(
         os.environ.get("MERCADOVOZ_PILOT_ACCESS_CODES")
     )
@@ -154,6 +178,7 @@ def create_app(
         if item.strip()
     ]
     proposal_context: dict[str, dict[str, str]] = {}
+    batch_context: dict[str, dict[str, str]] = {}
     access_attempts: dict[str, deque[float]] = defaultdict(deque)
 
     @asynccontextmanager
@@ -233,6 +258,12 @@ def create_app(
         context = proposal_context.get(proposal_id)
         if not context or context["participant_id"] != participant_id or context["session_id"] != session_id:
             raise HTTPException(status_code=404, detail="proposal not found in this pilot session")
+        return context
+
+    def require_batch(batch_id: str, participant_id: str, session_id: str) -> dict[str, str]:
+        context = batch_context.get(batch_id)
+        if not context or context["participant_id"] != participant_id or context["session_id"] != session_id:
+            raise HTTPException(status_code=404, detail="batch not found in this pilot session")
         return context
 
     @app.get("/health")
@@ -318,7 +349,7 @@ def create_app(
                 "latency_ms": latency_ms,
             },
         )
-        if interpretation["status"] in {"NEEDS_CONTEXT", "NEEDS_CONFIRMATION"} and not interpretation.get("operation"):
+        if interpretation["status"] in {"NEEDS_CONTEXT", "NEEDS_CONFIRMATION"}:
             storage.record_event(
                 event_type="CONTEXT_REQUESTED", session_id=session["id"], participant_id=participant_id,
                 engine_version=ENGINE_VERSION, input_id=input_id,
@@ -330,12 +361,109 @@ def create_app(
         proposal_context[proposal["proposal_id"]] = {
             "participant_id": participant_id, "session_id": session["id"], "input_id": input_id,
         }
-        storage.record_event(
-            event_type="CONFIRMATION_SHOWN", session_id=session["id"], participant_id=participant_id,
-            engine_version=ENGINE_VERSION, input_id=input_id,
-            payload={"proposal_id": proposal["proposal_id"], "operation": proposal["operation"]},
-        )
+        if interpretation["status"] == "COMPLETE":
+            storage.record_event(
+                event_type="CONFIRMATION_SHOWN", session_id=session["id"], participant_id=participant_id,
+                engine_version=ENGINE_VERSION, input_id=input_id,
+                payload={"proposal_id": proposal["proposal_id"], "operation": proposal["operation"]},
+            )
         return {**proposal, "input_id": input_id}
+
+    if batch_enabled:
+        @app.post("/pilot/interpret-batch")
+        def pilot_interpret_batch(
+            request: BatchInterpretRequest,
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            session = active_session(participant_id, x_pilot_session)
+            batch = batch_workflow.propose(batch_engine.interpret(
+                request.text, _context(request.context), input_mode=request.input_mode,
+            ))
+            batch_storage.register(
+                batch, participant_id=participant_id, session_id=session["id"],
+            )
+            batch_context[batch["batch_id"]] = {
+                "participant_id": participant_id, "session_id": session["id"],
+            }
+            return batch
+
+        @app.post("/pilot/batches/{batch_id}/items/{item_id}/correct")
+        def pilot_correct_batch_item(
+            batch_id: str,
+            item_id: str,
+            request: BatchCorrectionRequest,
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            session = active_session(participant_id, x_pilot_session)
+            require_batch(batch_id, participant_id, session["id"])
+            item = guarded(lambda: batch_workflow.correct_item(batch_id, item_id, request.changes))
+            guarded(lambda: batch_storage.update_item(batch_id, item, participant_id))
+            return {"batch": batch_workflow.get(batch_id), "item": item}
+
+        @app.post("/pilot/batches/{batch_id}/items/{item_id}/reject")
+        def pilot_reject_batch_item(
+            batch_id: str,
+            item_id: str,
+            request: ReasonRequest,
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            session = active_session(participant_id, x_pilot_session)
+            require_batch(batch_id, participant_id, session["id"])
+            item = guarded(lambda: batch_workflow.terminate_item(batch_id, item_id, "REJECTED"))
+            guarded(lambda: batch_storage.update_item(
+                batch_id, item, participant_id, action="ITEM_REJECTED"
+            ))
+            return {"batch": batch_workflow.get(batch_id), "item": item, "reason": request.reason}
+
+        @app.post("/pilot/batches/{batch_id}/items/{item_id}/cancel")
+        def pilot_cancel_batch_item(
+            batch_id: str,
+            item_id: str,
+            request: ReasonRequest,
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            session = active_session(participant_id, x_pilot_session)
+            require_batch(batch_id, participant_id, session["id"])
+            item = guarded(lambda: batch_workflow.terminate_item(batch_id, item_id, "CANCELLED"))
+            guarded(lambda: batch_storage.update_item(
+                batch_id, item, participant_id, action="ITEM_REJECTED"
+            ))
+            return {"batch": batch_workflow.get(batch_id), "item": item, "reason": request.reason}
+
+        @app.post("/pilot/batches/{batch_id}/confirm")
+        def pilot_confirm_batch(
+            batch_id: str,
+            request: BatchConfirmationRequest,
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            existing = guarded(lambda: batch_storage.result_for_key(
+                participant_id, request.idempotency_key
+            ))
+            if existing is not None:
+                return existing
+            session = active_session(participant_id, x_pilot_session)
+            require_batch(batch_id, participant_id, session["id"])
+            batch = batch_workflow.get(batch_id)
+            return guarded(lambda: batch_storage.confirm(
+                batch,
+                item_ids=request.item_ids,
+                idempotency_key=request.idempotency_key,
+                participant_id=participant_id,
+                session_id=session["id"],
+            ))
+
+        @app.get("/pilot/transaction-groups")
+        def pilot_transaction_groups(
+            participant_id: str = Depends(pilot_participant),
+            x_pilot_session: Annotated[str | None, Header()] = None,
+        ):
+            active_session(participant_id, x_pilot_session)
+            return batch_storage.list_groups(participant_id)
 
     @app.post("/pilot/proposals/{proposal_id}/correct")
     def pilot_correct(
@@ -490,6 +618,10 @@ def create_app(
 
     app.state.core = core
     app.state.storage = storage
+    app.state.batch_engine = batch_engine
+    app.state.batch_workflow = batch_workflow
+    app.state.batch_storage = batch_storage
+    app.state.batch_enabled = batch_enabled
     return app
 
 

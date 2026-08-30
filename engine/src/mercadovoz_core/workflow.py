@@ -93,14 +93,14 @@ class OperationWorkflow:
             raise ValueError("proposal was already confirmed with another idempotency key")
         if record["lifecycle_status"] in {"REJECTED", "CANCELLED"}:
             raise ValueError("terminal proposal cannot be confirmed")
-        operation = record["operation"]
-        errors = [*missing_fields(operation), *validate_operation(operation)]
-        if errors:
-            raise ValueError(f"operation is not valid: {errors}")
         if record.get("interpretation_status") != "COMPLETE":
             raise ValueError(
                 f"interpretation is not confirmable: {record.get('interpretation_status')}"
             )
+        operation = record["operation"]
+        errors = [*missing_fields(operation), *validate_operation(operation)]
+        if errors:
+            raise ValueError(f"operation is not valid: {errors}")
         confirmed_at = _now()
         record["lifecycle_status"] = "CONFIRMED"
         record["confirmation"] = {"at": confirmed_at, "idempotency_key": idempotency_key}

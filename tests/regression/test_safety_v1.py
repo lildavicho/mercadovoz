@@ -43,10 +43,32 @@ class SafetyRegressionTests(unittest.TestCase):
         self.assertIsNone(result["operation"])
         self.assertIn("existing_receivable_state_not_event", result["warnings"])
 
+    def test_existing_debt_family_never_becomes_new_receivable(self):
+        for phrase in (
+            "María todavía debe 12",
+            "María sigue debiendo 12",
+            "María debe lo de ayer",
+        ):
+            with self.subTest(phrase=phrase):
+                result = self.engine.interpret(phrase)
+                self.assertEqual("NEEDS_CONTEXT", result["status"])
+                self.assertIsNone(result["operation"])
+
     def test_approximate_amount_is_not_made_exact(self):
         result = self.engine.interpret("Gasté como diez dólares en transporte")
         self.assertEqual("AMBIGUOUS", result["status"])
         self.assertIsNone(result["operation"])
+
+    def test_uncertainty_and_self_correction_require_review(self):
+        for phrase in (
+            "Creo que gasté diez dólares en transporte",
+            "Vendí dos panes a uno, no, a cincuenta cada uno",
+            "Gasté diez, perdón, ocho dólares",
+        ):
+            with self.subTest(phrase=phrase):
+                result = self.engine.interpret(phrase)
+                self.assertEqual("AMBIGUOUS", result["status"])
+                self.assertIsNone(result["operation"])
 
     def test_meal_expense_requires_business_scope_confirmation(self):
         result = self.engine.interpret("Gasté cuatro en el almuerzo")

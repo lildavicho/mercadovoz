@@ -100,17 +100,22 @@ def _sale_result(
         operation.update(unit_price=json_number(unit_price), total=json_number(total))
         computed["total"] = json_number(total)
     elif stated_total is not None:
-        operation["total"] = json_number(stated_total)
+        operation.update(total=json_number(stated_total), unit_price=None)
     warnings = ["explicit_rules_v2"]
     if warning:
         warnings.append(warning)
-    question = (
-        confirmation_prompt(operation)
-        if unit_price is not None
-        else "Indique el precio por unidad antes de confirmar; conservaré el total declarado."
-    )
+    if unit_price is not None:
+        question = confirmation_prompt(operation)
+    elif stated_total is not None:
+        question = (
+            f"Interpreté una venta de {operation['quantity']} {operation['unit']}(s) de "
+            f"{operation['product']} por un total de ${operation['total']}. ¿Correcto?"
+        )
+        warnings.append("explicit_total_without_unit_price")
+    else:
+        question = "Indique si el valor corresponde a cada unidad o al total."
     return {
-        "status": "COMPLETE" if unit_price is not None else "NEEDS_CONFIRMATION",
+        "status": "COMPLETE" if unit_price is not None or stated_total is not None else "NEEDS_CONFIRMATION",
         "operation": operation, "computed_fields": computed,
         "missing_fields": [], "question": question, "warnings": warnings,
     }
@@ -169,6 +174,34 @@ def _payment(text: str) -> dict[str, Any] | None:
     return {"status": "NEEDS_CONTEXT", "operation": operation, "warnings": ["explicit_rules_v2"]}
 
 
+def _receivable(original: str, normalized: str) -> dict[str, Any] | None:
+    match = re.fullmatch(
+        rf"(?P<customer>[a-zñ][a-zñ\s-]*?)\s+(?:me\s+)?quedo\s+debiendo\s+"
+        rf"(?P<amount>{MONEY})",
+        normalized,
+    )
+    if not match:
+        return None
+    amount = _money(match.group("amount"))
+    if amount is None or amount <= 0:
+        return None
+    original_customer = re.split(
+        r"(?i)\s+(?:me\s+)?qued(?:ó|o)\s+debiendo\b", original.strip(), maxsplit=1,
+    )[0].strip()
+    customer = original_customer or match.group("customer").title()
+    operation = {
+        "type": "RECEIVABLE",
+        "customer": customer.title(),
+        "amount": json_number(amount),
+    }
+    return {
+        "status": "COMPLETE",
+        "operation": operation,
+        "question": confirmation_prompt(operation),
+        "warnings": ["explicit_new_receivable_v1"],
+    }
+
+
 def parse_explicit_core(text: str) -> dict[str, Any] | None:
     normalized = normalize_text(text)
     logistics = re.fullmatch(
@@ -177,5 +210,8 @@ def parse_explicit_core(text: str) -> dict[str, Any] | None:
     if logistics:
         operation = {"type": "EXPENSE", "amount": json_number(Decimal(logistics.group("amount"))), "category": "logistica"}
         return {"status": "COMPLETE", "operation": operation, "question": confirmation_prompt(operation), "warnings": ["explicit_rules_v2"]}
+    receivable = _receivable(text, normalized)
+    if receivable is not None:
+        return receivable
     payment = _payment(normalized)
     return payment if payment is not None else _explicit_sale(normalized)

@@ -1,20 +1,20 @@
-# Checklist de despliegue privado — P01_R2
+# Checklist de despliegue privado — Engine 1.2 / P01_R3
 
 **Fecha:** 30 de agosto de 2026
 
 **Resultado:** `PASS`
 
-**Gate:** `P01_ROUND_2_READY`
+**Gate:** pendiente de completar tras merge/release/deploy
 
-- [x] 63/63 pruebas Python en Oracle
-- [x] 3/3 pruebas frontend
+- [ ] suite Python final en release commit
+- [ ] suite frontend, typecheck y build en release commit
 - [x] TypeScript y production build
 - [x] `npm audit --omit=dev`: 0 vulnerabilidades
 - [x] CI de `main` verde
 - [x] `.env.example` sin secretos; `.env` retirado del checkout
 - [x] variables reales root-only en `/etc/mercadovoz/api.env`
 - [x] credencial P01 y token operador rotados sin mostrarlos
-- [x] migraciones `001`, `002` y `003`
+- [ ] migraciones `001`–`004` verificadas sin pérdida de R1/R2
 - [x] R1 preservado como `P01_R1`; R2 configurado como `P01_R2`
 - [x] acceso anterior revocado; 0 tokens activos antes de P01_R2
 - [x] consentimiento `pilot-consent-v1` vigente
@@ -31,7 +31,10 @@
 - [x] invitación inválida rechazada sin mostrar consentimiento o datos
 - [x] systemd API, PM2 web y Nginx activos
 - [x] rollback y stash previo disponibles
-- [x] Engine 1.1 y lock de inicio R2 documentados
+- [ ] Engine 1.2 y lock de inicio R3 documentados
+- [ ] `NEXT_PUBLIC_BATCH_EXPERIMENT=false`
+- [ ] `MERCADOVOZ_ENABLE_BATCH=false`
+- [ ] voice flag apagada
 
 ## Primer paso humano
 

@@ -1,0 +1,18 @@
+{
+  "schema_version": "batch-benchmark-v1",
+  "seed": 12012026,
+  "datasets": {
+    "research\\benchmarks\\batch\\synthetic-batch-v1.jsonl": {
+      "records": 3000,
+      "sha256": "5cc0d4a2cc89a99a215499579112bd7b68a9320a98b49b64a541cef34cb64055"
+    },
+    "research\\benchmarks\\batch\\web-derived-batch-v1.jsonl": {
+      "records": 60,
+      "sha256": "985b85ae0f392165fe21f621c14f9a5dc5a7b6590123eb8a7316fe788961763b"
+    },
+    "research\\benchmarks\\voice\\numeric-risk-v1.jsonl": {
+      "records": 50,
+      "sha256": "2ff8ac28d670f46eb139df5f85b5b940c008c75a975d7f07e458836ef53795ee"
+    }
+  }
+}

@@ -36,7 +36,7 @@ class Sale(Operation):
     product: str
     quantity: int | float
     unit: str
-    unit_price: int | float
+    unit_price: int | float | None
     total: int | float
     type: Literal["SALE"] = field(default="SALE", init=False)
 

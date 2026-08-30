@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "").trim();
+const voiceExperiment = process.env.NEXT_PUBLIC_VOICE_EXPERIMENT === "true";
 
 const apiOrigin = (() => {
   if (!configuredApiUrl) return "";
@@ -40,7 +41,7 @@ const nextConfig: NextConfig = {
         { key: "Referrer-Policy", value: "no-referrer" },
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "X-Frame-Options", value: "DENY" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        { key: "Permissions-Policy", value: `camera=(), microphone=${voiceExperiment ? "(self)" : "()"}, geolocation=()` },
         { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
         { key: "Cache-Control", value: "no-store" },
       ],

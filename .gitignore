@@ -24,6 +24,7 @@ sessions/
 data/private/
 data/runtime/
 exports/
+private_exports/
 backups/
 logs/
 *.log

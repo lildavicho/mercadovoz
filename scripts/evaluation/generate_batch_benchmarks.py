@@ -36,6 +36,7 @@ def synthetic_records(size: int, seed: int) -> list[dict]:
         count = sizes[index % len(sizes)]
         clauses: list[str] = []
         operations: list[str] = []
+        expected_fields: list[dict] = []
         for ordinal in range(count):
             kind = (index + ordinal) % 3
             amount = 1 + ((index * 7 + ordinal * 3) % 19)
@@ -44,12 +45,15 @@ def synthetic_records(size: int, seed: int) -> list[dict]:
                 price = 1 + ((index + ordinal * 2) % 5)
                 clauses.append(f"Vendí {quantity} {PRODUCTS[(index + ordinal) % len(PRODUCTS)]} a {price} dólares cada uno")
                 operations.append("SALE")
+                expected_fields.append({"product": PRODUCTS[(index + ordinal) % len(PRODUCTS)], "quantity": quantity, "unit_price": price, "total": quantity * price})
             elif kind == 1:
                 clauses.append(f"Gasté {amount} en transporte")
                 operations.append("EXPENSE")
+                expected_fields.append({"amount": amount, "category": "transporte"})
             else:
                 clauses.append(f"{NAMES[(index + ordinal) % len(NAMES)]} quedó debiendo {amount} dólares")
                 operations.append("RECEIVABLE")
+                expected_fields.append({"customer": NAMES[(index + ordinal) % len(NAMES)], "amount": amount})
         connector = CONNECTORS[randomizer.randrange(len(CONNECTORS))]
         text = connector.join(clauses)
         records.append({
@@ -59,6 +63,7 @@ def synthetic_records(size: int, seed: int) -> list[dict]:
             "seed": seed,
             "expected_segment_count": count,
             "expected_operation_types": operations,
+            "expected_fields": expected_fields,
             "critical_financial_error_expected": False,
         })
     return records
@@ -79,6 +84,7 @@ def external_records(size: int) -> list[dict]:
             "source_ids": [first["source_id"], second["source_id"]],
             "expected_segment_count": 2,
             "expected_operation_types": [first["expected_operation"], second["expected_operation"]],
+            "expected_fields": [first.get("expected", {}), second.get("expected", {})],
             "notes": "Composición para estrés de límites; no es habla real ni evidencia de demanda.",
         })
     return records

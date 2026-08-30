@@ -33,6 +33,8 @@ def evaluate(path: Path) -> dict:
     exact_boundaries = 0
     expected_operations = 0
     recovered_operations = 0
+    expected_fields = 0
+    correct_fields = 0
     exact_batches = 0
     safe_spans = 0
     partial_recovery = 0
@@ -52,10 +54,16 @@ def evaluate(path: Path) -> dict:
         expected_count = case["expected_segment_count"]
         exact_boundaries += int(len(result["segments"]) == expected_count)
         expected = case["expected_operation_types"]
+        annotated_fields = case.get("expected_fields", [{} for _ in expected])
         predicted = [item["operation"]["type"] for item in result["segments"] if item.get("operation")]
         expected_operations += len(expected)
         matched = sum(1 for offset, operation in enumerate(expected) if offset < len(predicted) and predicted[offset] == operation)
         recovered_operations += matched
+        for offset, fields in enumerate(annotated_fields):
+            operation = result["segments"][offset].get("operation") if offset < len(result["segments"]) else None
+            for field, expected_value in fields.items():
+                expected_fields += 1
+                correct_fields += int(bool(operation) and operation.get(field) == expected_value)
         exact_batches += int(predicted == expected)
         partial_recovery += int(0 < matched < len(expected))
         for item in result["segments"]:
@@ -70,10 +78,12 @@ def evaluate(path: Path) -> dict:
         "dataset": str(path.relative_to(ROOT)),
         "examples": len(cases),
         "expected_operations": expected_operations,
+        "annotated_fields": expected_fields,
         "metrics": {
             "exact_segment_count_rate": rate(exact_boundaries, len(cases)),
             "source_span_integrity_rate": rate(safe_spans, len(cases)),
             "operation_recall": rate(recovered_operations, expected_operations),
+            "field_accuracy": rate(correct_fields, expected_fields),
             "batch_exact_match_rate": rate(exact_batches, len(cases)),
             "partial_recovery_rate": rate(partial_recovery, len(cases)),
             "critical_financial_violations": critical_violations,

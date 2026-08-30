@@ -3,15 +3,17 @@
   "dataset": "research\\benchmarks\\batch\\web-derived-batch-v1.jsonl",
   "examples": 60,
   "expected_operations": 120,
+  "annotated_fields": 164,
   "metrics": {
     "exact_segment_count_rate": 0.6,
     "source_span_integrity_rate": 1.0,
     "operation_recall": 0.291667,
+    "field_accuracy": 0.371951,
     "batch_exact_match_rate": 0.116667,
     "partial_recovery_rate": 0.35,
     "critical_financial_violations": 0,
-    "median_latency_ms": 0.267,
-    "p95_latency_ms": 0.741
+    "median_latency_ms": 0.269,
+    "p95_latency_ms": 0.78
   },
   "statuses": {
     "NEEDS_REVIEW": 33,

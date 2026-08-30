@@ -116,9 +116,9 @@ El estado técnico pasa a `TECHNICAL_GENERALIZATION_GO`; el estado de campo perm
 
 ## Benchmark batch Engine 1.2
 
-Dos datasets permanecen separados. `synthetic-batch-v1` contiene 3.000 narrativas deterministas (24.000 movimientos; tamaños 2/3/5/10/20): 100% conteo de segmentos, 100% spans, 100% recall posicional, 100% lote exacto, 0 violaciones críticas; mediana 0,781 ms y p95 3,341 ms en esta máquina. Es cobertura templada, no habla natural.
+Dos datasets permanecen separados. `synthetic-batch-v1` contiene 3.000 narrativas deterministas (24.000 movimientos; tamaños 2/3/5/10/20): 100% conteo de segmentos, 100% spans, 100% recall posicional, 100% de 64.000 campos anotados, 100% lote exacto y 0 violaciones críticas. Es cobertura templada, no habla natural; la latencia se conserva en el reporte de cada corrida y no se usa como lock exacto.
 
-`web-derived-batch-v1` contiene 60 composiciones de dos registros públicos existentes, marcadas explícitamente como no naturales: 60% conteo exacto, 100% integridad de spans, 29,1667% recall posicional, 11,6667% lote exacto, 35% recuperación parcial y 0 violaciones críticas; mediana 0,267 ms y p95 0,741 ms. Los resultados no se mezclan con P01 ni prueban utilidad.
+`web-derived-batch-v1` contiene 60 composiciones de dos registros públicos existentes, marcadas explícitamente como no naturales: 60% conteo exacto, 100% integridad de spans, 29,1667% recall posicional, 37,1951% de 164 campos anotados, 11,6667% lote exacto, 35% recuperación parcial y 0 violaciones críticas. Los resultados no se mezclan con P01 ni prueban utilidad.
 
 Reportes: [`batch-synthetic-v1-engine-1.2.0.json`](../../research/benchmarks/results/batch-synthetic-v1-engine-1.2.0.json) y [`batch-web-derived-v1-engine-1.2.0.json`](../../research/benchmarks/results/batch-web-derived-v1-engine-1.2.0.json). El gate es `BATCH_ENGINE_TECHNICAL_GO` para arquitectura/seguridad y `BATCH_GENERALIZATION_HOLD` para lenguaje abierto.
 

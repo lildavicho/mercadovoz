@@ -21,7 +21,7 @@ class BatchEvaluationTests(unittest.TestCase):
         second = MODULE.evaluate(path)
         self.assertEqual(first["examples"], 3000)
         self.assertEqual(first["metrics"]["critical_financial_violations"], 0)
-        for key in ("exact_segment_count_rate", "source_span_integrity_rate", "operation_recall", "batch_exact_match_rate"):
+        for key in ("exact_segment_count_rate", "source_span_integrity_rate", "operation_recall", "field_accuracy", "batch_exact_match_rate"):
             self.assertEqual(first["metrics"][key], second["metrics"][key])
 
 

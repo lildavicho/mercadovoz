@@ -16,14 +16,14 @@ _STRONG_BOUNDARY = re.compile(r"[;.!?]+|\r?\n+")
 _COMMA = re.compile(r",")
 _PREDICATE = re.compile(
     r"(?i)\b(?:vend(?:í|i|imos)|se\s+fueron|salieron|gast(?:é|e|amos)|compr(?:é|e|amos)|"
-    r"fi(?:é|e|aron)|qued(?:ó|o)\s+debiendo|abon(?:ó|o|aron)|pag(?:ó|o|aron)|"
+    r"fi(?:é|e|aron)|qued(?:ó|o)\s+debiendo|abon(?:ó|o|aron)|pagu?(?:é|e|ó|o|aron)|"
     r"me\s+pag(?:ó|o)|llev(?:ó|o|aron)|dej(?:ó|o|aron))\b"
 )
 _PREFIXED_PREDICATE = re.compile(
     r"(?i)^\s*(?:(?:hoy|ayer|después|luego|entonces)\s+)?"
     r"(?:(?:a\s+)?[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚáéíóúÑñ-]*(?:\s+[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚáéíóúÑñ-]*)?\s+)?"
     r"(?:me\s+)?(?:vend(?:í|i|imos)|gast(?:é|e|amos)|compr(?:é|e|amos)|fi(?:é|e|aron)|"
-    r"qued(?:ó|o)\s+debiendo|abon(?:ó|o|aron)|pag(?:ó|o|aron)|llev(?:ó|o|aron)|dej(?:ó|o|aron))\b"
+    r"qued(?:ó|o)\s+debiendo|abon(?:ó|o|aron)|pagu?(?:é|e|ó|o|aron)|llev(?:ó|o|aron)|dej(?:ó|o|aron))\b"
 )
 _SETTLEMENT_PREFIX = re.compile(r"(?i)\b(?:llev(?:ó|o)|compr(?:ó|o))\b")
 _SETTLEMENT_SUFFIX = re.compile(r"(?i)^\s*(?:dej(?:ó|o)|pag(?:ó|o))\b")

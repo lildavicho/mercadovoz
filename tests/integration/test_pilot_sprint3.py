@@ -193,6 +193,24 @@ class PilotReadinessTests(unittest.TestCase):
         self.assertFalse(annotation["critical_financial_error"])
         self.assertEqual(0, self.app.state.storage.metrics("P01")["critical_financial_errors"])
 
+    def test_nonconfirmable_proposal_is_rejected_by_api(self):
+        token = self.access()
+        session = self.consent(token)
+        headers = self.headers(token, session)
+        proposal = self.client.post(
+            "/pilot/interpret", headers=headers,
+            json={"text": "Me abonó cinco"},
+        ).json()
+        self.assertEqual("NEEDS_CONTEXT", proposal["interpretation_status"])
+        response = self.client.post(
+            f"/pilot/proposals/{proposal['proposal_id']}/confirm",
+            headers=headers,
+            json={"idempotency_key": "must-not-confirm-incomplete"},
+        )
+        self.assertEqual(409, response.status_code)
+        self.assertIn("not confirmable", response.json()["detail"])
+        self.assertEqual([], self.app.state.storage.list_operations(participant_id="P01"))
+
     def test_pilot_mode_hides_development_routes_and_docs(self):
         self.assertEqual(404, self.client.get("/docs").status_code)
         self.assertEqual(404, self.client.post("/interpret", json={"text": "hola"}).status_code)

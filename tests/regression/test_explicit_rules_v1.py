@@ -45,6 +45,31 @@ class ExplicitRulesTests(unittest.TestCase):
             result["operation"],
         )
 
+    def test_new_receivable_extracts_named_customer_family(self):
+        cases = {
+            "María quedó debiendo 12 dólares": ("María", 12),
+            "Rosa quedó debiendo 8": ("Rosa", 8),
+            "Carlos me quedó debiendo diez": ("Carlos", 10),
+            "Juan quedó debiendo 5 dólares": ("Juan", 5),
+            "Ana quedó debiendo quince": ("Ana", 15),
+        }
+        for phrase, (customer, amount) in cases.items():
+            with self.subTest(phrase=phrase):
+                result = self.engine.interpret(phrase)
+                self.assertEqual("COMPLETE", result["status"])
+                self.assertEqual(
+                    {"type": "RECEIVABLE", "customer": customer, "amount": amount},
+                    result["operation"],
+                )
+
+    def test_explicit_sale_total_is_complete_without_invented_unit_price(self):
+        result = self.engine.interpret("Vendí 5 naranjas por 3 dólares en total")
+        self.assertEqual("COMPLETE", result["status"])
+        self.assertEqual(3, result["operation"]["total"])
+        self.assertIsNone(result["operation"]["unit_price"])
+        self.assertNotIn("unit_price", result["missing_fields"])
+        self.assertIn("explicit_total_without_unit_price", result["warnings"])
+
     def test_price_without_unit_basis_remains_ambiguous(self):
         result = self.engine.interpret("Vendí cinco libras de tomate a dos")
         self.assertEqual("AMBIGUOUS", result["status"])

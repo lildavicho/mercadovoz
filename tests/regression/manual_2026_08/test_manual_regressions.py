@@ -71,10 +71,9 @@ class ManualRegressionDevelopmentTests(unittest.TestCase):
     def test_sale_preserves_explicit_total_without_inventing_unit_price(self) -> None:
         self.assert_operation(
             "Vendí 5 naranjas por 3 dólares en total",
-            status="NEEDS_CONFIRMATION",
+            status="COMPLETE",
             operation_type="SALE",
-            fields={"product": "naranjas", "quantity": 5, "unit": "unidad", "total": 3},
-            forbidden_fields=("unit_price",),
+            fields={"product": "naranjas", "quantity": 5, "unit": "unidad", "total": 3, "unit_price": None},
             forbidden_product_fragments=("por 3", "en total"),
         )
 

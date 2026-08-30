@@ -349,7 +349,7 @@ def create_app(
                 "latency_ms": latency_ms,
             },
         )
-        if interpretation["status"] in {"NEEDS_CONTEXT", "NEEDS_CONFIRMATION"} and not interpretation.get("operation"):
+        if interpretation["status"] in {"NEEDS_CONTEXT", "NEEDS_CONFIRMATION"}:
             storage.record_event(
                 event_type="CONTEXT_REQUESTED", session_id=session["id"], participant_id=participant_id,
                 engine_version=ENGINE_VERSION, input_id=input_id,
@@ -361,11 +361,12 @@ def create_app(
         proposal_context[proposal["proposal_id"]] = {
             "participant_id": participant_id, "session_id": session["id"], "input_id": input_id,
         }
-        storage.record_event(
-            event_type="CONFIRMATION_SHOWN", session_id=session["id"], participant_id=participant_id,
-            engine_version=ENGINE_VERSION, input_id=input_id,
-            payload={"proposal_id": proposal["proposal_id"], "operation": proposal["operation"]},
-        )
+        if interpretation["status"] == "COMPLETE":
+            storage.record_event(
+                event_type="CONFIRMATION_SHOWN", session_id=session["id"], participant_id=participant_id,
+                engine_version=ENGINE_VERSION, input_id=input_id,
+                payload={"proposal_id": proposal["proposal_id"], "operation": proposal["operation"]},
+            )
         return {**proposal, "input_id": input_id}
 
     if batch_enabled:

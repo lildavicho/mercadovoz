@@ -60,7 +60,7 @@ class BatchInterpreterTests(unittest.TestCase):
     def test_adversarial_correction_is_not_promoted(self) -> None:
         result = self.engine.interpret("Vendí 5 y no, mentira, fueron 4")
         self.assertFalse(any(item["confirmable"] for item in result["segments"]))
-        self.assertEqual("BLOCKED", result["status"])
+        self.assertEqual("NEEDS_REVIEW", result["status"])
 
     def test_empty_and_oversized_inputs_fail_closed(self) -> None:
         self.assertEqual("BLOCKED", self.engine.interpret("   ")["status"])

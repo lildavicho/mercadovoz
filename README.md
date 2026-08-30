@@ -890,9 +890,9 @@ La validación real todavía está pendiente.
 | MVP de texto | Completado |
 | Preparación de piloto privado | Completado |
 | Repositorio de GitHub | Activo |
-| Despliegue en Oracle Cloud | HTTP temporal; engine 1.0.0 |
-| Robustez/generalización | Engine 1.1.0 aprobado localmente |
-| Primer piloto real | P01 inició; ronda sin outcomes terminales ni lock |
+| Despliegue en Oracle Cloud | HTTPS privado; Engine 1.1.0; `P01_R2` |
+| Robustez/generalización | Engine 1.1.0 aprobado y desplegado |
+| Primer piloto real | `P01_R1` congelado; `P01_R2` listo, sin claims de validación |
 | Interfaz de voz | Pendiente |
 | Validación de mercado | Pendiente |
 

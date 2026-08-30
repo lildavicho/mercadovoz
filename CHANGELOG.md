@@ -11,6 +11,8 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 - Strengthened compound, negation, plan/hypothesis and confirmation safety gates.
 - Added generalized corrections, 3,600-case deterministic fuzz invariants and manual regression provenance.
 - Added tested idempotency fallback and same-origin API support for temporary HTTP testing.
+- Closed and froze `P01_R1`, deployed Engine 1.1 under explicit `P01_R2`, and added secure credential rotation tooling.
+- Enabled HTTPS with automatic renewal and moved live secrets/exports outside the Git checkout.
 
 ### Safety
 

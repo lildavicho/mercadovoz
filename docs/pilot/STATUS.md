@@ -2,46 +2,41 @@
 
 **Actualizado:** 30 de agosto de 2026
 
+**URL privada:** `https://129-80-183-35.sslip.io`
+
 | Campo | Estado |
 |---|---|
 | `TECHNICAL_STATUS` | `TECHNICAL_GENERALIZATION_GO` |
-| `PARSER_STATUS` | `GENERALIZATION_REGRESSIONS_PASS` |
-| `SAFETY_STATUS` | `CRITICAL_FINANCIAL_VIOLATIONS_0` |
-| `CONTEXT_STATUS` | `TTL_AND_AUDIT_PASS` |
-| `COMPOUND_STATUS` | `25/25 external; manual repeated-sale regression PASS` |
-| `FIELD_VALIDATION_STATUS` | `PENDING_REAL_DATA` |
-| `PILOT_STATUS` | `ACTIVE_DATA_PRESENT; ROUND_NOT_LOCKED` |
-| `ENGINE_VERSION` | `1.1.0` (candidato; no desplegado) |
-| `DEPLOYED_ENGINE_VERSION` | `1.0.0` |
+| `FIELD_VALIDATION_STATUS` | `PENDING_REAL_OUTCOMES` |
+| `PILOT_STATUS` | `P01_ROUND_2_READY` |
+| `ENGINE_VERSION` | `1.1.0` |
+| `PARSER_VERSION` | `rules-v0.1.0+explicit-v0.4.0+context-v0.2.0+safety-v0.2.0` |
 | `PILOT_VERSION` | `pilot-v0` |
-| `CURRENT_PARTICIPANTS` | `1` (`P01`, pseudónimo) |
-| `REAL_DEVELOPMENT_RECORDS` | `25 inputs recolectados; no congelados ni versionados` |
+| `SCHEMA_VERSION` | `operation-v0.1.0`; DB migration `003_pilot_round_id` |
+| `UI_VERSION` | `pilot-ui-v0` |
+| `ACTIVE_ROUND` | `P01_R2` |
+| `CURRENT_PARTICIPANTS` | `1` histórico (`P01`); `0` sesiones abiertas en R2 |
+| `REAL_DEVELOPMENT_RECORDS` | `25`, congelados en `P01_R1` |
 | `REAL_HELDOUT_RECORDS` | `0` |
-| `CRITICAL_ERRORS` | `0 en benchmarks; desconocido en datos reales aún no evaluados` |
-| `LAST_GATE` | `LOCAL_GENERALIZATION_GATE_PASS` |
-| `NEXT_GATE` | `HOLD_REAL_FIELD_DATA_REQUIRED: cerrar y congelar P01 Round 1 antes de cambiar el engine desplegado` |
-| `DEPLOYMENT_STATUS` | `ORACLE_HTTP_TESTING; UPDATE_BLOCKED_ACTIVE_REAL_DATA` |
+| `CRITICAL_ERRORS` | `0` en benchmarks/replay; error humano R1 `NOT_MEASURABLE` |
+| `LAST_GATE` | `HTTPS_AND_ROUND_ISOLATION_PASS` |
+| `NEXT_GATE` | `P01_R2_FIRST_CONSENT_AND_VALID_OPERATION` |
+| `DEPLOYMENT_STATUS` | `HTTPS_LIVE_PRIVATE_ACCESS` |
 
-## Resultado técnico
+## Evidencia congelada
 
-- Las cinco regresiones manuales están separadas como `MANUAL_REGRESSION_DEVELOPMENT`.
-- El parser histórico `rules-v0.1.0` y sus hashes no fueron reescritos.
-- El candidato `engine 1.1.0` separa producto/precio, reconoce centavos, conserva totales declarados sin inventar precio unitario, excluye pronombres como clientes y detecta ventas repetidas/compuestas.
-- Negaciones, planes, intenciones e hipótesis se abstienen; una interpretación no completa no puede confirmarse aunque su forma parezca válida.
-- La matriz sintética generada ejecuta 3.600 combinaciones como prueba de robustez, no como evidencia de mercado.
-- El benchmark externo conserva las métricas anteriores y cero violaciones financieras críticas. Véase [`GENERALIZATION_REPORT_2026-08-30.md`](../evaluation/GENERALIZATION_REPORT_2026-08-30.md).
+P01 Round 1 permanece como `P01_R1 / REAL_DEVELOPMENT / engine 1.0.0`: 2 sesiones cerradas administrativamente, 25 inputs, 71 eventos, 0 operaciones confirmadas y 0 outcomes terminales. Sus exports y hashes están en [`P01_ROUND_1_LOCK.md`](P01_ROUND_1_LOCK.md). El replay separado con Engine 1.1 produjo cero violaciones financieras críticas, pero no es ground truth ni R2.
 
-## Estado de campo y despliegue
+## Ronda activa
 
-Oracle contiene dos sesiones abiertas de P01 bajo `engine 1.0.0`, 25 entradas y 69 eventos; no contiene operaciones confirmadas. Estos datos se tratan como reales y no se borran, editan ni mezclan con las regresiones manuales. El servidor permanece en HTTP temporal de prueba, por lo que no se declara listo para piloto de campo.
+Oracle ejecuta el commit de código `519ba141c15123023f24afed3efe0ae31dabab02`. `/pilot/config` confirma Engine `1.1.0`, `P01_R2`, consentimiento `pilot-consent-v1` y texto como único input. La base conserva solo R1 hasta que P01 acepte consentimiento y use R2; no se creó una sesión sintética en producción.
 
-Se creó un backup consistente e íntegro fuera del repositorio antes de cualquier intento de actualización. No se realizó una restauración sobre la base activa.
-
-Actualizar Oracle a `1.1.0` exige primero cerrar la ronda activa, exportarla mediante el mecanismo reproducible, registrar hashes y crear el lock de `REAL_DEVELOPMENT`. Hasta entonces el despliegue queda deliberadamente sin cambios.
+El acceso P01 y el token de operador fueron rotados, permanecen root-only fuera de Git y los nueve tokens anteriores están revocados. El consentimiento no cambia porque finalidad, datos, retención y derechos no cambiaron.
 
 ## Gates
 
-- `LLM_HOLD`: las reglas estructuradas todavía resuelven las clases observadas sin justificar un LLM.
-- `VOICE_HOLD`: no existe evidencia humana suficiente de fricción al escribir.
-- `FIELD_VALIDATION_STATUS = PENDING_REAL_DATA`: 25 inputs sin outcomes terminales no validan precisión, utilidad ni mercado.
-- `HTTPS_REQUIRED`: HTTP solo sirve para pruebas controladas, no para recopilar nueva evidencia real.
+- `FIELD_ITERATE`: abrir R2 para obtener outcomes terminales y correcciones reales.
+- `VOICE_HOLD`: no existe evidencia de que escribir sea la fricción decisiva.
+- `LLM_HOLD`: no existe una clase de error real que justifique esa complejidad.
+- `HTTPS_AND_ROUND_ISOLATION_PASS`: certificado válido, renovación simulada, redirección y `round_id` verificados.
+- No decir “validado con comerciantes”, “market validated” ni accuracy real.

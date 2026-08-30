@@ -1,33 +1,38 @@
-# Checklist de despliegue privado
+# Checklist de despliegue privado — P01_R2
 
-## Local completado
+**Fecha:** 30 de agosto de 2026
 
-- [x] 47/47 tests
-- [x] TypeScript
-- [x] production build
-- [x] `.env.example` sin secretos
-- [x] migraciones `001` y `002`
-- [x] acceso, consentimiento y aislamiento
-- [x] persistencia transaccional e idempotencia
-- [x] auditoría y export `REAL_DEVELOPMENT`
-- [x] headers, CORS, validación y rutas dev ocultas
-- [x] móvil 375/390/430 y escritorio sin overflow
-- [x] procedimiento de rollback
-- [x] `PILOT_ENGINE_LOCK.md`
+**Resultado:** `PASS`
 
-## Acción externa pendiente
+**Gate:** `P01_ROUND_2_READY`
 
-- [ ] Crear Oracle Ampere A1 Flex ARM64 y restringir SSH al CIDR administrador
-- [ ] Clonar `main` en `/home/ubuntu/apps/mercadovoz`
-- [ ] Crear `/etc/mercadovoz/api.env` root-only y directorio runtime
-- [ ] Configurar `NEXT_PUBLIC_API_URL=https://HOST/api` y CORS exacto
-- [ ] Ejecutar tests, typecheck, build y migraciones en ARM64
-- [ ] Activar FastAPI/systemd y Next.js/PM2 como singletons
-- [ ] Configurar Nginx y HTTPS; no exponer 3000/8000
-- [ ] Activar backup diario/semanal y completar restore drill
-- [ ] Comprobar que `/api/docs`, `/api/openapi.json` y `/api/interpret` dev responden 404
-- [ ] Ejecutar prueba sintética completa desde móvil real y luego limpiar esos datos
-- [ ] Confirmar logs sin texto financiero ni secretos
-- [ ] Congelar URL/versiones finales antes de consentimiento real
+- [x] 63/63 pruebas Python en Oracle
+- [x] 3/3 pruebas frontend
+- [x] TypeScript y production build
+- [x] `npm audit --omit=dev`: 0 vulnerabilidades
+- [x] CI de `main` verde
+- [x] `.env.example` sin secretos; `.env` retirado del checkout
+- [x] variables reales root-only en `/etc/mercadovoz/api.env`
+- [x] credencial P01 y token operador rotados sin mostrarlos
+- [x] migraciones `001`, `002` y `003`
+- [x] R1 preservado como `P01_R1`; R2 configurado como `P01_R2`
+- [x] acceso anterior revocado; 0 tokens activos antes de P01_R2
+- [x] consentimiento `pilot-consent-v1` vigente
+- [x] persistencia transaccional, idempotencia y aislamiento probados
+- [x] export R1 fuera de Git, archivos `0600`, hashes congelados
+- [x] backup predeploy íntegro fuera del checkout
+- [x] Nginx expone solo 80/443; API/web escuchan en loopback
+- [x] HTTP redirige a HTTPS
+- [x] certificado válido y renovación `--dry-run` exitosa
+- [x] CSP, `nosniff`, no framing, no referrer y `X-Robots-Tag`
+- [x] rutas dev/documentación ocultas en modo piloto
+- [x] health y config sin secretos
+- [x] móvil 390×844 sin overflow; labels/password/focus semánticos
+- [x] invitación inválida rechazada sin mostrar consentimiento o datos
+- [x] systemd API, PM2 web y Nginx activos
+- [x] rollback y stash previo disponibles
+- [x] Engine 1.1 y lock de inicio R2 documentados
 
-P01 no comienza hasta completar todas las casillas externas.
+## Primer paso humano
+
+Recuperar localmente la credencial P01 desde el archivo root-only documentado en [`P01_ROUND_2_ACCESS.md`](../pilot/P01_ROUND_2_ACCESS.md), abrir la URL HTTPS desde el móvil, aceptar el consentimiento y registrar una operación real normal. No pegar la credencial en chats, Git, issues o capturas.

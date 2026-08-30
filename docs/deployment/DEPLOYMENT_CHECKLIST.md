@@ -4,19 +4,19 @@
 
 **Resultado:** `PASS`
 
-**Gate:** pendiente de completar tras merge/release/deploy
+**Gate:** `ENGINE_1_2_RELEASE_CANDIDATE_GO / P01_R3_READY`
 
-- [ ] suite Python final en release commit
-- [ ] suite frontend, typecheck y build en release commit
+- [x] suite Python final en release commit
+- [x] suite frontend, typecheck y build en release commit
 - [x] TypeScript y production build
 - [x] `npm audit --omit=dev`: 0 vulnerabilidades
 - [x] CI de `main` verde
 - [x] `.env.example` sin secretos; `.env` retirado del checkout
 - [x] variables reales root-only en `/etc/mercadovoz/api.env`
 - [x] credencial P01 y token operador rotados sin mostrarlos
-- [ ] migraciones `001`–`004` verificadas sin pérdida de R1/R2
-- [x] R1 preservado como `P01_R1`; R2 configurado como `P01_R2`
-- [x] acceso anterior revocado; 0 tokens activos antes de P01_R2
+- [x] migraciones `001`–`004` verificadas sin pérdida de R1/R2
+- [x] R1 preservado como `P01_R1`; R2 preservado y R3 configurado como nueva ronda
+- [x] acceso anterior revocado; 0 tokens activos antes de P01_R3
 - [x] consentimiento `pilot-consent-v1` vigente
 - [x] persistencia transaccional, idempotencia y aislamiento probados
 - [x] export R1 fuera de Git, archivos `0600`, hashes congelados
@@ -31,11 +31,11 @@
 - [x] invitación inválida rechazada sin mostrar consentimiento o datos
 - [x] systemd API, PM2 web y Nginx activos
 - [x] rollback y stash previo disponibles
-- [ ] Engine 1.2 y lock de inicio R3 documentados
-- [ ] `NEXT_PUBLIC_BATCH_EXPERIMENT=false`
-- [ ] `MERCADOVOZ_ENABLE_BATCH=false`
-- [ ] voice flag apagada
+- [x] Engine 1.2 y lock de inicio R3 documentados
+- [x] `NEXT_PUBLIC_BATCH_EXPERIMENT=false`
+- [x] `MERCADOVOZ_BATCH_EXPERIMENT` no habilitada; endpoint batch 404
+- [x] `NEXT_PUBLIC_VOICE_EXPERIMENT=false`; UI y permiso de micrófono apagados
 
 ## Primer paso humano
 
-Recuperar localmente la credencial P01 desde el archivo root-only documentado en [`P01_ROUND_2_ACCESS.md`](../pilot/P01_ROUND_2_ACCESS.md), abrir la URL HTTPS desde el móvil, aceptar el consentimiento y registrar una operación real normal. No pegar la credencial en chats, Git, issues o capturas.
+Recuperar localmente la credencial P01 R3 desde el archivo root-only del operador, abrir la URL HTTPS desde el móvil, aceptar el consentimiento y registrar una operación real normal. No pegar la credencial en chats, Git, issues o capturas.

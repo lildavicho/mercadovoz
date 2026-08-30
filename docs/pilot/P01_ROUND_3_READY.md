@@ -1,8 +1,8 @@
 # Preparación de P01 Round 3
 
-**Estado:** `P01_R3_PREPARED_NOT_STARTED`
+**Estado:** `P01_R3_READY_NOT_STARTED`
 
-Condiciones previas: release candidate 1.2 mergeado, CI verde, lock/backup de despliegue, migración 004 verificada, Engine/Schema visibles en `/pilot/config`, flags batch/voice apagadas, credencial rotada y consentimiento `pilot-consent-v1` aceptado en una nueva sesión.
+Condiciones técnicas cumplidas: release 1.2 mergeado, CI verde, lock/backup de despliegue, migración 004 verificada, Engine/Schema visibles en `/pilot/config`, flags batch/voice apagadas y credencial rotada. El consentimiento `pilot-consent-v1` aún no fue aceptado en R3 porque no se inició una sesión humana.
 
 P01_R3 seguirá siendo `REAL_DEVELOPMENT`. No reutilizará sesiones de R2 ni escribirá replay en evidencia histórica. La ronda no empieza con este documento ni con el deploy: empieza únicamente cuando P01 obtiene acceso, acepta consentimiento y crea una sesión `round_id=P01_R3`.
 

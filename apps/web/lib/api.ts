@@ -1,4 +1,6 @@
 import type {
+  BatchConfirmation,
+  BatchInterpretation,
   Interpretation,
   PilotAccess,
   PilotConfig,
@@ -57,6 +59,26 @@ export const api = {
     request<Interpretation | Proposal>("/pilot/interpret", {
       method: "POST",
       body: JSON.stringify({ text }),
+    }),
+  interpretBatch: (text: string, inputMode: BatchInterpretation["input_mode"] = "TEXT_BATCH") =>
+    request<BatchInterpretation>("/pilot/interpret-batch", {
+      method: "POST",
+      body: JSON.stringify({ text, input_mode: inputMode }),
+    }),
+  correctBatchItem: (batchId: string, itemId: string, changes: Record<string, string | number | null>) =>
+    request<{ batch: BatchInterpretation }>(`/pilot/batches/${batchId}/items/${itemId}/correct`, {
+      method: "POST",
+      body: JSON.stringify({ changes }),
+    }),
+  rejectBatchItem: (batchId: string, itemId: string) =>
+    request<{ batch: BatchInterpretation }>(`/pilot/batches/${batchId}/items/${itemId}/reject`, {
+      method: "POST",
+      body: JSON.stringify({ reason: "USER_REJECTED_ITEM" }),
+    }),
+  confirmBatch: (batchId: string, itemIds: string[], idempotencyKey: string) =>
+    request<BatchConfirmation>(`/pilot/batches/${batchId}/confirm`, {
+      method: "POST",
+      body: JSON.stringify({ item_ids: itemIds, idempotency_key: idempotencyKey }),
     }),
   correct: (id: string, text: string) =>
     request<Proposal>(`/pilot/proposals/${id}/correct`, {

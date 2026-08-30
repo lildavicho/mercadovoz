@@ -61,6 +61,31 @@ class BatchStorageTests(unittest.TestCase):
         self.assertEqual(2, len(first["operations"]))
         self.assertEqual(2, len(self.ledger.list_operations(participant_id="P01")))
 
+        reconstructed = BatchLedger(self.ledger)
+        self.assertEqual(first, reconstructed.result_for_key("P01", "stable-batch-key"))
+
+    def test_injected_second_write_failure_rolls_back_every_batch_write(self) -> None:
+        batch = self.register("Gasté 4 en taxi y vendí 2 panes a 50 centavos cada uno")
+        original_insert = self.store._insert_operation
+        calls = 0
+
+        def fail_on_second(*args, **kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise RuntimeError("injected storage failure")
+            return original_insert(*args, **kwargs)
+
+        self.store._insert_operation = fail_on_second  # type: ignore[method-assign]
+        with self.assertRaisesRegex(RuntimeError, "injected storage failure"):
+            self.confirm(batch, "atomic-failure-key")
+        self.assertEqual([], self.ledger.list_operations(participant_id="P01"))
+        self.assertIsNone(self.store.result_for_key("P01", "atomic-failure-key"))
+        confirmed_items = self.ledger._connection.execute(
+            "SELECT COUNT(*) FROM batch_items WHERE lifecycle_status = 'CONFIRMED'"
+        ).fetchone()[0]
+        self.assertEqual(0, confirmed_items)
+
     def test_same_idempotency_key_cannot_confirm_different_selection(self) -> None:
         batch = self.register("Gasté 4 en taxi y vendí 2 panes a 50 centavos cada uno")
         self.confirm(batch)
@@ -104,6 +129,22 @@ class BatchStorageTests(unittest.TestCase):
         payment = self.register("María me pagó 3")
         with self.assertRaisesRegex(ValueError, "explicit receivable"):
             self.confirm(payment, "ambiguous-payment")
+
+    def test_payment_cannot_cross_customer_or_reopen_closed_debt(self) -> None:
+        debt = self.register("María quedó debiendo 5 dólares")
+        self.confirm(debt, "customer-debt")
+        receivable_id = self.ledger.list_receivables("P01")[0]["id"]
+
+        wrong_customer = self.register("Rosa me pagó 2")
+        wrong_customer["segments"][0]["operation"]["receivable_id"] = receivable_id
+        with self.assertRaisesRegex(ValueError, "customer does not match"):
+            self.confirm(wrong_customer, "wrong-customer")
+
+        payment = self.register("María me pagó 5")
+        self.confirm(payment, "close-debt")
+        after_close = self.register("María me pagó 1")
+        with self.assertRaisesRegex(ValueError, "open receivable"):
+            self.confirm(after_close, "closed-debt")
 
     def test_transaction_group_and_line_items_are_auditable(self) -> None:
         group_batch = self.register("María llevó 8 dólares de producto y dejó 5")

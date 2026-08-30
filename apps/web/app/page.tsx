@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { DecisionBar } from "@/components/DecisionBar";
+import { BatchWorkspace } from "@/components/BatchWorkspace";
 import { EntryComposer } from "@/components/EntryComposer";
 import { LedgerHeader } from "@/components/LedgerHeader";
 import { LedgerHistory } from "@/components/LedgerHistory";
@@ -23,6 +24,7 @@ import type {
 type PilotStage = "loading" | "access" | "consent" | "active" | "ended";
 
 const emptyFeedback: SessionFeedback = { annoying: "", missing: "", distrust: "", faster: "" };
+const batchExperiment = process.env.NEXT_PUBLIC_BATCH_EXPERIMENT === "true";
 
 function deviceClass() {
   if (window.innerWidth < 768) return "mobile";
@@ -213,12 +215,16 @@ export default function Home() {
         <>
           <div className="session-strip" aria-label="Sesión activa">
             <span>{participantId}</span>
-            <span>Texto</span>
+            <span>{batchExperiment ? "Texto por lotes" : "Texto"}</span>
             <span>{session.pilot_version}</span>
           </div>
           <div className="workspace">
             <section className="capture-column" aria-label="Registrar operación">
-              <EntryComposer value={text} isLoading={loading} onChange={setText} onSubmit={understand} />
+              {batchExperiment ? (
+                <BatchWorkspace onConfirmed={refreshLedger} />
+              ) : (
+                <>
+                  <EntryComposer value={text} isLoading={loading} onChange={setText} onSubmit={understand} />
               {error && <p className="message error-message" role="alert">{error}</p>}
               {notice && <p className="message success-message" role="status">{notice}</p>}
               {result && <OperationSlip result={result} />}
@@ -248,6 +254,8 @@ export default function Home() {
                   onReject={reject}
                   onCancel={cancel}
                 />
+              )}
+                </>
               )}
               <SessionClose
                 feedback={feedback}

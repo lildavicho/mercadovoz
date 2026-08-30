@@ -2,7 +2,7 @@
 
 **Gate:** `P01_ROUND_2_READY`
 
-**Campo:** `PENDING_REAL_OUTCOMES`
+**Campo:** `PENDING_REAL_DATA`; ya existen 25 inputs de R1, pero faltan outcomes humanos medibles
 
 **URL:** `https://129-80-183-35.sslip.io`
 
@@ -49,7 +49,7 @@ Backup predeploy: `/home/ubuntu/backups/mercadovoz/p01-r2-predeploy-20260830T070
 | técnico | `TECHNICAL_GENERALIZATION_GO` |
 | despliegue privado | `HTTPS_LIVE_PRIVATE_ACCESS` |
 | inicio R2 | `P01_ROUND_2_READY` |
-| campo | `PENDING_REAL_OUTCOMES` |
+| campo | `PENDING_REAL_DATA` |
 | voz | `VOICE_HOLD` |
 | LLM | `LLM_HOLD` |
 | offline | `OFFLINE_HOLD` |

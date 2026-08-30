@@ -7,8 +7,12 @@
 | Campo | Estado |
 |---|---|
 | `TECHNICAL_STATUS` | `TECHNICAL_GENERALIZATION_GO` |
-| `FIELD_VALIDATION_STATUS` | `PENDING_REAL_OUTCOMES` |
+| `FIELD_VALIDATION_STATUS` | `PENDING_REAL_DATA` (25 inputs existen; outcomes humanos aún no medibles) |
 | `PILOT_STATUS` | `P01_ROUND_2_READY` |
+| `P01_ROUND_1_STATUS` | `FROZEN` |
+| `P01_ROUND_1_ENGINE` | `1.0.0` |
+| `P01_ROUND_2_STATUS` | `READY` |
+| `HTTPS_STATUS` | `ACTIVE` |
 | `ENGINE_VERSION` | `1.1.0` |
 | `PARSER_VERSION` | `rules-v0.1.0+explicit-v0.4.0+context-v0.2.0+safety-v0.2.0` |
 | `PILOT_VERSION` | `pilot-v0` |
@@ -22,6 +26,8 @@
 | `LAST_GATE` | `HTTPS_AND_ROUND_ISOLATION_PASS` |
 | `NEXT_GATE` | `P01_R2_FIRST_CONSENT_AND_VALID_OPERATION` |
 | `DEPLOYMENT_STATUS` | `HTTPS_LIVE_PRIVATE_ACCESS` |
+| `VOICE_STATUS` | `HOLD` |
+| `LLM_STATUS` | `HOLD` |
 
 ## Evidencia congelada
 

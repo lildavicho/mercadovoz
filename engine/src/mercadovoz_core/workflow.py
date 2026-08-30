@@ -72,6 +72,7 @@ class OperationWorkflow:
         record["question"] = result.get("question")
         record["missing_fields"] = list(result.get("missing_fields", []))
         record["warnings"] = list(result.get("warnings", []))
+        record["interpretation_status"] = result.get("status", "NEEDS_CONFIRMATION")
         correction = {
             "at": _now(),
             "text": correction_text,
@@ -96,6 +97,10 @@ class OperationWorkflow:
         errors = [*missing_fields(operation), *validate_operation(operation)]
         if errors:
             raise ValueError(f"operation is not valid: {errors}")
+        if record.get("interpretation_status") != "COMPLETE":
+            raise ValueError(
+                f"interpretation is not confirmable: {record.get('interpretation_status')}"
+            )
         confirmed_at = _now()
         record["lifecycle_status"] = "CONFIRMED"
         record["confirmation"] = {"at": confirmed_at, "idempotency_key": idempotency_key}

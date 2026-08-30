@@ -24,6 +24,30 @@ def inspect_safety(text: str) -> SafetyDecision | None:
 
     plain = _plain(text)
 
+    # Core operations represent completed facts. Negation, plans, intentions
+    # and hypotheses must not be promoted into financial events.
+    if re.search(
+        r"\bno\s+(?:vendi|vendimos|gaste|gastamos|pague|compre|compramos|"
+        r"fio|abono|pago|dejo|saque|retire)\b",
+        plain,
+    ):
+        return SafetyDecision(
+            "OUT_OF_SCOPE",
+            "negated_event_not_recordable",
+            "La frase niega la operación; no crearé un registro financiero.",
+        )
+
+    if re.search(
+        r"\b(?:manana\s+|voy\s+a\s+|quiero\s+|pienso\s+|pense\s+|pensaba\s+|"
+        r"queria\s+)?(?:vendere|gastare|comprare|pagare|vender|gastar|comprar|fiar|pagar)\b",
+        plain,
+    ) or re.search(r"\b(?:si\s+(?:vendo|vendiera|gasto)|serian?)\b", plain):
+        return SafetyDecision(
+            "OUT_OF_SCOPE",
+            "planned_or_hypothetical_event",
+            "La frase describe un plan o una hipótesis; registre solo una operación ya ocurrida.",
+        )
+
     if re.search(r"\b(?:como|aproximadamente|aprox|casi|unos|unas)\s+(?:\d+|[a-zñ]+)", plain) or "mas o menos" in plain:
         return SafetyDecision(
             "AMBIGUOUS",
@@ -65,7 +89,22 @@ def inspect_safety(text: str) -> SafetyDecision | None:
         "stock": r"\b(?:stock|inventario|me quedan|quedaron|saque)\b",
     }
     matched = [name for name, pattern in signals.items() if re.search(pattern, plain)]
-    if re.search(r"\by\b", plain) and len(matched) >= 2:
+    transaction_predicates = re.findall(
+        r"\b(?:vendi|vendimos|se\s+fueron|salieron|di|gaste|gastamos|compre|compramos|"
+        r"fio|fiado|abono|pago|dejo|cancelo)\b",
+        plain,
+    )
+    compound_connector = re.search(
+        r"\b(?:y|tambien|ademas|luego|despues|posteriormente|pero|aunque|aparte)\b|;", plain,
+    )
+    sale_with_multiple_quantities = bool(
+        re.search(r"\b(?:vendi|vendimos|se\s+fueron|salieron)\b", plain)
+        and compound_connector
+        and len(re.findall(r"(?:\b\d+(?:[.,]\d+)?\b|\b(?:un|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b)", plain)) >= 2
+    )
+    if compound_connector and (
+        len(matched) >= 2 or len(transaction_predicates) >= 2 or sale_with_multiple_quantities
+    ):
         return SafetyDecision(
             "COMPOUND_OPERATION",
             "compound_operation_requires_split",

@@ -146,8 +146,8 @@ class SQLiteLedger:
                 INSERT INTO pilot_sessions (
                     id, participant_id, pilot_version, engine_version, parser_version,
                     schema_version, ui_version, started_at, ended_at, consent_version,
-                    device_class, input_mode, event_count
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, 'TEXT', 0)
+                    device_class, input_mode, event_count, round_id
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, 'TEXT', 0, ?)
                 """,
                 (
                     session_id,
@@ -160,6 +160,7 @@ class SQLiteLedger:
                     started_at,
                     consent_version,
                     device_class,
+                    versions["round_id"],
                 ),
             )
             self._insert_event(
@@ -168,7 +169,11 @@ class SQLiteLedger:
                 session_id=session_id,
                 participant_id=participant_id,
                 engine_version=versions["engine_version"],
-                payload={"input_mode": "TEXT", "device_class": device_class},
+                payload={
+                    "input_mode": "TEXT",
+                    "device_class": device_class,
+                    "round_id": versions["round_id"],
+                },
             )
         return self.get_session(session_id, participant_id)
 
@@ -233,16 +238,26 @@ class SQLiteLedger:
             "input_id": input_id,
             "occurred_at": _now(),
             "engine_version": engine_version,
+            "round_id": connection.execute(
+                "SELECT round_id FROM pilot_sessions WHERE id = ? AND participant_id = ?",
+                (session_id, participant_id),
+            ).fetchone()[0],
             "payload": {"event_schema_version": PILOT_EVENT_SCHEMA_VERSION, **payload},
             "duration_ms": duration_ms,
         }
         connection.execute(
-            "INSERT INTO pilot_events VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            """
+            INSERT INTO pilot_events (
+                id, event_type, session_id, participant_id, input_id, occurred_at,
+                engine_version, payload_json, duration_ms, round_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
             (
                 event["id"], event_type, session_id, participant_id, input_id,
                 event["occurred_at"], engine_version,
                 json.dumps(event["payload"], ensure_ascii=False, sort_keys=True),
                 duration_ms,
+                event["round_id"],
             ),
         )
         connection.execute(

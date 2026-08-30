@@ -60,11 +60,11 @@ La persistencia solo ocurre al confirmar. La `idempotency_key` impide duplicar u
 | Componente | Versión | Estado |
 |---|---|---|
 | parser determinista | `rules-v0.1.0` | congelado |
-| seguridad previa | `safety-v0.1.0` | experimental |
+| seguridad previa | `safety-v0.2.0` | generalization candidate |
 | contexto | `context-v0.2.0` | experimental |
 | schema | `operation-v0.1.0` | contrato vigente |
-| core | `1.0.0` | gate técnico aprobado |
-| parser compuesto | `explicit-rules-v1+rules-v0.1.0+context-v0.2.0+safety-v0.1.0` | usado en salida Sprint 1 |
+| core | `1.1.0` | generalization gate aprobado; no desplegado |
+| parser compuesto | `rules-v0.1.0+explicit-v0.4.0+context-v0.2.0+safety-v0.2.0` | candidato posterior a evidencia manual |
 | servicio | FastAPI local | Sprint 2 |
 | persistencia | SQLite local | Sprint 2 |
 | interfaz | Next.js/React/TypeScript/Tailwind | Sprint 2, solo texto |

@@ -107,3 +107,9 @@ La iteración 1 añadió patrones generales de ventas explícitas y gastos logí
 - El held-out independiente limpio contiene 29 registros y cobertura parcial. No soporta una promesa de accuracy general.
 
 **Resultado:** `TECHNICAL_GO` para el core y Text MVP local; `FIELD_VALIDATION_STATUS = PENDING_REAL_DATA`. Reportes reproducibles: [`external-cuenca-v1-baseline-v0.json`](../../research/benchmarks/results/external-cuenca-v1-baseline-v0.json), [`external-cuenca-v1-engine-v1-sprint1-exit.json`](../../research/benchmarks/results/external-cuenca-v1-engine-v1-sprint1-exit.json) y [`external-heldout-v1-independent-clean-engine-v1-sprint1-exit.json`](../../research/benchmarks/results/external-heldout-v1-independent-clean-engine-v1-sprint1-exit.json).
+
+## Cierre de generalización 1.1.0
+
+El 30 de agosto se añadieron cinco casos `MANUAL_REGRESSION_DEVELOPMENT`, pruebas adversariales y una matriz determinista de 3.600 combinaciones. No se abrieron ni ajustaron etiquetas de `REAL_HELDOUT`. El resultado vuelve a producir exactamente las métricas de cierre anteriores en sintético, externo completo y held-out externo limpio, añade `5/5` regresiones manuales correctas y conserva cero violaciones financieras críticas. Detalle y limitaciones: [`GENERALIZATION_REPORT_2026-08-30.md`](GENERALIZATION_REPORT_2026-08-30.md).
+
+El estado técnico pasa a `TECHNICAL_GENERALIZATION_GO`; el estado de campo permanece `PENDING_REAL_DATA`. Los 25 inputs presentes en Oracle bajo `engine 1.0.0` no tienen outcomes terminales y no se convierten en una métrica de precisión.

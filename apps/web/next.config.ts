@@ -1,10 +1,13 @@
 import type { NextConfig } from "next";
 
+const configuredApiUrl = (process.env.NEXT_PUBLIC_API_URL ?? "").trim();
+
 const apiOrigin = (() => {
+  if (!configuredApiUrl) return "";
   try {
-    return new URL(process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000").origin;
+    return new URL(configuredApiUrl).origin;
   } catch {
-    return "http://127.0.0.1:8000";
+    return "";
   }
 })();
 
@@ -17,13 +20,12 @@ const contentSecurityPolicy = [
   scriptPolicy,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
-  `connect-src 'self' ${apiOrigin}`,
+  `connect-src 'self'${apiOrigin ? ` ${apiOrigin}` : ""}`,
   "font-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
-  ...(process.env.NODE_ENV === "production" ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 const nextConfig: NextConfig = {

@@ -93,3 +93,31 @@
 - **Trade-off:** no se atribuyen mejoras semánticas a cambios técnicamente plausibles sin aceptación/corrección real.
 - **Reversible:** sí, mediante otro gate después de R2.
 - **Evidencia:** [`P01_R1_REPLAY_ENGINE_1_1.md`](../evaluation/P01_R1_REPLAY_ENGINE_1_1.md).
+
+## 2026-08-30 — Una DB con `round_id` explícito
+
+- **Contexto:** R1 debe conservar relaciones/auditoría y R2 no puede confundirse por fechas o versión implícita.
+- **Opciones:** DB nueva; tablas por ronda; misma DB con identificador obligatorio.
+- **Decisión:** mantener SQLite singleton y añadir `round_id` obligatorio en sesión/evento, con backfill versionado de R1.
+- **Razón:** separación consultable y migración reversible sin duplicar infraestructura ni borrar historia.
+- **Trade-off:** consultas operativas deben filtrar ronda cuando comparan evaluación; la frontera de participante sigue siendo independiente.
+- **Reversible:** sí para rondas futuras; el backfill histórico queda auditado.
+- **Evidencia:** [`P01_ROUND_2_START.md`](../pilot/P01_ROUND_2_START.md).
+
+## 2026-08-30 — HTTPS gratuito para P01
+
+- **Contexto:** no existe dominio propio y HTTP no es aceptable para credenciales o texto real.
+- **Opciones:** comprar dominio; túnel/proveedor; hostname IP de `sslip.io` con Let's Encrypt.
+- **Decisión:** usar `129-80-183-35.sslip.io`, certificado Let's Encrypt y renovación Certbot para la ronda privada.
+- **Razón:** habilita HTTPS válido sin cuenta o compra y mantiene un único origen.
+- **Trade-off:** dependencia DNS externa y nombre ligado a la IP; debe migrarse antes de ampliar el piloto.
+- **Reversible:** sí.
+- **Evidencia:** [`HTTPS_DEPLOYMENT.md`](../deployment/HTTPS_DEPLOYMENT.md).
+
+## 2026-08-30 — Consentimiento v1 permanece
+
+- **Contexto:** Engine y ronda cambian, pero datos recolectados, propósito, retención y derechos no cambian.
+- **Decisión:** conservar `pilot-consent-v1` y registrar un nuevo consentimiento al iniciar R2.
+- **Razón:** versionar por cambios reales del acuerdo, no por cada deploy técnico.
+- **Trade-off:** el lock de ronda debe declarar por separado el Engine nuevo.
+- **Reversible:** sí mediante `consent-v2` antes de cualquier cambio de tratamiento.

@@ -1,4 +1,8 @@
-# Oracle Cloud deployment — prepared, not executed
+# Oracle Cloud deployment — P01_R2 active
+
+## Instancia activa
+
+Desde el 30 de agosto de 2026 el piloto está activo en `https://129-80-183-35.sslip.io`: Nginx/HTTPS delante de Next.js y FastAPI, ambos en loopback. El environment real está en `/etc/mercadovoz/api.env`, el acceso operador en `/etc/mercadovoz/operator/`, los exports en `/home/ubuntu/private_exports/mercadovoz/` y los backups en `/home/ubuntu/backups/mercadovoz/`. Ver [`HTTPS_DEPLOYMENT.md`](HTTPS_DEPLOYMENT.md) y [`P01_ROUND_2_START.md`](../pilot/P01_ROUND_2_START.md).
 
 ## Target
 
@@ -78,7 +82,7 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-Add a valid TLS certificate before exposing participant access. Set `NEXT_PUBLIC_API_URL=https://HOST/api` before the production build and `MERCADOVOZ_ALLOWED_ORIGINS=https://HOST` in the API environment.
+Add a valid TLS certificate before exposing participant access. Prefer same-origin by leaving `NEXT_PUBLIC_API_URL` empty; set `MERCADOVOZ_ALLOWED_ORIGINS=https://HOST` in the API environment.
 
 ## Firewall
 
@@ -102,7 +106,7 @@ Mirror only the required rules in the OCI NSG. Never add public ingress for 3000
 ```bash
 curl --fail http://127.0.0.1:8000/health
 curl --fail http://127.0.0.1:3000/
-curl --fail https://HOST/api/health
+curl --fail https://HOST/health
 systemctl is-active mercadovoz-api nginx
 pm2 status
 ```

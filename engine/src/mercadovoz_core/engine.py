@@ -72,9 +72,6 @@ class MercadoVozEngine:
         operation = deepcopy(baseline.get("operation"))
         used: list[dict[str, Any]] = []
         computed: dict[str, Any] = dict(baseline.get("computed_fields", {}))
-        if operation and operation.get("type") in {"SALE", "PURCHASE"} and operation.get("total") is not None:
-            computed.setdefault("total", operation["total"])
-
         if operation and context:
             self._apply_explicit_context(operation, original, context, used, computed)
 

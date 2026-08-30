@@ -14,7 +14,7 @@ class Parser(Protocol):
 
 
 class ExplicitCoreParser:
-    version = "explicit-v0.3.0"
+    version = "explicit-v0.4.0"
 
     def parse(self, text: str) -> dict[str, Any] | None:
         return parse_explicit_core(text)
@@ -28,7 +28,7 @@ class FrozenV0Parser:
 
 
 class CompositeParser:
-    version = "explicit-v0.3.0+rules-v0.1.0"
+    version = "explicit-v0.4.0+rules-v0.1.0"
 
     def __init__(self, parsers: tuple[Parser, ...] | None = None) -> None:
         self.parsers = parsers or (ExplicitCoreParser(), FrozenV0Parser())

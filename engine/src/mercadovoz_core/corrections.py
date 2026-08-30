@@ -14,7 +14,11 @@ NUMBER = r"\d+(?:[.,]\d+)?"
 
 
 def _result(operation: dict[str, Any], changed: list[str]) -> dict[str, Any]:
-    if operation.get("quantity") is not None and operation.get("unit_price") is not None:
+    if (
+        "total" not in changed
+        and operation.get("quantity") is not None
+        and operation.get("unit_price") is not None
+    ):
         operation["total"] = json_number(
             Decimal(str(operation["quantity"])) * Decimal(str(operation["unit_price"]))
         )
@@ -37,6 +41,15 @@ def apply_controlled_correction(result: dict[str, Any], correction_text: str) ->
     if not operation:
         return apply_correction(result, correction_text)
     text = normalize_text(correction_text)
+
+    quantity_replacement = re.fullmatch(
+        rf"no eran? {NUMBER},? eran? (?P<quantity>{NUMBER})", text
+    )
+    if quantity_replacement and "quantity" in operation:
+        operation["quantity"] = json_number(
+            Decimal(quantity_replacement.group("quantity").replace(",", "."))
+        )
+        return _result(operation, ["quantity"])
 
     replacement = re.fullmatch(r"no era (?P<old>[a-zñ ]+),? era (?P<new>[a-zñ ]+)", text)
     if replacement and operation.get("customer"):
@@ -62,5 +75,24 @@ def apply_controlled_correction(result: dict[str, Any], correction_text: str) ->
     if amount and "amount" in operation:
         operation["amount"] = json_number(Decimal(amount.group("amount").replace(",", ".")))
         return _result(operation, ["amount"])
+
+    money = re.fullmatch(
+        rf"eran? (?P<value>{NUMBER}) (?P<unit>dolares?|centavos?|ctvs?)", text
+    )
+    if money:
+        value = Decimal(money.group("value").replace(",", "."))
+        if money.group("unit").startswith(("centavo", "ctv")):
+            value /= Decimal("100")
+        field = "amount" if "amount" in operation else "unit_price" if "unit_price" in operation else None
+        if field:
+            operation[field] = json_number(value)
+            return _result(operation, [field])
+
+    total = re.fullmatch(
+        rf"(?:el )?total era (?P<value>{NUMBER})(?: dolares?)?", text
+    )
+    if total and "total" in operation:
+        operation["total"] = json_number(Decimal(total.group("value").replace(",", ".")))
+        return _result(operation, ["total"])
 
     return apply_correction(result, correction_text)

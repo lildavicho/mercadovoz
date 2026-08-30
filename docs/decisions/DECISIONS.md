@@ -56,3 +56,21 @@
 - `LLM_HOLD`: no hay clase de error real que justifique complejidad.
 - `OFFLINE_HOLD`: dependencias documentadas; sin offline completo.
 - `PRIVATE_PILOT_READY_TO_DEPLOY`: preparación local aprobada; faltan acciones externas.
+
+## 2026-08-30 — Engine 1.1.0 después de evidencia manual
+
+- **Contexto:** cinco fallos P0 reproducibles mostraron contaminación producto/precio, centavos omitidos, pronombre como cliente y colapso de ventas repetidas. Oracle ya contiene datos reales bajo `1.0.0`.
+- **Opciones:** parchear frases; modificar el parser legado; introducir LLM; añadir una gramática estructurada acotada antes del parser congelado.
+- **Decisión:** mantener `rules-v0.1.0` byte a byte, publicar el candidato `engine 1.1.0` con `explicit-v0.4.0` y `safety-v0.2.0`, y bloquear su despliegue hasta cerrar/hashear la ronda activa.
+- **Razón:** resuelve familias lingüísticas y añade abstención defensiva sin reescribir el baseline ni mezclar versiones de campo.
+- **Trade-off:** el esquema sigue sin line items y algunas permutaciones terminan no finales.
+- **Reversible:** sí; Oracle continúa en `1.0.0` y el rollback queda por commit/lock.
+- **Evidencia:** [`GENERALIZATION_REPORT_2026-08-30.md`](../evaluation/GENERALIZATION_REPORT_2026-08-30.md) y [`GENERALIZATION_ENGINE_LOCK.md`](../pilot/GENERALIZATION_ENGINE_LOCK.md).
+
+## 2026-08-30 — HTTP temporal e idempotencia
+
+- **Contexto:** `crypto.randomUUID()` no está disponible en todos los contextos HTTP; el ajuste directo de Oracle introdujo recursión accidental.
+- **Decisión:** usar `randomUUID` cuando existe, `getRandomValues` como fallback y una clave local distinta de último recurso; servir API same-origin cuando no se configura URL.
+- **Razón:** evita crash o duplicación por reintentos durante pruebas temporales sin hardcodear secretos.
+- **Trade-off:** HTTP continúa siendo solo testing y no habilita campo real.
+- **Reversible:** sí; HTTPS sigue siendo el destino obligatorio.

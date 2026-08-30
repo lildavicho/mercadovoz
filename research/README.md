@@ -7,6 +7,7 @@ Only evidence that is public, synthetic and safe to redistribute within this rep
 | `SYNTHETIC` | authored test/evaluation examples | versioned |
 | `WEB_DERIVED` | exploratory records derived from public evidence | versioned with provenance |
 | `WEB_DERIVED_MULTISOURCE` | Cuenca/Ecuador external benchmark from multiple public sources | versioned with source ledger and locks |
+| `MANUAL_REGRESSION_DEVELOPMENT` | reproducible failures observed during development, independent from the original synthetic fixtures | versioned as regression evidence; never reported as field validation |
 | `REAL_DEVELOPMENT` | consented participant data that may influence later iterations | never versioned |
 | `REAL_HELDOUT` | consented, participant-separated field evaluation | never versioned |
 

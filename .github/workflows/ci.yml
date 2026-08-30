@@ -41,6 +41,8 @@ jobs:
         run: npm ci
       - name: Audit production dependencies
         run: npm audit --omit=dev
+      - name: Frontend unit tests
+        run: npm test
       - name: Typecheck
         run: npm run typecheck
       - name: Build

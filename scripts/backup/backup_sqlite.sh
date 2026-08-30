@@ -17,7 +17,25 @@ mkdir -p "$backup_dir"
 umask 077
 timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
 target="$backup_dir/mercadovoz-$timestamp.sqlite"
-sqlite3 "$db_path" ".timeout 10000" ".backup '$target'"
-sqlite3 "$target" "PRAGMA integrity_check;" | grep -qx "ok"
+if command -v sqlite3 >/dev/null 2>&1; then
+  sqlite3 "$db_path" ".timeout 10000" ".backup '$target'"
+  sqlite3 "$target" "PRAGMA integrity_check;" | grep -qx "ok"
+elif command -v python3 >/dev/null 2>&1; then
+  python3 - "$db_path" "$target" <<'PY'
+import sqlite3
+import sys
+
+source_path, target_path = sys.argv[1:]
+with sqlite3.connect(source_path, timeout=10) as source:
+    with sqlite3.connect(target_path) as target:
+        source.backup(target)
+with sqlite3.connect(target_path) as restored:
+    if restored.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+        raise SystemExit("backup integrity check failed")
+PY
+else
+  echo "Neither sqlite3 nor python3 is available for a consistent backup." >&2
+  exit 4
+fi
 sha256sum "$target" > "$target.sha256"
 echo "$target"

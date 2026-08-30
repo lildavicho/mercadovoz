@@ -10,6 +10,7 @@ import { PilotAccessGate } from "@/components/PilotAccessGate";
 import { PilotConsent } from "@/components/PilotConsent";
 import { SessionClose, type SessionFeedback } from "@/components/SessionClose";
 import { api } from "@/lib/api";
+import { createIdempotencyKey } from "@/lib/idempotency";
 import type {
   Interpretation,
   PilotConfig,
@@ -115,7 +116,7 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const confirmed = await api.confirm(proposal.proposal_id, crypto.randomUUID());
+      const confirmed = await api.confirm(proposal.proposal_id, createIdempotencyKey());
       setProposal(confirmed);
       setResult(confirmed);
       setNotice("Operación confirmada y registrada.");

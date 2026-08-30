@@ -74,3 +74,22 @@
 - **Razón:** evita crash o duplicación por reintentos durante pruebas temporales sin hardcodear secretos.
 - **Trade-off:** HTTP continúa siendo solo testing y no habilita campo real.
 - **Reversible:** sí; HTTPS sigue siendo el destino obligatorio.
+
+## 2026-08-30 — Cierre y separación explícita de rondas P01
+
+- **Contexto:** Oracle contenía 25 inputs reales de P01 bajo Engine 1.0, sin outcomes terminales, mientras Engine 1.1 estaba listo localmente.
+- **Opciones:** borrar la prueba; reinterpretarla como R2; inferir outcomes; cerrar administrativamente, exportar y congelar R1 antes de desplegar otra versión.
+- **Decisión:** preservar la captura como `P01_R1 / REAL_DEVELOPMENT / engine 1.0.0`, cerrar las sesiones abandonadas mediante evento auditable, revocar accesos, congelar hashes y añadir `round_id` persistido antes de `P01_R2`.
+- **Razón:** mantiene la validez histórica y evita mezclar versiones o atribuir acciones al participante.
+- **Trade-off:** R1 no permite medir éxito ni precisión humana y su utilidad queda limitada a pipeline y análisis técnico.
+- **Reversible:** el código de migración sí; la evidencia congelada no se reescribe.
+- **Evidencia:** [`P01_ROUND_1_LOCK.md`](../pilot/P01_ROUND_1_LOCK.md) y [`P01_ROUND_1_EVALUATION.md`](../evaluation/P01_ROUND_1_EVALUATION.md).
+
+## 2026-08-30 — Gate después de P01_R1
+
+- **Contexto:** el replay de R1 con Engine 1.1 no detectó regresiones financieras críticas, pero R1 carece de ground truth humano.
+- **Decisión:** `FIELD_ITERATE`, `VOICE_HOLD`, `LLM_HOLD`; Engine 1.1 solo puede abrir una ronda nueva después de HTTPS, rotación de acceso y lock de inicio.
+- **Razón:** la próxima incertidumbre es obtener outcomes humanos seguros, no añadir más inteligencia.
+- **Trade-off:** no se atribuyen mejoras semánticas a cambios técnicamente plausibles sin aceptación/corrección real.
+- **Reversible:** sí, mediante otro gate después de R2.
+- **Evidencia:** [`P01_R1_REPLAY_ENGINE_1_1.md`](../evaluation/P01_R1_REPLAY_ENGINE_1_1.md).

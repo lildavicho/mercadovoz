@@ -16,6 +16,8 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 
 - Historical and external benchmarks remain separate; critical financial violations remain zero in the evaluated risk sets.
 - Oracle deployment remains on engine `1.0.0` until the active real-data round is closed and locked.
+- Closed P01 Round 1 administratively without inventing human outcomes, froze its private exports by hash and kept its Engine 1.0 evidence separate from the Engine 1.1 replay.
+- Added explicit `round_id` persistence and reproducible round close, freeze and replay tooling for the P01 Round 2 boundary.
 
 - Established the professional monorepo structure.
 - Preserved and locked the deterministic interpretation engine.

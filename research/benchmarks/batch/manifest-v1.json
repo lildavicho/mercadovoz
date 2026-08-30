@@ -1,0 +1,14 @@
+{
+  "schema_version": "batch-benchmark-v1",
+  "seed": 12012026,
+  "datasets": {
+    "research\\benchmarks\\batch\\synthetic-batch-v1.jsonl": {
+      "records": 3000,
+      "sha256": "48b685f556c7ea536502b36bff8ad2add010fcb8841184f590840f2c233daf13"
+    },
+    "research\\benchmarks\\batch\\web-derived-batch-v1.jsonl": {
+      "records": 60,
+      "sha256": "45aba349c7f3e0069789b6c599bf8b4e59cf5ad508ffe2151a6e314e04b1ca1a"
+    }
+  }
+}

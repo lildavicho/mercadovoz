@@ -1,0 +1,20 @@
+{
+  "engine_version": "1.2.0",
+  "dataset": "research\\benchmarks\\batch\\synthetic-batch-v1.jsonl",
+  "examples": 3000,
+  "expected_operations": 24000,
+  "metrics": {
+    "exact_segment_count_rate": 1.0,
+    "source_span_integrity_rate": 1.0,
+    "operation_recall": 1.0,
+    "batch_exact_match_rate": 1.0,
+    "partial_recovery_rate": 0.0,
+    "critical_financial_violations": 0,
+    "median_latency_ms": 0.781,
+    "p95_latency_ms": 3.341
+  },
+  "statuses": {
+    "READY": 3000
+  },
+  "error_sample": []
+}

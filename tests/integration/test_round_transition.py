@@ -10,6 +10,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 from mercadovoz_core.service import create_app
+from mercadovoz_core.versioning import ENGINE_VERSION
 from scripts.pilot.close_abandoned_round import close_round
 from scripts.pilot.freeze_round import freeze_round
 
@@ -45,7 +46,7 @@ class RoundTransitionTests(unittest.TestCase):
             result = close_round(
                 database,
                 participant_id="P01",
-                engine_version="1.1.0",
+                engine_version=ENGINE_VERSION,
                 round_id="P01_R2",
                 reason="synthetic transition test",
             )
@@ -56,7 +57,7 @@ class RoundTransitionTests(unittest.TestCase):
                 database,
                 root / "private-export",
                 participant_id="P01",
-                engine_version="1.1.0",
+                engine_version=ENGINE_VERSION,
                 round_id="P01_R2",
             )
             manifest = json.loads(Path(export["manifest"]).read_text(encoding="utf-8"))

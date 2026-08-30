@@ -120,11 +120,12 @@ def freeze_round(
                 "interpretation_latency_ms": interpreted["duration_ms"],
             })
 
-        jsonl_path = output_dir / "p01-r1-real-development.jsonl"
+        prefix = f"{participant_id.lower()}-{round_id.rsplit('_', 1)[-1].lower()}"
+        jsonl_path = output_dir / f"{prefix}-real-development.jsonl"
         with jsonl_path.open("w", encoding="utf-8", newline="\n") as handle:
             for record in records:
                 handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
-        events_path = output_dir / "p01-r1-events.csv"
+        events_path = output_dir / f"{prefix}-events.csv"
         event_fields = [
             "id", "event_type", "session_id", "participant_id", "input_id",
             "occurred_at", "engine_version", "duration_ms", "payload_json",
@@ -134,6 +135,14 @@ def freeze_round(
             writer.writeheader()
             for event in events:
                 writer.writerow({field: event[field] for field in event_fields})
+
+        operations_path = output_dir / f"{prefix}-operations.csv"
+        operation_fields = [row[1] for row in connection.execute("PRAGMA table_info(operations)")]
+        with operations_path.open("w", encoding="utf-8", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=operation_fields)
+            writer.writeheader()
+            for operation in operations:
+                writer.writerow({field: operation[field] for field in operation_fields})
 
         event_counts = Counter(event["event_type"] for event in events)
         latencies = [float(event["duration_ms"]) for event in events if event["event_type"] == "INTERPRETATION_CREATED" and event["duration_ms"] is not None]
@@ -155,7 +164,7 @@ def freeze_round(
             "started_at": min(session["started_at"] for session in sessions),
             "ended_at": max(session["ended_at"] for session in sessions),
         }
-        summary_path = output_dir / "p01-r1-summary.json"
+        summary_path = output_dir / f"{prefix}-summary.json"
         write_json(summary_path, summary)
         created_at = datetime.now(timezone.utc).isoformat()
         versions = {
@@ -170,15 +179,16 @@ def freeze_round(
             "files": {
                 jsonl_path.name: {"sha256": digest(jsonl_path), "records": len(records)},
                 events_path.name: {"sha256": digest(events_path), "records": len(events)},
+                operations_path.name: {"sha256": digest(operations_path), "records": len(operations)},
                 summary_path.name: {"sha256": digest(summary_path)},
             },
         }
-        manifest_path = output_dir / "p01-r1-manifest.json"
+        manifest_path = output_dir / f"{prefix}-manifest.json"
         write_json(manifest_path, manifest)
         manifest_hash = digest(manifest_path)
-        checksum_path = output_dir / "p01-r1-manifest.json.sha256"
+        checksum_path = output_dir / f"{prefix}-manifest.json.sha256"
         checksum_path.write_text(f"{manifest_hash}  {manifest_path.name}\n", encoding="ascii")
-        for path in (jsonl_path, events_path, summary_path, manifest_path, checksum_path):
+        for path in (jsonl_path, events_path, operations_path, summary_path, manifest_path, checksum_path):
             os.chmod(path, 0o600)
         return {
             "output_dir": str(output_dir),

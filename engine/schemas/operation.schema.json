@@ -29,13 +29,13 @@
     "unit": {"enum": ["libra", "kilo", "quintal", "saco", "caja", "jaba", "unidad", "docena", "funda"]},
     "sale": {
       "type": "object",
-      "required": ["type", "product", "quantity", "unit", "unit_price", "total"],
+      "required": ["type", "product", "quantity", "unit", "total"],
       "properties": {
         "type": {"const": "SALE"},
         "product": {"type": "string", "minLength": 1},
         "quantity": {"$ref": "#/$defs/positiveNumber"},
         "unit": {"$ref": "#/$defs/unit"},
-        "unit_price": {"$ref": "#/$defs/positiveNumber"},
+        "unit_price": {"oneOf": [{"$ref": "#/$defs/positiveNumber"}, {"type": "null"}]},
         "total": {"$ref": "#/$defs/positiveNumber"}
       },
       "additionalProperties": false

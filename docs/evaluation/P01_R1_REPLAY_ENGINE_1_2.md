@@ -4,20 +4,18 @@
 
 ## Alcance
 
-El export privado congelado de P01_R1 se leyó localmente mediante `scripts/evaluation/replay_real_batch_safety.py`. No se cambió el archivo, no se publicó texto, no se escribió en Oracle y no se utilizó P01_R2.
+El export privado congelado de P01_R1 se leyó localmente con el replay genérico. No se cambió el archivo, no se publicó texto ni se escribió en Oracle.
 
 ## Resultado agregado
 
 - registros: 25;
-- Engine candidato: `1.2.0`, `input_mode=TEXT_SINGLE`;
-- fallos de source span: 0;
-- operaciones confirmables con tipo/monto inválido: 0;
-- estados: 9 `READY`, 4 `PARTIALLY_READY`, 10 `NEEDS_REVIEW`, 2 `BLOCKED`;
+- Engine candidato: `1.2.0`;
+- comparaciones: 16 iguales, 1 mejora, 4 mejoras de límite, 3 abstenciones más seguras y 1 cambio sin ground truth;
+- violaciones financieras críticas: 0;
+- SHA-256 privado: `98c7be160bb3539fbec71e24e1deec026b36a7490bc9e41cd479f57bb8ef99f0`;
 - ground truth evaluado: no;
 - outcomes humanos: siguen ausentes, por lo que no se calcula accuracy.
 
 Este replay solo demuestra que el sidecar puede procesar el corpus congelado sin romper invariantes estructurales. No convierte `CONFIRMED` en ground truth, no reetiqueta R1 y no autoriza cambios por frase.
 
-## P01_R2
-
-No se ejecutó replay: la ronda no está congelada. Su evidencia permanece fuera del desarrollo hasta cierre y lock explícitos.
+P01_R2 se evalúa por separado en [`P01_R2_REPLAY_ENGINE_1_2.md`](P01_R2_REPLAY_ENGINE_1_2.md).

@@ -24,6 +24,20 @@ def inspect_safety(text: str) -> SafetyDecision | None:
 
     plain = _plain(text)
 
+    if re.search(r"\b(?:creo\s+que|me\s+parece|no\s+estoy\s+segur[oa])\b", plain):
+        return SafetyDecision(
+            "AMBIGUOUS",
+            "speaker_uncertainty_requires_review",
+            "La frase expresa duda. Revise el dato exacto antes de registrar.",
+        )
+
+    if re.search(r"\b(?:perdon|mejor\s+dicho)\b|\bno\s*,", plain):
+        return SafetyDecision(
+            "AMBIGUOUS",
+            "self_correction_requires_review",
+            "Detecté una autocorrección. Indique una sola versión final antes de registrar.",
+        )
+
     # Core operations represent completed facts. Negation, plans, intentions
     # and hypotheses must not be promoted into financial events.
     if re.search(

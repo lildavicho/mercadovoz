@@ -43,10 +43,33 @@ def critical_violation(text: str, prediction: dict[str, Any]) -> str | None:
     return None
 
 
-def comparison(old: dict[str, Any] | None, new: dict[str, Any]) -> str:
+def comparison(record: dict[str, Any], new: dict[str, Any]) -> str:
+    old = record.get("initial_prediction")
     new_operation = new.get("operation")
+    accepted = record.get("expected_or_final_accepted_operation")
+    if accepted and new_operation != accepted:
+        return "regressed"
+    if accepted and new_operation == accepted:
+        return "same" if old == new_operation else "improved"
     if old == new_operation:
         return "same"
+    if (
+        old
+        and old.get("type") == "RECEIVABLE"
+        and not old.get("customer")
+        and (new_operation or {}).get("customer")
+        and new.get("status") == "COMPLETE"
+    ):
+        return "improved"
+    if (
+        old
+        and old.get("type") == "SALE"
+        and old.get("total") is not None
+        and not old.get("unit_price")
+        and new_operation == {**old, "unit_price": None}
+        and new.get("status") == "COMPLETE"
+    ):
+        return "improved"
     old_product = str((old or {}).get("product", "")).casefold()
     new_product = str((new_operation or {}).get("product", "")).casefold()
     if old_product and new_product and len(new_product) < len(old_product) and any(
@@ -59,10 +82,17 @@ def comparison(old: dict[str, Any] | None, new: dict[str, Any]) -> str:
         "AMBIGUOUS", "COMPOUND_OPERATION", "OUT_OF_SCOPE", "UNSAFE", "UNRECOGNIZED"
     }:
         return "safer_abstention"
-    return "changed_not_ground_truthed"
+    return "changed_without_ground_truth"
 
 
-def replay(source: Path, output: Path) -> dict[str, Any]:
+def replay(
+    source: Path,
+    output: Path,
+    *,
+    source_round_id: str,
+    source_engine_version: str,
+    replay_engine_version: str,
+) -> dict[str, Any]:
     engine = MercadoVozEngine()
     records = [json.loads(line) for line in source.read_text(encoding="utf-8").splitlines() if line.strip()]
     cases: list[dict[str, Any]] = []
@@ -70,7 +100,7 @@ def replay(source: Path, output: Path) -> dict[str, Any]:
     violations: Counter[str] = Counter()
     for record in records:
         prediction = engine.interpret(record["original_text"])
-        category = comparison(record.get("initial_prediction"), prediction)
+        category = comparison(record, prediction)
         violation = critical_violation(record["original_text"], prediction)
         classes[category] += 1
         if violation:
@@ -79,22 +109,22 @@ def replay(source: Path, output: Path) -> dict[str, Any]:
             "record_id": record["record_id"],
             "round_id": record["round_id"],
             "original_text": record["original_text"],
-            "engine_1_0": {
+            "historical": {
                 "interpretation_state": record.get("initial_interpretation_state"),
                 "operation": record.get("initial_prediction"),
                 "warnings": record.get("warnings", []),
             },
-            "engine_1_1": prediction,
+            "replay": prediction,
             "comparison": category,
             "critical_financial_violation": violation,
             "ground_truth_available": record.get("ground_truth_status") == "USER_ACCEPTED_OPERATION",
         })
     report = {
         "source_dataset_class": "REAL_DEVELOPMENT",
-        "source_round_id": "P01_R1",
-        "source_engine_version": "1.0.0",
-        "replay_engine_version": "1.1.0",
-        "replay_is_round_2_evidence": False,
+        "source_round_id": source_round_id,
+        "source_engine_version": source_engine_version,
+        "replay_engine_version": replay_engine_version,
+        "replay_is_new_field_evidence": False,
         "accuracy": "NOT_MEASURABLE",
         "records": len(records),
         "comparison_counts": dict(sorted(classes.items())),
@@ -113,8 +143,17 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--source-round", required=True)
+    parser.add_argument("--source-engine", required=True)
+    parser.add_argument("--replay-engine", required=True)
     args = parser.parse_args()
-    print(json.dumps(replay(args.source, args.output), indent=2, sort_keys=True))
+    print(json.dumps(replay(
+        args.source,
+        args.output,
+        source_round_id=args.source_round,
+        source_engine_version=args.source_engine,
+        replay_engine_version=args.replay_engine,
+    ), indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":

@@ -147,3 +147,22 @@
 - **Razón:** permite probar UX sin dar al ASR autoridad financiera ni enviar audio durante P01_R2.
 - **Trade-off:** `VOICE_PROTOTYPE_HOLD` hasta probar hardware, proveedor, números y privacidad.
 - **Reversible:** sí; el adaptador se cambia sin tocar el motor.
+
+## 2026-08-30 — Engine 1.2 después del lock de P01_R2
+
+- **Contexto:** R2 congeló 27 inputs y tres aceptaciones. Reveló pérdida de cliente en deuda nueva, total explícito tratado como incompleto y confirmación visual de estados no confirmables.
+- **Opciones:** parches por frase; mantener 1.1; corregir familias y versionar schema/UX.
+- **Decisión:** Engine `1.2.0`, `explicit-v0.5.0`, `operation-v0.2.0`; deuda nueva extrae nombre explícito, `SALE` acepta total explícito con `unit_price=null`, y solo `COMPLETE` ofrece/acepta confirmación.
+- **Razón:** el replay R2 da 23 iguales + 4 mejoras, cero regresiones y cero violaciones; R1 también conserva cero violaciones.
+- **Trade-off:** total sin unitario limita análisis unitario futuro; su procedencia queda explícita y no se deriva sin necesidad.
+- **Reversible:** sí por commit/rollback; no se reescribe R1/R2.
+- **Evidencia:** [`P01_R2_REPLAY_ENGINE_1_2.md`](../evaluation/P01_R2_REPLAY_ENGINE_1_2.md).
+
+## 2026-08-30 — Batch seguro pero todavía no generalizado
+
+- **Contexto:** 100 narrativas naturales manuales alcanzaron 91,92% de intención, 96,75% de campos, 100% de spans y cero crossovers/violaciones; el benchmark web-derived sigue en 30,00%/39,63%.
+- **Decisión:** permitir release del código 1.2 con `BATCH_GENERALIZATION_HOLD` y feature flag OFF.
+- **Razón:** las invariantes P0 pasan, pero el corpus manual es development y el corpus externo continúa débil.
+- **Trade-off:** el código/migración quedan disponibles sin exponer batch a P01_R3.
+- **Reversible:** sí, por bandera.
+- **Evidencia:** [`BATCH_NATURAL_DEVELOPMENT_EVALUATION.md`](../evaluation/BATCH_NATURAL_DEVELOPMENT_EVALUATION.md).

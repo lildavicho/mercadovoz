@@ -14,7 +14,7 @@ EXPLORATORY_OPERATION_TYPES = {"PURCHASE", "STOCK_ADJUSTMENT"}
 OPERATION_TYPES = CORE_OPERATION_TYPES | EXPLORATORY_OPERATION_TYPES
 
 REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
-    "SALE": ("product", "quantity", "unit", "unit_price", "total"),
+    "SALE": ("product", "quantity", "unit", "total"),
     "PURCHASE": ("product", "quantity", "unit", "unit_price", "total"),
     "EXPENSE": ("category", "amount"),
     "RECEIVABLE": ("customer", "amount"),
@@ -62,4 +62,3 @@ def validate_operation(operation: dict[str, Any]) -> list[str]:
             if abs(expected - Decimal(str(total))) > Decimal("0.01"):
                 errors.append("inconsistent_total")
     return errors
-

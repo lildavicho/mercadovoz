@@ -39,6 +39,13 @@ class CommercialNarrativeSegmenterTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "maximum input length"):
             self.segmenter.segment("x" * 2001)
 
+    def test_accented_pague_starts_a_new_financial_clause(self) -> None:
+        text = "Vendí cuatro jugos a uno cada uno. Pagué dos en hielo."
+        segments = self.segmenter.segment(text)
+        self.assertEqual(2, len(segments))
+        self.assertEqual("Pagué dos en hielo", segments[1].text)
+        self.assert_spans_round_trip(text)
+
 
 if __name__ == "__main__":
     unittest.main()

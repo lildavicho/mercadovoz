@@ -30,3 +30,7 @@ Una venta con varios productos y bases unitarias explícitas es una sola `SALE` 
 ## Fuera de alcance
 
 Compras, inventario completo, impuestos, devoluciones, descuentos y asignación entre varias deudas permanecen fuera de v1.
+
+## Verificación
+
+Las pruebas cubren `10 = 6 + 4` en centavos enteros, dependencias, confirmación idempotente, reintento y rollback total ante un fallo inyectado. Un grupo inválido no deja una venta, abono o deuda parcial en el ledger.

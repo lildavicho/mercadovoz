@@ -1,18 +1,20 @@
 # Diseño del motor batch 1.2
 
-**Estado:** aprobado para implementación aislada en `feature/batch-transaction-engine`
+**Estado:** `BATCH_ENGINE_TECHNICAL_GO / BATCH_GENERALIZATION_HOLD`
+
 **Versión candidata:** Engine `1.2.0`, schema `batch-operation-v1`
-**Producción:** fuera de alcance mientras `P01_R2` permanezca activa
+
+**Producción:** código integrado, rutas y UI desactivadas por bandera
 
 ## Problema y límite
 
-Engine 1.1 conserva el contrato `texto → interpretación individual` y permanece congelado. Engine 1.2 agrega un orquestador lateral: no edita parser, safety, contexto, correcciones ni schemas bloqueados. Segmenta una narración, llama a Engine 1.1 para cada fragmento y aplica validadores batch explícitos antes de permitir confirmación.
+Engine 1.2 conserva el contrato `texto → interpretación individual` y agrega un orquestador lateral. Segmenta una narración, llama al mismo core 1.2 para cada fragmento y aplica validadores batch explícitos antes de permitir confirmación. No existe un segundo parser financiero.
 
 ```text
 source text
   → CommercialNarrativeSegmenter
   → ordered source spans
-  → Frozen Engine 1.1 per span
+  → Engine 1.2 single-operation core per span
   → batch-only structured adapters
   → relationships and dependencies
   → BatchProposal
@@ -28,7 +30,7 @@ BatchInterpretation
   source_text
   input_mode: TEXT_SINGLE | TEXT_BATCH | VOICE_TRANSCRIPT
   engine_version: 1.2.0
-  underlying_engine_version: 1.1.0
+  underlying_engine_version: 1.2.0
   segments: SegmentInterpretation[]
   groups: TransactionGroup[]
   warnings: string[]
@@ -110,7 +112,7 @@ Las referencias entre segmentos solo se propagan dentro del batch, con `source_s
 
 ## Compatibilidad
 
-`POST /pilot/interpret` y las operaciones históricas continúan con el contrato 1.1. El endpoint experimental `POST /pilot/interpret-batch` se habilita solo mediante una variable de entorno y nunca en la ronda P01_R2. Las ventas históricas se leen como antes; un adaptador puede representarlas como un solo line item en respuesta sin reescribir su JSON.
+`POST /pilot/interpret` y las operaciones históricas conservan compatibilidad. El endpoint experimental `POST /pilot/interpret-batch` se habilita solo mediante una variable de entorno y permanece apagado en P01_R3. Las ventas históricas se leen como antes; un adaptador puede representarlas como un solo line item en respuesta sin reescribir su JSON.
 
 ## UX del cuaderno batch
 
@@ -127,6 +129,8 @@ La vista muestra el conteo de listos y pendientes, tarjetas expandibles en orden
 
 ## Gates
 
+La evaluación natural de 100 narrativas está en [`BATCH_NATURAL_DEVELOPMENT_EVALUATION.md`](../evaluation/BATCH_NATURAL_DEVELOPMENT_EVALUATION.md): cero violaciones/crossovers y spans 100%, pero el benchmark web-derived conserva baja recuperación. Por ello `BATCH_GENERALIZATION_HOLD` y la bandera de piloto continúa apagada.
+
 ### Verificación local del 30-08-2026
 
 - flujo sintético móvil: acceso, consentimiento, lote mixto, éxito parcial, confirmación de 2 seguros e historial;
@@ -135,5 +139,7 @@ La vista muestra el conteo de listos y pendientes, tarjetas expandibles en orden
 - labels, headings, regions, estados live y navegación por teclado presentes;
 - consola del navegador: 0 warnings/errors durante el flujo;
 - dictado: Web Speech inició/canceló en el navegador de laboratorio, pero no se produjo audio físico ni se midió transcripción; el gate de voz permanece en hold.
+
+Rendimiento local del intérprete, 100 repeticiones por tamaño: 2 movimientos mediana/p95/peor `0,37/0,51/0,79 ms`; 5 `0,78/1,39/1,84 ms`; 10 `1,44/1,67/1,94 ms`; 20 (dos narrativas de 10 concatenadas solo para carga) `2,86/3,28/3,62 ms`. Son mediciones de desarrollo, no un SLA.
 
 El gate exige regresiones históricas verdes, cero violaciones financieras críticas, segmentación y partial success medibles, ledger consistente, confirmación atómica/idempotente, aislamiento por participante, UX móvil y CI verde. Este gate no autoriza deployment ni voz de campo.

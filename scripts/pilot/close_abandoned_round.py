@@ -26,13 +26,20 @@ def close_round(
     connection.row_factory = sqlite3.Row
     try:
         columns = {row[1] for row in connection.execute("PRAGMA table_info(pilot_events)")}
+        session_columns = {row[1] for row in connection.execute("PRAGMA table_info(pilot_sessions)")}
+        round_filter = " AND round_id = ?" if "round_id" in session_columns else ""
+        parameters: tuple[object, ...] = (
+            (participant_id, engine_version, round_id)
+            if round_filter else (participant_id, engine_version)
+        )
         sessions = connection.execute(
             """
             SELECT * FROM pilot_sessions
             WHERE participant_id = ? AND engine_version = ? AND ended_at IS NULL
+            """ + round_filter + """
             ORDER BY started_at
             """,
-            (participant_id, engine_version),
+            parameters,
         ).fetchall()
         foreign_open = connection.execute(
             """

@@ -11,6 +11,7 @@ import { PilotAccessGate } from "@/components/PilotAccessGate";
 import { PilotConsent } from "@/components/PilotConsent";
 import { SessionClose, type SessionFeedback } from "@/components/SessionClose";
 import { api } from "@/lib/api";
+import { isConfirmableProposal, reviewActionLabel } from "@/lib/confirmability";
 import { createIdempotencyKey } from "@/lib/idempotency";
 import type {
   Interpretation,
@@ -183,7 +184,8 @@ export default function Home() {
     }
   }
 
-  const canDecide = Boolean(proposal && proposal.lifecycle_status !== "CONFIRMED");
+  const canDecide = Boolean(proposal && !["CONFIRMED", "REJECTED", "CANCELLED"].includes(proposal.lifecycle_status));
+  const canConfirm = isConfirmableProposal(proposal);
 
   return (
     <main className="app-shell" id="main-content">
@@ -248,6 +250,8 @@ export default function Home() {
               {proposal && proposal.lifecycle_status !== "CONFIRMED" && (
                 <DecisionBar
                   disabled={loading || !canDecide}
+                  confirmable={canConfirm}
+                  reviewLabel={reviewActionLabel(proposal.interpretation_status)}
                   correcting={correcting}
                   onConfirm={confirm}
                   onCorrect={() => setCorrecting((value) => !value)}

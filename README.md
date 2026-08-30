@@ -900,6 +900,8 @@ La validación real todavía está pendiente.
 
 ## Etapa actual
 
+> Experimento aislado: la rama `feature/batch-transaction-engine` prepara Engine 1.2 para revisar varias operaciones con spans, grupos y confirmación atómica. Está detrás de banderas apagadas, no está desplegada y no cambia el piloto P01_R2 sobre Engine 1.1. La arquitectura pasa su gate técnico; la generalización batch y la voz siguen en hold hasta pruebas naturales y de hardware/proveedor.
+
 MercadoVoz ya alcanzó un hito técnico importante:
 
 ```text

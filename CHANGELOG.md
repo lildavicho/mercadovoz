@@ -6,6 +6,11 @@ All notable repository-level changes are documented here. MercadoVoz has no publ
 
 ### Changed
 
+- Added experimental Engine 1.2 batch orchestration with exact source spans, item-level review and partial success behind disabled feature flags.
+- Added atomic transaction groups, line items, receivable movements and explicit payment allocations through additive migration `004`.
+- Added 3,000 synthetic batch cases, 60 web-derived compositions, 2,000 adversarial fuzz batches and separate reports.
+- Added a provider-neutral voice transcription prototype with mandatory transcript review; it remains disabled and outside P01_R2.
+
 - Bumped the candidate interpretation engine to `1.1.0` (`explicit-v0.4.0`, `safety-v0.2.0`).
 - Added structured sale price/total boundaries, centavos handling and pronoun-safe payments.
 - Strengthened compound, negation, plan/hypothesis and confirmation safety gates.

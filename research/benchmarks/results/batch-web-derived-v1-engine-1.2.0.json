@@ -1,0 +1,291 @@
+{
+  "engine_version": "1.2.0",
+  "dataset": "research\\benchmarks\\batch\\web-derived-batch-v1.jsonl",
+  "examples": 60,
+  "expected_operations": 120,
+  "metrics": {
+    "exact_segment_count_rate": 0.6,
+    "source_span_integrity_rate": 1.0,
+    "operation_recall": 0.291667,
+    "batch_exact_match_rate": 0.116667,
+    "partial_recovery_rate": 0.35,
+    "critical_financial_violations": 0,
+    "median_latency_ms": 0.267,
+    "p95_latency_ms": 0.741
+  },
+  "statuses": {
+    "NEEDS_REVIEW": 33,
+    "READY": 4,
+    "BLOCKED": 10,
+    "PARTIALLY_READY": 13
+  },
+  "error_sample": [
+    {
+      "id": "WEB-BATCH-001",
+      "expected": [
+        "STOCK_ADJUSTMENT",
+        "COMPOUND_OPERATION"
+      ],
+      "predicted": [
+        "STOCK_ADJUSTMENT",
+        "PURCHASE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-002",
+      "expected": [
+        "SALE",
+        "NONE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-003",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "READY"
+    },
+    {
+      "id": "WEB-BATCH-005",
+      "expected": [
+        "NONE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-006",
+      "expected": [
+        "NONE",
+        "SALE"
+      ],
+      "predicted": [],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "WEB-BATCH-007",
+      "expected": [
+        "NONE",
+        "EXPENSE"
+      ],
+      "predicted": [
+        "EXPENSE"
+      ],
+      "status": "PARTIALLY_READY"
+    },
+    {
+      "id": "WEB-BATCH-008",
+      "expected": [
+        "NONE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-009",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "PARTIALLY_READY"
+    },
+    {
+      "id": "WEB-BATCH-010",
+      "expected": [
+        "SALE",
+        "NONE"
+      ],
+      "predicted": [],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-011",
+      "expected": [
+        "NONE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-012",
+      "expected": [
+        "SALE",
+        "COMPOUND_OPERATION"
+      ],
+      "predicted": [
+        "SALE",
+        "SALE",
+        "PAYMENT_RECEIVED",
+        "RECEIVABLE"
+      ],
+      "status": "PARTIALLY_READY"
+    },
+    {
+      "id": "WEB-BATCH-013",
+      "expected": [
+        "PAYMENT_RECEIVED",
+        "SALE"
+      ],
+      "predicted": [
+        "PAYMENT_RECEIVED"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-014",
+      "expected": [
+        "COMPOUND_OPERATION",
+        "PAYMENT_RECEIVED"
+      ],
+      "predicted": [
+        "PAYMENT_RECEIVED"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-015",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "PARTIALLY_READY"
+    },
+    {
+      "id": "WEB-BATCH-016",
+      "expected": [
+        "NONE",
+        "NONE"
+      ],
+      "predicted": [],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-017",
+      "expected": [
+        "RECEIVABLE",
+        "SALE"
+      ],
+      "predicted": [
+        "RECEIVABLE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-018",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "READY"
+    },
+    {
+      "id": "WEB-BATCH-019",
+      "expected": [
+        "COMPOUND_OPERATION",
+        "PAYMENT_RECEIVED"
+      ],
+      "predicted": [
+        "PAYMENT_RECEIVED"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-020",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-021",
+      "expected": [
+        "NONE",
+        "RECEIVABLE"
+      ],
+      "predicted": [
+        "RECEIVABLE"
+      ],
+      "status": "PARTIALLY_READY"
+    },
+    {
+      "id": "WEB-BATCH-022",
+      "expected": [
+        "PAYMENT_RECEIVED",
+        "STOCK_ADJUSTMENT"
+      ],
+      "predicted": [
+        "PAYMENT_RECEIVED"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-023",
+      "expected": [
+        "COMPOUND_OPERATION",
+        "NONE"
+      ],
+      "predicted": [],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "WEB-BATCH-024",
+      "expected": [
+        "NONE",
+        "COMPOUND_OPERATION"
+      ],
+      "predicted": [],
+      "status": "BLOCKED"
+    },
+    {
+      "id": "WEB-BATCH-026",
+      "expected": [
+        "SALE",
+        "SALE"
+      ],
+      "predicted": [
+        "SALE"
+      ],
+      "status": "NEEDS_REVIEW"
+    },
+    {
+      "id": "WEB-BATCH-027",
+      "expected": [
+        "NONE",
+        "NONE"
+      ],
+      "predicted": [],
+      "status": "NEEDS_REVIEW"
+    }
+  ]
+}

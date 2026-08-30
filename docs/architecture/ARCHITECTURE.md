@@ -164,3 +164,9 @@ Tablas piloto separan participantes, consentimientos, access sessions, pilot ses
 ## Trust boundaries
 
 El cliente nunca decide participante, versión ni autorización. FastAPI deriva participante del token, valida sesión y añade versiones. El texto financiero vive en almacenamiento controlado y no en logs técnicos. El endpoint `/health` solo devuelve estado de app/DB. En `pilot`, documentación y rutas de laboratorio se desactivan.
+
+## Sidecar batch 1.2 — fuera de P01_R2
+
+La rama `feature/batch-transaction-engine` añade un orquestador lateral: segmentación con spans exactos, composición del Engine 1.1 congelado, revisión por ítem, grupos y confirmación SQLite atómica. Solo existen rutas batch con `MERCADOVOZ_BATCH_EXPERIMENT=true`; frontend y voz requieren banderas propias. Diseño: [`BATCH_ENGINE.md`](BATCH_ENGINE.md), [`RECEIVABLE_LEDGER.md`](RECEIVABLE_LEDGER.md), [`TRANSACTION_GROUPS.md`](TRANSACTION_GROUPS.md) y [`VOICE_ARCHITECTURE.md`](VOICE_ARCHITECTURE.md).
+
+La versión candidata es Engine `1.2.0`; el `underlying_engine_version` permanece `1.1.0`. Esto no cambia la versión desplegada ni autoriza mezclar evidencia de P01_R2.

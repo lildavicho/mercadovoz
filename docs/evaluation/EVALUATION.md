@@ -113,3 +113,13 @@ La iteración 1 añadió patrones generales de ventas explícitas y gastos logí
 El 30 de agosto se añadieron cinco casos `MANUAL_REGRESSION_DEVELOPMENT`, pruebas adversariales y una matriz determinista de 3.600 combinaciones. No se abrieron ni ajustaron etiquetas de `REAL_HELDOUT`. El resultado vuelve a producir exactamente las métricas de cierre anteriores en sintético, externo completo y held-out externo limpio, añade `5/5` regresiones manuales correctas y conserva cero violaciones financieras críticas. Detalle y limitaciones: [`GENERALIZATION_REPORT_2026-08-30.md`](GENERALIZATION_REPORT_2026-08-30.md).
 
 El estado técnico pasa a `TECHNICAL_GENERALIZATION_GO`; el estado de campo permanece `PENDING_REAL_DATA`. Los 25 inputs presentes en Oracle bajo `engine 1.0.0` no tienen outcomes terminales y no se convierten en una métrica de precisión.
+
+## Benchmark batch Engine 1.2
+
+Dos datasets permanecen separados. `synthetic-batch-v1` contiene 3.000 narrativas deterministas (24.000 movimientos; tamaños 2/3/5/10/20): 100% conteo de segmentos, 100% spans, 100% recall posicional, 100% lote exacto, 0 violaciones críticas; mediana 0,781 ms y p95 3,341 ms en esta máquina. Es cobertura templada, no habla natural.
+
+`web-derived-batch-v1` contiene 60 composiciones de dos registros públicos existentes, marcadas explícitamente como no naturales: 60% conteo exacto, 100% integridad de spans, 29,1667% recall posicional, 11,6667% lote exacto, 35% recuperación parcial y 0 violaciones críticas; mediana 0,267 ms y p95 0,741 ms. Los resultados no se mezclan con P01 ni prueban utilidad.
+
+Reportes: [`batch-synthetic-v1-engine-1.2.0.json`](../../research/benchmarks/results/batch-synthetic-v1-engine-1.2.0.json) y [`batch-web-derived-v1-engine-1.2.0.json`](../../research/benchmarks/results/batch-web-derived-v1-engine-1.2.0.json). El gate es `BATCH_ENGINE_TECHNICAL_GO` para arquitectura/seguridad y `BATCH_GENERALIZATION_HOLD` para lenguaje abierto.
+
+Además, 2.000 lotes adversariales deterministas verifican ausencia de crash, máximo de segmentos, spans exactos y que toda propuesta confirmable tenga tipo core y monto positivo. La migración 004 se ensayó sobre un SQLite temporal con 001–003 aplicados: terminó con los cuatro schemas y health correcto. Los 50 casos de `numeric-risk-v1` preparan el benchmark de voz, pero no tienen audio ni resultados STT y por ello no producen una cifra de exactitud.

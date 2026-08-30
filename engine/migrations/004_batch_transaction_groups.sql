@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS batch_items (
     transaction_group_id TEXT,
     interpretation_json TEXT NOT NULL,
     lifecycle_status TEXT NOT NULL DEFAULT 'PROPOSED'
-        CHECK (lifecycle_status IN ('PROPOSED', 'CONFIRMED', 'REJECTED', 'CANCELLED')),
+        CHECK (lifecycle_status IN ('PROPOSED', 'CORRECTED', 'CONFIRMED', 'REJECTED', 'CANCELLED')),
     UNIQUE(batch_id, ordinal, id)
 );
 

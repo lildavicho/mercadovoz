@@ -237,6 +237,43 @@ class BatchLedger:
         ).fetchall()
         return [json.loads(row["payload_json"]) for row in rows]
 
+    def update_item(
+        self,
+        batch_id: str,
+        item: dict[str, Any],
+        participant_id: str,
+        *,
+        action: str = "ITEM_CORRECTED",
+    ) -> None:
+        if action not in {"ITEM_CORRECTED", "ITEM_REJECTED"}:
+            raise ValueError("unsupported item audit action")
+        with self._lock, self._connection:
+            owner = self._connection.execute(
+                "SELECT 1 FROM batch_inputs WHERE id = ? AND participant_id = ?",
+                (batch_id, participant_id),
+            ).fetchone()
+            if not owner:
+                raise KeyError("unknown batch")
+            updated = self._connection.execute(
+                """
+                UPDATE batch_items SET interpretation_state = ?, confirmable = ?,
+                    interpretation_json = ?, lifecycle_status = ?
+                WHERE id = ? AND batch_id = ?
+                """,
+                (
+                    item["state"], int(item["confirmable"]),
+                    json.dumps(item, ensure_ascii=False, sort_keys=True),
+                    item.get("lifecycle_status", "PROPOSED"), item["segment_id"], batch_id,
+                ),
+            )
+            if updated.rowcount != 1:
+                raise KeyError("unknown batch item")
+            self._audit(
+                batch_id, participant_id, action,
+                {"state": item["state"], "confirmable": item["confirmable"]},
+                item_id=item["segment_id"],
+            )
+
     @staticmethod
     def _validate_dependencies(selected: list[dict[str, Any]], selected_ids: set[str]) -> None:
         for item in selected:

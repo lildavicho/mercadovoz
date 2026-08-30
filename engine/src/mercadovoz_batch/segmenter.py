@@ -65,6 +65,7 @@ class CommercialNarrativeSegmenter:
             return []
 
         cuts: set[int] = set()
+        connector_starts: dict[int, int] = {}
         for match in _STRONG_BOUNDARY.finditer(text):
             cuts.add(match.end())
 
@@ -83,11 +84,12 @@ class CommercialNarrativeSegmenter:
             if _SETTLEMENT_PREFIX.search(prefix) and _SETTLEMENT_SUFFIX.search(suffix):
                 continue
             cuts.add(suffix_start)
+            connector_starts[suffix_start] = match.start()
 
         spans: list[tuple[int, int]] = []
         cursor = 0
         for cut in sorted(cuts):
-            trimmed = _trim_span(text, cursor, cut)
+            trimmed = _trim_span(text, cursor, connector_starts.get(cut, cut))
             if trimmed:
                 spans.append(trimmed)
             cursor = cut

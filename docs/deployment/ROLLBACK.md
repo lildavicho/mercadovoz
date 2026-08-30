@@ -9,8 +9,10 @@
 
 ## Revertir aplicación
 
-- Vercel: seleccionar el último deployment verificado y usar rollback/instant rollback.
-- Railway: redeploy de la imagen/configuración anterior sin cambiar el volumen.
+- En Oracle, comprobar que no hay sesión activa y crear backup consistente con hash.
+- Detener API/web, volver al commit documentado mediante un checkout recuperable y reinstalar/build; no usar `reset --hard`.
+- Restaurar la copia previa de Nginx solo si falla TLS y validar `nginx -t` antes de recargar.
+- El stash `pre-engine-1.1-server-hotfixes` conserva la configuración anterior; no aplicarlo sobre código nuevo sin revisar conflictos.
 - Confirmar que `ENGINE_VERSION` sigue igual al lock y que `/health` no expone configuración.
 
 ## Revertir datos
@@ -22,4 +24,4 @@
 
 ## Reanudar
 
-Reabrir acceso solo tras tests, build, health, aislamiento, idempotencia, backup y revisión de incidente. Si el motor cambia, cerrar la ronda y emitir nueva versión; no continuar P01 Round 1 con dos motores.
+Reabrir acceso solo tras tests, build, health, aislamiento, idempotencia, backup y revisión de incidente. Si el motor cambia, cerrar la ronda y emitir nueva versión; no continuar una ronda con dos motores.

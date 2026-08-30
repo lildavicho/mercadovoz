@@ -81,6 +81,13 @@ def freeze_round(
                 continue
             submitted_payload = json.loads(submitted["payload_json"])
             interpreted_payload = json.loads(interpreted["payload_json"])
+            initial_fields = interpreted_payload.get("fields", {})
+            predicted_operation = interpreted_payload.get("predicted_operation")
+            initial_operation = (
+                {"type": predicted_operation, **initial_fields}
+                if isinstance(predicted_operation, str)
+                else predicted_operation
+            )
             terminal = next((row for row in reversed(input_events) if row["event_type"] in {
                 "OPERATION_CONFIRMED", "OPERATION_REJECTED", "OPERATION_CANCELLED"
             }), None)
@@ -95,8 +102,8 @@ def freeze_round(
                 "original_text": submitted_payload["original_text"],
                 "engine_version": engine_version,
                 "initial_interpretation_state": interpreted_payload.get("interpretation_state"),
-                "initial_prediction": interpreted_payload.get("predicted_operation"),
-                "initial_fields": interpreted_payload.get("fields", {}),
+                "initial_prediction": initial_operation,
+                "initial_fields": initial_fields,
                 "missing_fields": interpreted_payload.get("missing_fields", []),
                 "warnings": interpreted_payload.get("warnings", []),
                 "context_used": interpreted_payload.get("context_used", []),

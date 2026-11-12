@@ -10,7 +10,7 @@ import { OperationSlip } from "@/components/OperationSlip";
 import { PilotAccessGate } from "@/components/PilotAccessGate";
 import { PilotConsent } from "@/components/PilotConsent";
 import { SessionClose, type SessionFeedback } from "@/components/SessionClose";
-import { api } from "@/lib/api";
+import { ApiError, api } from "@/lib/api";
 import { isConfirmableProposal, reviewActionLabel } from "@/lib/confirmability";
 import { createIdempotencyKey } from "@/lib/idempotency";
 import type {
@@ -41,6 +41,7 @@ export default function Home() {
   const [consentAccepted, setConsentAccepted] = useState(false);
   const [session, setSession] = useState<PilotSession | null>(null);
   const [text, setText] = useState("");
+  const [retryInterpretation, setRetryInterpretation] = useState(false);
   const [result, setResult] = useState<Interpretation | Proposal | null>(null);
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [correction, setCorrection] = useState("");
@@ -96,9 +97,15 @@ export default function Home() {
   }
 
   async function understand() {
+    if (loading || !text.trim()) return;
     setLoading(true);
     setError(null);
     setNotice(null);
+    setRetryInterpretation(false);
+    setResult(null);
+    setProposal(null);
+    setCorrection("");
+    setCorrecting(false);
     try {
       const interpretation = await api.interpret(text);
       if ("proposal_id" in interpretation) {
@@ -108,6 +115,7 @@ export default function Home() {
       }
       setResult(interpretation);
     } catch (cause) {
+      setRetryInterpretation(cause instanceof ApiError && cause.code === "INTERPRETATION_FAILED");
       setError(cause instanceof Error ? cause.message : "No pude interpretar la operación.");
     } finally {
       setLoading(false);
@@ -226,7 +234,19 @@ export default function Home() {
                 <BatchWorkspace onConfirmed={refreshLedger} />
               ) : (
                 <>
-                  <EntryComposer value={text} isLoading={loading} onChange={setText} onSubmit={understand} />
+                  <EntryComposer
+                    value={text}
+                    isLoading={loading}
+                    isRetry={retryInterpretation}
+                    onChange={(value) => {
+                      setText(value);
+                      if (retryInterpretation) {
+                        setRetryInterpretation(false);
+                        setError(null);
+                      }
+                    }}
+                    onSubmit={understand}
+                  />
               {error && <p className="message error-message" role="alert">{error}</p>}
               {notice && <p className="message success-message" role="status">{notice}</p>}
               {result && <OperationSlip result={result} />}

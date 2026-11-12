@@ -325,13 +325,19 @@ def create_app(
         started = time.perf_counter()
         try:
             interpretation = core.interpret(request.text, _context(request.context))
-        except Exception:
+        except Exception as exc:
             storage.record_event(
                 event_type="ERROR_SHOWN", session_id=session["id"], participant_id=participant_id,
                 engine_version=ENGINE_VERSION, input_id=input_id,
                 payload={"error_class": "INTERPRETATION_FAILURE"},
             )
-            raise
+            logger.error(json.dumps({
+                "event": "interpretation_failed", "input_id": input_id, "exception_type": type(exc).__name__,
+            }))
+            raise HTTPException(
+                status_code=500,
+                detail={"code": "INTERPRETATION_FAILED", "message": "No pudimos interpretar la operación. Intenta de nuevo."},
+            ) from exc
         latency_ms = round((time.perf_counter() - started) * 1000, 3)
         storage.record_event(
             event_type="INTERPRETATION_CREATED", session_id=session["id"], participant_id=participant_id,

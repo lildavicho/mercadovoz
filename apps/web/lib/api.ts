@@ -15,6 +15,12 @@ const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").trim();
 let accessToken = "";
 let sessionId = "";
 
+export class ApiError extends Error {
+  constructor(message: string, public readonly code?: string) {
+    super(message);
+  }
+}
+
 async function request<T>(path: string, init?: RequestInit, authenticated = true): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
@@ -27,8 +33,14 @@ async function request<T>(path: string, init?: RequestInit, authenticated = true
     },
   });
   if (!response.ok) {
-    const error = (await response.json().catch(() => null)) as { detail?: string } | null;
-    throw new Error(typeof error?.detail === "string" ? error.detail : "No se pudo completar la acción.");
+    const error = (await response.json().catch(() => null)) as {
+      detail?: string | { code?: string; message?: string };
+    } | null;
+    const detail = error?.detail;
+    if (detail && typeof detail === "object") {
+      throw new ApiError(detail.message ?? "No se pudo completar la acción.", detail.code);
+    }
+    throw new ApiError(typeof detail === "string" ? detail : "No se pudo completar la acción.");
   }
   return response.json() as Promise<T>;
 }

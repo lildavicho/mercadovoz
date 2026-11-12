@@ -3,11 +3,12 @@ import type { FormEvent, KeyboardEvent } from "react";
 interface EntryComposerProps {
   value: string;
   isLoading: boolean;
+  isRetry?: boolean;
   onChange: (value: string) => void;
   onSubmit: () => void;
 }
 
-export function EntryComposer({ value, isLoading, onChange, onSubmit }: EntryComposerProps) {
+export function EntryComposer({ value, isLoading, isRetry, onChange, onSubmit }: EntryComposerProps) {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     onSubmit();
@@ -38,7 +39,7 @@ export function EntryComposer({ value, isLoading, onChange, onSubmit }: EntryCom
       <div className="composer-footer">
         <span>{value.length}/500 · Ctrl + Enter</span>
         <button className="primary-action" type="submit" disabled={!value.trim() || isLoading}>
-          {isLoading ? "Interpretando…" : "Entender operación"}
+          {isLoading ? "Interpretando…" : (isRetry ? "Reintentar" : "Entender operación")}
         </button>
       </div>
     </form>
